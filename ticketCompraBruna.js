@@ -1,31 +1,30 @@
-const ThermalPrinter = require("node-thermal-printer").printer;
-const PrinterTypes = require("node-thermal-printer").types;
-const { TicketCalentBruna } = require("./ticketCalentBruna");
+const TicketCalentBruna = require("./ticketCalentBruna");
 const TicketFredBruna = require("./ticketFredBruna");
 
 class TicketCompraBruna {
 
-    printer;
+    printerBruna;
     BRUNA_SKU_FRED = [];
     BRUNA_SKU_CALENT = [];
 
-    constructor(order){
-        this.constructThermalPrinter();
-       if(order.length > 0) this.executeCompraBruna(order);
+    constructor(order,printer){
+        this.printerBruna = printer;
+        //this.constructThermalPrinter();
+       if(order != undefined && order.length > 0) this.executeCompraBruna(order);
        else this.executeTestCompraBruna();
     }
 
-    constructThermalPrinter(){
+    
 
-        this.printer = new ThermalPrinter({
-            type : PrinterTypes.EPSON,
-            interface : 'tcp://',
-        });
-
-    }
-
-    executeTestCompraBruna(){
-
+    async executeTestCompraBruna(){
+        try {
+            let printingTest = await this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********');
+            console.log('********************** EXECUTING PRINT PROCESS ******************');
+            console.log(printingTest);
+            console.log('******************************************************************');
+        } catch(printError){
+            throw new Error('[EPSON Print] Error printing Bruna process: ', printError);
+        }
     }
 
     executeCompraBruna(newOrder){
@@ -57,3 +56,5 @@ class TicketCompraBruna {
         console.log(platsFredsMito);
     }
 }
+
+module.exports = TicketCompraBruna;

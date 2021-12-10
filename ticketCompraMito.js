@@ -1,31 +1,27 @@
-const ThermalPrinter = require("node-thermal-printer").printer;
-const PrinterTypes = require("node-thermal-printer").types;
-const { TicketCalentMito } = require("./ticketCalentMito");
+const TicketCalentMito = require("./ticketCalentMito");
 const TicketFredMito = require("./ticketFredMito");
 
 class TicketCompraMito {
 
-    printer;
+    printerMito;
     MITO_SKU_FRED = [];
     MITO_SKU_CALENT = [];
 
-    constructor(order){
-        this.constructThermalPrinter();
-       if(order.length > 0) this.executeCompraMito(order);
+    constructor(order,printer){
+        this.printerMito = printer;
+       if(order != undefined && order.length > 0) this.executeCompraMito(order);
        else this.executeTestCompraMito();
     }
 
-    constructThermalPrinter(){
-
-        this.printer = new ThermalPrinter({
-            type : PrinterTypes.EPSON,
-            interface : 'tcp://',
-        });
-
-    }
-
-    executeTestCompraMito(){
-
+    async executeTestCompraMito(){
+        try {
+            let printingTest = await this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
+            console.log('********************** EXECUTING PRINT PROCESS ******************');
+            console.log(printingTest);
+            console.log('******************************************************************');
+        } catch(printError){
+            throw new Error('[EPSON Print] Error printing Mito process: ', printError);
+        }
     }
 
     executeCompraMito(newOrder){
@@ -57,3 +53,5 @@ class TicketCompraMito {
         console.log(platsFredsMito);
     }
 }
+
+module.exports = TicketCompraMito;

@@ -1,10 +1,13 @@
 'use strict';
 
-const { TicketCompraBruna } = require("./ticketCompraBruna");
-const { TicketCompraMito } = require("./ticketCompraMito");
+const TicketCompraBruna = require("./ticketCompraBruna");
+const TicketCompraMito = require("./ticketCompraMito");
+const ThermalPrinter = require("node-thermal-printer").printer;
+const PrinterTypes = require("node-thermal-printer").types;
 
 class NewOrder {
 
+    printer;
     mitoOrder;
     brunaOrder;
 
@@ -18,20 +21,44 @@ class NewOrder {
     BRUNA_SKU_LIST = [
         
     ]
-
+    
     constructor(newOrder){
-        if(newOrder){
-            this.generateTicketsForMitoAndBruna(newOrder);
-        } else {
-            this.generateFakeTickets();
+        this.constructThermalPrinter();
+        setTimeout(() => {
+
+            if(newOrder!={}){
+                this.generateTicketsForMitoAndBruna(newOrder);
+            } else {
+                this.generateFakeTickets();
+            }
+
+        },4000)
+
+    }
+
+    async constructThermalPrinter(){
+
+        this.printer = new ThermalPrinter({
+            type : PrinterTypes.EPSON,
+            interface : 'usb://EPSON/TM-m30II-H?serial=583834520001450000',
+            characterSet : 'PC850_MULTILINGUAL',
+            removeSpecialCharacters : false
+        });
+
+        try {
+            let isEpsonConnected = await this.printer.isPrinterConnected();
+            console.log('********** EPSON STATUS CONNECTED :',isEpsonConnected,' **************');
+        } catch(connectedException){
+            throw new Error('[EPSON Setup] Connection to printer fails!!');
         }
+
     }
 
     generateTicketsForMitoAndBruna(order){
-        let mitoOrder = this.filterValuesFromLocation(order.line_items,this.MITO_SKU_LIST);
-        let brunaOrder = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
-        let mitoPrintProcess = new TicketCompraMito(mitoOrder);
-        let brunaPrintProcess = new TicketCompraBruna(brunaOrder);
+        this.mitoOrder = this.filterValuesFromLocation(order.line_items,this.MITO_SKU_LIST);
+        this.brunaOrder = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
+        let mitoPrintProcess = new TicketCompraMito(this.mitoOrder,this.printer);
+        let brunaPrintProcess = new TicketCompraBruna(this.brunaOrder,this.printer);
         console.log('MITO PRINT PROCESS :',mitoPrintProcess);
         console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
     }
@@ -48,4 +75,5 @@ class NewOrder {
     }
 }
 
+module.exports = NewOrder;
 //exports = { NewOrder }

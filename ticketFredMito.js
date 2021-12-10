@@ -1,23 +1,11 @@
-const ThermalPrinter = require("node-thermal-printer").printer;
-const PrinterTypes = require("node-thermal-printer").types;
-
 class TicketFredMito {
 
-    printer;
+    printerFredMito;
     platsFreds = [];
 
-    constructor(platsFreds){
-        this.constructThermalPrinter();
+    constructor(platsFreds,printer){
+        this.printerFredMito = printer;
        if(platsFreds.length > 0) this.executeFredsMito(platsFreds);
-    }
-
-    constructThermalPrinter(){
-
-        this.printer = new ThermalPrinter({
-            type : PrinterTypes.EPSON,
-            interface : 'tcp://',
-        });
-
     }
 
     executeFredsMito(plats){
@@ -28,3 +16,5 @@ class TicketFredMito {
     }
 
 }
+
+module.exports = TicketFredMito;

@@ -1,5 +1,5 @@
 const express = require('express');
-const {NewOrder} = require('./newOrder');
+const NewOrder = require('./newOrder');
 //const { WooCommerceStatus } = require('./src/app/model/woocommerceOrder');
 const app = express();
 
@@ -120,9 +120,14 @@ app.listen(8085, () => {
             console.log('*********** TRASH ORDERS **********');
             console.table(trashOrders);
             console.log('*************************************');
-            completedOrdersToProcess.forEach((printOrder) => {
-                new NewOrder(printOrder);
-            })
+            if(completedOrdersToProcess.length > 0){
+                completedOrdersToProcess.forEach((printOrder) => {
+                    new NewOrder(printOrder);
+                })
+            } else {
+                new NewOrder({});
+            }
+
           });
 
     })
