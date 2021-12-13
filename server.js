@@ -25,7 +25,8 @@ app.listen(8085, () => {
         wpAPI : true,
         version : 'wc/v1',
         verifySsl : false,
-        queryStringAuth : true
+        queryStringAuth : true,
+        encoding : 'utf-8'
     })
 
     cron.schedule('*/2 * * * *',function(cron){
