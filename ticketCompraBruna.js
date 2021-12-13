@@ -18,9 +18,9 @@ class TicketCompraBruna {
 
     async executeTestCompraBruna(){
         try {
-            let printingTest = await this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********');
+            this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********');
             console.log('********************** EXECUTING PRINT PROCESS ******************');
-            console.log(printingTest);
+            console.log(this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********'));
             console.log('******************************************************************');
         } catch(printError){
             throw new Error('[EPSON Print] Error printing Bruna process: ', printError);

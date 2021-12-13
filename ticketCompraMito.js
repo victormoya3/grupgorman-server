@@ -15,9 +15,9 @@ class TicketCompraMito {
 
     async executeTestCompraMito(){
         try {
-            let printingTest = await this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
+            this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
             console.log('********************** EXECUTING PRINT PROCESS ******************');
-            console.log(printingTest);
+            console.log(this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********'));
             console.log('******************************************************************');
         } catch(printError){
             throw new Error('[EPSON Print] Error printing Mito process: ', printError);
