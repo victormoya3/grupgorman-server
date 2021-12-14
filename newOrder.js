@@ -63,7 +63,7 @@ class NewOrder {
 
         Printer.printDirect({
         data: this.printer.getBuffer(),
-        printer: 'EPSON_TM-T30II-H',
+        printer: 'EPSON_TM-m30II-H',
         type: 'RAW',
         success: function (jobID) {
             console.log(`printer job: ${jobID}`);
