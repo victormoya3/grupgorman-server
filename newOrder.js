@@ -4,6 +4,7 @@ const TicketCompraBruna = require("./ticketCompraBruna");
 const TicketCompraMito = require("./ticketCompraMito");
 const ThermalPrinter = require("node-thermal-printer").printer;
 const PrinterTypes = require("node-thermal-printer").types;
+const Printer = require('printer');
 
 class NewOrder {
 
@@ -52,6 +53,10 @@ class NewOrder {
         } catch(connectedException){
             throw new Error('[EPSON Setup] Connection to printer fails!!');
         }
+        
+        let printers = Printer.getPrinters();
+        console.log('********************** Printers **********************');
+        console.table(printers);
 
     }
 
