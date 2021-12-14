@@ -69,7 +69,7 @@ class NewOrder {
             console.log(`printer job: ${jobID}`);
             console.log('***** EPSON PRINTER ************');
             console.log(epsonPrinter)
-            this.printer.clear();
+            //this.printer.clear();
         },
         error: function (err) {
             console.log(err);
