@@ -15,8 +15,8 @@ app.listen(8085, () => {
 
     const ThermalPrinter = require("node-thermal-printer").printer;
     const PrinterTypes = require("node-thermal-printer").types;
-    console.log('ThermalPrinter :', ThermalPrinter);
-    console.log('PrinterTypes :',PrinterTypes);
+    //console.log('ThermalPrinter :', ThermalPrinter);
+    //console.log('PrinterTypes :',PrinterTypes);
 
     var WooCommerce = new WooComerceAPI({
         url : 'https://www.grupgorman.es/',

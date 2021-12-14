@@ -65,8 +65,8 @@ class NewOrder {
         this.brunaOrder = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
         let mitoPrintProcess = new TicketCompraMito(this.mitoOrder,this.printer);
         let brunaPrintProcess = new TicketCompraBruna(this.brunaOrder,this.printer);
-        console.log('MITO PRINT PROCESS :',mitoPrintProcess);
-        console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
+        //console.log('MITO PRINT PROCESS :',mitoPrintProcess);
+        //console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
     }
 
     generateFakeTickets(){
