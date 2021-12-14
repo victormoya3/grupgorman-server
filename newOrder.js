@@ -56,7 +56,7 @@ class NewOrder {
         
         let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
         console.log('********************** Printers **********************');
-        console.table(printers);
+        console.log(epsonPrinter);
         this.printer.newLine();
         this.printer.println('****** HELLO WORLD *********');
         this.printer.newLine();
