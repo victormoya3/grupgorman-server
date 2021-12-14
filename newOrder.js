@@ -54,9 +54,27 @@ class NewOrder {
             throw new Error('[EPSON Setup] Connection to printer fails!!');
         }
         
-        let printers = Printer.getPrinters();
+        let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
         console.log('********************** Printers **********************');
         console.table(printers);
+        this.printer.newLine();
+        this.printer.println('****** HELLO WORLD *********');
+        this.printer.newLine();
+
+        Printer.printDirect({
+        data: this.printer.getBuffer(),
+        printer: 'EPSON_TM-T30II-H',
+        type: 'RAW',
+        success: function (jobID) {
+            console.log(`printer job: ${jobID}`);
+            console.log('***** EPSON PRINTER ************');
+            console.log(epsonPrinter)
+            this.printer.clear();
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
 
     }
 
