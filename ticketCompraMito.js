@@ -151,7 +151,7 @@ class TicketCompraMito {
     getComandaFreds(platsFreds){
         let platsFredsToPrint = [];
         platsFreds.forEach((platF)=>{
-            if(this.MITO_SKU_FRED.contains(platF.sku)) platsFredsToPrint.push(platF);
+            if(this.MITO_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
         })
         console.log('platsFredsMito -->', platsFredsToPrint)
         let platsFredsMito = new TicketFredMito(platsFredsToPrint);
