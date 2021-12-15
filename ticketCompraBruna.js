@@ -53,8 +53,8 @@ class TicketCompraBruna {
     constructor(order,orderItems,printer){
         console.log('**** BRUNA PRINTING CLASS ********');
         console.log('***** PARAM : order --> ', order);
-        console.log('***** PARAM : orderItems --> ', orderItems);
-        console.log('***** PARAM : printer --> ', printer);
+        //console.log('***** PARAM : orderItems --> ', orderItems);
+        //console.log('***** PARAM : printer --> ', printer);
         this.printerBruna = printer;
         //this.constructThermalPrinter();
        if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order,orderItems);
@@ -65,8 +65,8 @@ class TicketCompraBruna {
     executePrint(){
 
         let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
-        console.log('********************** EPSON_TM-m30II-H Printer **********************');
-        console.log(epsonPrinter);
+        console.log('********************** EPSON_TM-m30II-H Printer for Bruna Process **********************');
+        //console.log(epsonPrinter);
 
         Printer.printDirect({
             data: this.printerBruna.getBuffer(),
@@ -100,8 +100,8 @@ class TicketCompraBruna {
 
     async executeCompraBruna(newOrder,orderItems){
         console.log('**************** BRUNA TICKET NOVA COMPRA ****************');
-        console.log(newOrder);
-        console.log('***********************************************************')
+        //console.log(newOrder);
+        //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder,orderItems);
         this.getComandaCalents(orderItems);
@@ -119,7 +119,7 @@ class TicketCompraBruna {
     getComandaCalents(platsCalents) {
         let platsCalentsToPrint = [];
         platsCalents.forEach((platC)=>{
-            if(this.BRUNA_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
+            if(this.BRUNA_SKU_CALENT.contains(platC.sku)) platsCalentsToPrint.push(platC);
         })
         console.log('platsCalentsBruna -->', platsCalentsToPrint)
         let platsCalentsMito = new TicketCalentBruna(platsCalentsToPrint);
@@ -129,7 +129,7 @@ class TicketCompraBruna {
     getComandaFreds(platsFreds){
         let platsFredsToPrint = [];
         platsFreds.forEach((platF)=>{
-            if(this.BRUNA_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
+            if(this.BRUNA_SKU_FRED.contains(platF.sku)) platsFredsToPrint.push(platF);
         })
         console.log('platsFredsBruna -->', platsFredsToPrint)
         let platsFredsBruna = new TicketFredBruna(platsFredsToPrint);
