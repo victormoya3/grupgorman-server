@@ -149,7 +149,7 @@ class NewOrder {
 
     generateTicketsForMitoAndBruna(order){
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items,this.MITO_SKU_LIST);
-        this.brunaOrder = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
+        this.brunaOrderItems = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
         let mitoPrintProcess = new TicketCompraMito(order,this.mitoOrderItems,this.printer);
         let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
         //console.log('MITO PRINT PROCESS :',mitoPrintProcess);
