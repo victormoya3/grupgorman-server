@@ -48,7 +48,7 @@ class TicketCompraBruna {
 
     constructor(order,orderItems,printer){
         console.log('**** BRUNA PRINTING CLASS ********');
-        console.log('***** PARAM : order --> ', order);
+        //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
         this.printerBruna = printer;
@@ -73,6 +73,13 @@ class TicketCompraBruna {
                 //console.log('***** EPSON PRINTER ************');
                 //console.log(epsonPrinter)
                 //this.printer.clear();
+                setTimeout(() => {
+                    this.getComandaCalents(orderItems);
+                },2000)
+                
+                setTimeout(() => {
+                    this.getComandaSala(orderItems);
+                },4000)
             },
             error: function (err) {
                 console.log(err);
@@ -87,7 +94,7 @@ class TicketCompraBruna {
         try {
             this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********');
             console.log('********************** EXECUTING PRINT PROCESS ******************');
-            console.log(this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********'));
+            //console.log(this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********'));
             console.log('******************************************************************');
         } catch(printError){
             throw new Error('[EPSON Print] Error printing Bruna process: ', printError);
@@ -95,18 +102,12 @@ class TicketCompraBruna {
     }
 
     async executeCompraBruna(newOrder,orderItems){
-        console.log('**************** BRUNA TICKET NOVA COMPRA ****************');
+        //console.log('**************** BRUNA TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder,orderItems);
-        setTimeout(() => {
-            this.getComandaCalents(orderItems);
-        },2000)
         
-        setTimeout(() => {
-            this.getComandaSala(orderItems);
-        },4000)
     }
 
     generateRawTicket(orderObj,orderItems){

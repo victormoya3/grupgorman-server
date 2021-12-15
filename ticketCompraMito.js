@@ -104,6 +104,17 @@ class TicketCompraMito {
                 //console.log('***** EPSON PRINTER ************');
                 //console.log(epsonPrinter)
                 //this.printer.clear();
+                setTimeout(() => {
+                    this.getComandaCalents(orderItems);
+                },2000)
+                
+                setTimeout(() => {
+                    this.getComandaFreds(orderItems);
+                },4000)
+        
+                setTimeout(() => {
+                    this.getComandaSala(orderItems);
+                },6000)
             },
             error: function (err) {
                 console.log(err);
@@ -116,9 +127,9 @@ class TicketCompraMito {
 
     async executeTestCompraMito(){
         try {
-            this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
+            //this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
             console.log('********************** EXECUTING PRINT PROCESS ******************');
-            console.log(this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********'));
+            //console.log(this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********'));
             console.log('******************************************************************');
         } catch(printError){
             throw new Error('[EPSON Print] Error printing Mito process: ', printError);
@@ -126,23 +137,11 @@ class TicketCompraMito {
     }
 
     async executeCompraMito(newOrder,orderItems){
-        console.log('**************** MITO TICKET NOVA COMPRA ****************');
+        //console.log('**************** MITO TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder,orderItems);
-
-        setTimeout(() => {
-            this.getComandaCalents(orderItems);
-        },2000)
-        
-        setTimeout(() => {
-            this.getComandaFreds(orderItems);
-        },4000)
-
-        setTimeout(() => {
-            this.getComandaSala(orderItems);
-        },4000)
     }
 
     generateRawTicket(orderObj,orderItems){
