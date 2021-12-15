@@ -140,6 +140,7 @@ class TicketCompraMito {
 
     async executeTestCompraMito(){
         try {
+            console.log('********************** MITO TICKET EMPTY ******************');
             //this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
             //console.log('********************** EXECUTING PRINT PROCESS ******************');
             //console.log(this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********'));

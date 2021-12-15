@@ -105,8 +105,8 @@ class TicketCompraBruna {
 
     async executeTestCompraBruna(){
         try {
-            this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********');
-            //console.log('********************** EXECUTING PRINT PROCESS ******************');
+            //this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********');
+            console.log('********************** BRUNA TICKET EMPTY ******************');
             //console.log(this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********'));
             //console.log('******************************************************************');
         } catch(printError){
