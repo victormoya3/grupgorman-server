@@ -133,6 +133,7 @@ class NewOrder {
         this.printer = new ThermalPrinter({
             type : PrinterTypes.EPSON,
             //interface : 'printer:EPSON_TM-m30II-H', // 'usb://EPSON/TM-m30II-H?serial=583834520001450000',
+            width : 80,
             characterSet : 'PC850_MULTILINGUAL',
             removeSpecialCharacters : false
         });

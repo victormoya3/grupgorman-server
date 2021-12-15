@@ -6,7 +6,7 @@ class TicketCompraMito {
 
     printerMito;
     mitoOrderItems;
-
+    
     MITO_SKU_FRED = [
         '01', // Edamamme
         '101', // Mocchi Xocolata
@@ -80,6 +80,12 @@ class TicketCompraMito {
     MITO_SKU_BEGUDES = [
         
     ];
+
+    static businessName = 'Mito Sushi Restaurant';
+    static direccioBusiness = 'Av/Sant Esteve, 83';
+    static codiPostalPobalcio = '08211 Castellar del Vallès';
+    static paisBusiness = 'Espanya';
+
 
     constructor(order,orderItems,printer){
         console.log('**** MITO PRINTING CLASS ********');
@@ -159,9 +165,28 @@ class TicketCompraMito {
     }
 
     generateRawTicket(orderObj){
+        // Printer Compra Ticket model to design it
+        // TICKET HEADER
         this.printerMito.newLine();
-        this.printerMito.println('****** HELLO MITO !!! *********');
+        //this.printerMito.printImage();
         this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.businessName);
+        // TICKET BUSINESS INFO
+        //this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.printLn(this.direccioBusiness);
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.codiPostalPobalcio);
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.paisBusiness);
+        // TICKET ORDER INFO 1
+        this.printerMito.newLine();
+        this.printerMito.newLine();
+        this.printerMito.newLine();
+        this.printerMito.bold(true);
+        this.printerMito.println('--------------------------------')
+        this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
 
         this.executePrint();
     }
