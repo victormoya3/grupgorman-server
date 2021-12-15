@@ -51,9 +51,9 @@ class TicketCompraBruna {
 
     constructor(order,orderItems,printer){
         console.log('**** BRUNA PRINTING CLASS ********');
-        console.log('***** PARAM : order --> ', JSON.parse(order));
+        console.log('***** PARAM : order --> ', order);
         console.log('***** PARAM : orderItems --> ', orderItems);
-        console.log('***** PARAM : printer --> ', JSON.parse(printer));
+        console.log('***** PARAM : printer --> ', printer);
         this.printerBruna = printer;
         //this.constructThermalPrinter();
        if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order,orderItems);
