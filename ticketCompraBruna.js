@@ -1,5 +1,6 @@
 const TicketCalentBruna = require("./ticketCalentBruna");
 const TicketFredBruna = require("./ticketFredBruna");
+const Printer = require('printer');
 
 class TicketCompraBruna {
 
