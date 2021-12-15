@@ -81,10 +81,10 @@ class TicketCompraMito {
         
     ];
 
-    static businessName = 'Mito Sushi Restaurant';
-    static direccioBusiness = 'Av/Sant Esteve, 83';
-    static codiPostalPobalcio = '08211 Castellar del Vallès';
-    static paisBusiness = 'Espanya';
+    businessName = 'Mito Sushi Restaurant';
+    direccioBusiness = 'Av/Sant Esteve, 83';
+    codiPostalPobalcio = '08211 Castellar del Vallès';
+    paisBusiness = 'Espanya';
 
 
     constructor(order,orderItems,printer){
@@ -184,8 +184,8 @@ class TicketCompraMito {
         this.printerMito.newLine();
         this.printerMito.newLine();
         this.printerMito.newLine();
+        this.printerMito.println('--------------------------------');
         this.printerMito.bold(true);
-        this.printerMito.println('--------------------------------')
         this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
 
         this.executePrint();
