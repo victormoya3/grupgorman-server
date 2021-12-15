@@ -160,9 +160,9 @@ class NewOrder {
 
     }
 
-    filterValuesFromLocation(order,skuFrom){
+    filterValuesFromLocation(orderItems,skuFrom){
         let filteredArray = [];// generate a reduce from list
-        order?.line_items.forEach((orderItem) => {
+        orderItems?.forEach((orderItem) => {
             if(skuFrom.includes(orderItem.sku)){
                 filteredArray.push(orderItem)
             }
