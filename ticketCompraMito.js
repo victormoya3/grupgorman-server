@@ -77,9 +77,9 @@ class TicketCompraMito {
 
     constructor(order,orderItems,printer){
         console.log('**** MITO PRINTING CLASS ********');
-        console.log('***** PARAM : order --> ', JSON.parse(order));
+        console.log('***** PARAM : order --> ', order);
         console.log('***** PARAM : orderItems --> ', orderItems);
-        console.log('***** PARAM : printer --> ', JSON.parse(printer));
+        console.log('***** PARAM : printer --> ', printer);
         this.printerMito = printer;
        if(order != undefined && orderItems.length > 0) this.executeCompraMito(order,orderItems);
        else this.executeTestCompraMito();
