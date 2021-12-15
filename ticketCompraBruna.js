@@ -5,12 +5,8 @@ const Printer = require('printer');
 class TicketCompraBruna {
 
     printerBruna;
-    BRUNA_SKU_FRED = [
-        'BAC01', // Amanida Cesar
-        'BAL01', // Amanida Lionesa
-        'BENV1', // Nachos Veggie
-        'BPSX1', // Sopa xocolata Blanca
-        'BPTI1', // Tiramisu
+    BRUNA_SKU_BEGUDES = [
+        
     ];
     
     BRUNA_SKU_CALENT = [
@@ -109,7 +105,7 @@ class TicketCompraBruna {
         },2000)
         
         setTimeout(() => {
-            this.getComandaFreds(orderItems);
+            this.getComandaSala(orderItems);
         },4000)
     }
 
@@ -126,18 +122,18 @@ class TicketCompraBruna {
         platsCalents.forEach((platC)=>{
             if(this.BRUNA_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
-        console.log('platsCalentsBruna -->', platsCalentsToPrint)
+        //console.log('platsCalentsBruna -->', platsCalentsToPrint)
         let platsCalentsBruna = new TicketCalentBruna(platsCalentsToPrint, this.printerBruna);
         //console.log(platsCalentsMito);
     }
 
-    getComandaFreds(platsFreds){
-        let platsFredsToPrint = [];
-        platsFreds.forEach((platF)=>{
-            if(this.BRUNA_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
+    getComandaSala(begudes){
+        let begudesToPrint = [];
+        begudes.forEach((beg)=>{
+            if(this.BRUNA_SKU_BEGUDES.includes(beg.sku)) begudesToPrint.push(beg);
         })
-        console.log('platsFredsBruna -->', platsFredsToPrint)
-        let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
+        console.log('begudes bruna-->', begudesToPrint)
+        //let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
         //console.log(platsFredsBruna);
     }
 }

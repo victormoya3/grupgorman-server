@@ -75,6 +75,10 @@ class TicketCompraMito {
         'O8D' // Gyozas fricando
     ];
 
+    MITO_SKU_BEGUDES = [
+        
+    ];
+
     constructor(order,orderItems,printer){
         console.log('**** MITO PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
@@ -136,6 +140,9 @@ class TicketCompraMito {
             this.getComandaFreds(orderItems);
         },4000)
 
+        setTimeout(() => {
+            this.getComandaSala(orderItems);
+        },4000)
     }
 
     generateRawTicket(orderObj,orderItems){
@@ -151,7 +158,7 @@ class TicketCompraMito {
         platsCalents.forEach((platC)=>{
             if(this.MITO_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
-        console.log('platsCalentsMito -->', platsCalentsToPrint)
+        //console.log('platsCalentsMito -->', platsCalentsToPrint)
         let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
         //console.log(platsCalentsMito);
     }
@@ -161,9 +168,19 @@ class TicketCompraMito {
         platsFreds.forEach((platF)=>{
             if(this.MITO_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
         })
-        console.log('platsFredsMito -->', platsFredsToPrint)
+        //console.log('platsFredsMito -->', platsFredsToPrint)
         let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
         //console.log(platsFredsMito);
+    }
+
+    getComandaSala(begudes){
+        let begudesToPrint = [];
+        begudes.forEach((beg)=>{
+            if(this.MITO_SKU_BEGUDES.includes(beg.sku)) begudesToPrint.push(beg);
+        })
+        console.log('begudes mito -->', begudesToPrint)
+        //let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
+        //console.log(platsFredsBruna);
     }
 }
 
