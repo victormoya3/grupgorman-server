@@ -175,7 +175,7 @@ class TicketCompraMito {
         // TICKET BUSINESS INFO
         //this.printerMito.newLine();
         this.printerMito.alignCenter();
-        this.printerMito.printLn(this.direccioBusiness);
+        this.printerMito.println(this.direccioBusiness);
         this.printerMito.alignCenter();
         this.printerMito.println(this.codiPostalPobalcio);
         this.printerMito.alignCenter();
