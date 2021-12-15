@@ -1,7 +1,7 @@
 class TicketFredMito {
 
     printerFredMito;
-    platsFreds = [];
+    platsFredsMito = [];
 
     constructor(platsFreds,printer){
         this.printerFredMito = printer;

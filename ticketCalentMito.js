@@ -1,7 +1,7 @@
 class TicketCalentMito {
 
     printerCalentsMito;
-    platsCalents = [];
+    platsCalentsMito = [];
 
     constructor(platsCalents,printer){
         this.printerCalentsMito = printer;
