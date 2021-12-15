@@ -119,7 +119,7 @@ class TicketCompraBruna {
     getComandaCalents(platsCalents) {
         let platsCalentsToPrint = [];
         platsCalents.forEach((platC)=>{
-            if(this.BRUNA_SKU_CALENT.contains(platC.sku)) platsCalentsToPrint.push(platC);
+            if(this.BRUNA_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
         console.log('platsCalentsBruna -->', platsCalentsToPrint)
         let platsCalentsMito = new TicketCalentBruna(platsCalentsToPrint);
@@ -129,7 +129,7 @@ class TicketCompraBruna {
     getComandaFreds(platsFreds){
         let platsFredsToPrint = [];
         platsFreds.forEach((platF)=>{
-            if(this.BRUNA_SKU_FRED.contains(platF.sku)) platsFredsToPrint.push(platF);
+            if(this.BRUNA_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
         })
         console.log('platsFredsBruna -->', platsFredsToPrint)
         let platsFredsBruna = new TicketFredBruna(platsFredsToPrint);

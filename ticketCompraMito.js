@@ -141,7 +141,7 @@ class TicketCompraMito {
     getComandaCalents(platsCalents) {
         let platsCalentsToPrint = [];
         platsCalents.forEach((platC)=>{
-            if(this.MITO_SKU_CALENT.contains(platC.sku)) platsCalentsToPrint.push(platC);
+            if(this.MITO_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
         console.log('platsCalentsMito -->', platsCalentsToPrint)
         let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint);
