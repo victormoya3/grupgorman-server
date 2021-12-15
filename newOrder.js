@@ -140,7 +140,7 @@ class NewOrder {
         try {
             let isEpsonConnected = await this.printer.isPrinterConnected();
             console.log('********** EPSON STATUS CONNECTED :',isEpsonConnected,' **************');
-            console.log(this.printer)
+            //console.log(this.printer)
         } catch(connectedException){
             throw new Error('[EPSON Setup] Connection to printer fails!!');
         }

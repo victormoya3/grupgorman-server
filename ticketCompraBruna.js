@@ -104,8 +104,13 @@ class TicketCompraBruna {
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder,orderItems);
-        this.getComandaCalents(orderItems);
-        this.getComandaFreds(orderItems)
+        setTimeout(() => {
+            this.getComandaCalents(orderItems);
+        },2000)
+        
+        setTimeout(() => {
+            this.getComandaFreds(orderItems);
+        },4000)
     }
 
     generateRawTicket(orderObj,orderItems){
