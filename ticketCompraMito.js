@@ -100,33 +100,37 @@ class TicketCompraMito {
 
         try{
             
+            let callback = ( jobID ) => {
+                console.log(`printer job: ${jobID}`);
+                setTimeout(() => {
+                    this.getComandaCalents(this.mitoOrderItems);
+                },3000)
+                
+                setTimeout(() => {
+                    this.getComandaFreds(this.mitoOrderItems);
+                },6000)
+        
+                setTimeout(() => {
+                    this.getComandaSala(this.mitoOrderItems);
+                    this.printerMito.clear()
+                },9000)  
+
+            }
+
             Printer.printDirect({
                 data: this.printerMito.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
                 type: 'RAW',
                 success: function (jobID) {
-                    console.log(`printer job: ${jobID}`);
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
                     //this.printer.clear();
+                    callback(jobID)
                 },
                 error: function (err) {
                     console.log(err);
                 }
-            })
-
-            setTimeout(() => {
-                this.getComandaCalents(this.mitoOrderItems);
-            },3000)
-            
-            setTimeout(() => {
-                this.getComandaFreds(this.mitoOrderItems);
-            },6000)
-    
-            setTimeout(() => {
-                this.getComandaSala(this.mitoOrderItems);
-                this.printerMito.clear()
-            },9000)            
+            })                      
 
         } catch(printErrorException) {
 
@@ -137,9 +141,9 @@ class TicketCompraMito {
     async executeTestCompraMito(){
         try {
             //this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
-            console.log('********************** EXECUTING PRINT PROCESS ******************');
+            //console.log('********************** EXECUTING PRINT PROCESS ******************');
             //console.log(this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********'));
-            console.log('******************************************************************');
+            //console.log('******************************************************************');
         } catch(printError){
             throw new Error('[EPSON Print] Error printing Mito process: ', printError);
         }

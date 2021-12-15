@@ -68,43 +68,47 @@ class TicketCompraBruna {
 
         try{
 
+            let callback = ( jobID ) => {
+                console.log(`printer job: ${jobID}`);
+                setTimeout(() => {
+                    this.getComandaCalents(this.brunaOrderItems);
+                },3000)
+                
+                setTimeout(() => {
+                    this.getComandaSala(this.brunaOrderItems);
+                    this.printerBruna.clear()
+                },6000)
+                
+            }
+
             Printer.printDirect({
                 data: this.printerBruna.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
                 type: 'RAW',
                 success: function (jobID) {
-                    console.log(`printer job: ${jobID}`);
+                    //console.log(`printer job: ${jobID}`);
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
                     //this.printer.clear();
+                    callback(jobID)
                 },
                 error: function (err) {
                     console.log(err);
                 }
             })
 
-            setTimeout(() => {
-                this.getComandaCalents(this.brunaOrderItems);
-            },3000)
-            
-            setTimeout(() => {
-                this.getComandaSala(this.brunaOrderItems);
-            },6000)
-
         } catch(printErrorException) {
 
         }
-
-        this.printerBruna.clear()
 
     }
 
     async executeTestCompraBruna(){
         try {
             this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********');
-            console.log('********************** EXECUTING PRINT PROCESS ******************');
+            //console.log('********************** EXECUTING PRINT PROCESS ******************');
             //console.log(this.printerBruna.print('***** GrupGorman BRUNA COMPRA TICKET ********'));
-            console.log('******************************************************************');
+            //console.log('******************************************************************');
         } catch(printError){
             throw new Error('[EPSON Print] Error printing Bruna process: ', printError);
         }
