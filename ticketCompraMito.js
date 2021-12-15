@@ -77,7 +77,7 @@ class TicketCompraMito {
 
     constructor(order,orderItems,printer){
         console.log('**** MITO PRINTING CLASS ********');
-        console.log('***** PARAM : order --> ', order);
+        //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
         this.printerMito = printer;
@@ -127,7 +127,7 @@ class TicketCompraMito {
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder,orderItems);
-        
+
         setTimeout(() => {
             this.getComandaCalents(orderItems);
         },2000)
@@ -145,14 +145,15 @@ class TicketCompraMito {
 
         this.executePrint();
     }
+
     getComandaCalents(platsCalents) {
         let platsCalentsToPrint = [];
         platsCalents.forEach((platC)=>{
             if(this.MITO_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
         console.log('platsCalentsMito -->', platsCalentsToPrint)
-        let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint);
-        console.log(platsCalentsMito);
+        let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
+        //console.log(platsCalentsMito);
     }
 
     getComandaFreds(platsFreds){
@@ -161,8 +162,8 @@ class TicketCompraMito {
             if(this.MITO_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
         })
         console.log('platsFredsMito -->', platsFredsToPrint)
-        let platsFredsMito = new TicketFredMito(platsFredsToPrint);
-        console.log(platsFredsMito);
+        let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
+        //console.log(platsFredsMito);
     }
 }
 

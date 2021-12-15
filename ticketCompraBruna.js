@@ -127,8 +127,8 @@ class TicketCompraBruna {
             if(this.BRUNA_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
         console.log('platsCalentsBruna -->', platsCalentsToPrint)
-        let platsCalentsMito = new TicketCalentBruna(platsCalentsToPrint);
-        console.log(platsCalentsMito);
+        let platsCalentsBruna = new TicketCalentBruna(platsCalentsToPrint, this.printerBruna);
+        //console.log(platsCalentsMito);
     }
 
     getComandaFreds(platsFreds){
@@ -137,8 +137,8 @@ class TicketCompraBruna {
             if(this.BRUNA_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
         })
         console.log('platsFredsBruna -->', platsFredsToPrint)
-        let platsFredsBruna = new TicketFredBruna(platsFredsToPrint);
-        console.log(platsFredsBruna);
+        let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
+        //console.log(platsFredsBruna);
     }
 }
 

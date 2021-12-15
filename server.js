@@ -126,12 +126,6 @@ app.listen(8085, () => {
             if(processingOrdersToProcess.length > 0){
                 processingOrdersToProcess.forEach((printOrder,k) => {
                     console.log('ORDER TO PRINT ------------- ',k);
-                    printOrder.line_items.forEach(function(lineItem){
-                        console.table(lineItem)
-                        lineItem.meta.forEach(function(metaObj){
-                            console.table(metaObj)
-                        })
-                    })
                     new NewOrder(printOrder);
                 })
             } else {
