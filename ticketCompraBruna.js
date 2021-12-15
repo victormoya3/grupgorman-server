@@ -64,27 +64,34 @@ class TicketCompraBruna {
         console.log('********************** EPSON_TM-m30II-H Printer for Bruna Process **********************');
         //console.log(epsonPrinter);
 
-        Printer.printDirect({
-            data: this.printerBruna.getBuffer(),
-            printer: 'EPSON_TM-m30II-H',
-            type: 'RAW',
-            success: function (jobID) {
-                console.log(`printer job: ${jobID}`);
-                //console.log('***** EPSON PRINTER ************');
-                //console.log(epsonPrinter)
-                //this.printer.clear();
-                setTimeout(() => {
-                    this.getComandaCalents(orderItems);
-                },2000)
-                
-                setTimeout(() => {
-                    this.getComandaSala(orderItems);
-                },4000)
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        })
+        try{
+            
+            Printer.printDirect({
+                data: this.printerBruna.getBuffer(),
+                printer: 'EPSON_TM-m30II-H',
+                type: 'RAW',
+                success: function (jobID) {
+                    console.log(`printer job: ${jobID}`);
+                    //console.log('***** EPSON PRINTER ************');
+                    //console.log(epsonPrinter)
+                    //this.printer.clear();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+
+            setTimeout(() => {
+                this.getComandaCalents(orderItems);
+            },3000)
+            
+            setTimeout(() => {
+                this.getComandaSala(orderItems);
+            },6000)
+
+        } catch(printErrorException) {
+
+        }
 
         this.printerBruna.clear()
 

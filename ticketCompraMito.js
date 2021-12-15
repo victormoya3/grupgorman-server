@@ -95,33 +95,39 @@ class TicketCompraMito {
         console.log('********************** EPSON_TM-m30II-H Printer Mito process **********************');
         //console.log(epsonPrinter);
 
-        Printer.printDirect({
-            data: this.printerMito.getBuffer(),
-            printer: 'EPSON_TM-m30II-H',
-            type: 'RAW',
-            success: function (jobID) {
-                console.log(`printer job: ${jobID}`);
-                //console.log('***** EPSON PRINTER ************');
-                //console.log(epsonPrinter)
-                //this.printer.clear();
-                setTimeout(() => {
-                    this.getComandaCalents(orderItems);
-                },2000)
-                
-                setTimeout(() => {
-                    this.getComandaFreds(orderItems);
-                },4000)
-        
-                setTimeout(() => {
-                    this.getComandaSala(orderItems);
-                },6000)
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        })
+        try{
+            
+            Printer.printDirect({
+                data: this.printerMito.getBuffer(),
+                printer: 'EPSON_TM-m30II-H',
+                type: 'RAW',
+                success: function (jobID) {
+                    console.log(`printer job: ${jobID}`);
+                    //console.log('***** EPSON PRINTER ************');
+                    //console.log(epsonPrinter)
+                    //this.printer.clear();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
 
-        this.printerMito.clear()
+            setTimeout(() => {
+                this.getComandaCalents(orderItems);
+            },3000)
+            
+            setTimeout(() => {
+                this.getComandaFreds(orderItems);
+            },6000)
+    
+            setTimeout(() => {
+                this.getComandaSala(orderItems);
+                this.printerMito.clear()
+            },9000)            
+
+        } catch(printErrorException) {
+
+        }
 
     }
 
