@@ -5,6 +5,8 @@ const Printer = require('printer');
 class TicketCompraMito {
 
     printerMito;
+    mitoOrderItems;
+
     MITO_SKU_FRED = [
         '01', // Edamamme
         '101', // Mocchi Xocolata
@@ -85,7 +87,8 @@ class TicketCompraMito {
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
         this.printerMito = printer;
-       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order,orderItems);
+        this.mitoOrderItems = orderItems;
+       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order);
        else this.executeTestCompraMito();
     }
 
@@ -113,15 +116,15 @@ class TicketCompraMito {
             })
 
             setTimeout(() => {
-                this.getComandaCalents(orderItems);
+                this.getComandaCalents(this.mitoOrderItems);
             },3000)
             
             setTimeout(() => {
-                this.getComandaFreds(orderItems);
+                this.getComandaFreds(this.mitoOrderItems);
             },6000)
     
             setTimeout(() => {
-                this.getComandaSala(orderItems);
+                this.getComandaSala(this.mitoOrderItems);
                 this.printerMito.clear()
             },9000)            
 
@@ -142,15 +145,15 @@ class TicketCompraMito {
         }
     }
 
-    async executeCompraMito(newOrder,orderItems){
+    async executeCompraMito(newOrder){
         //console.log('**************** MITO TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        this.generateRawTicket(newOrder,orderItems);
+        this.generateRawTicket(newOrder);
     }
 
-    generateRawTicket(orderObj,orderItems){
+    generateRawTicket(orderObj){
         this.printerMito.newLine();
         this.printerMito.println('****** HELLO MITO !!! *********');
         this.printerMito.newLine();

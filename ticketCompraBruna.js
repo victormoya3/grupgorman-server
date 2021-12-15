@@ -5,6 +5,7 @@ const Printer = require('printer');
 class TicketCompraBruna {
 
     printerBruna;
+    brunaOrderItems;
     BRUNA_SKU_BEGUDES = [
         
     ];
@@ -52,8 +53,9 @@ class TicketCompraBruna {
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
         this.printerBruna = printer;
+        this.brunaOrderItems = orderItems;
         //this.constructThermalPrinter();
-       if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order,orderItems);
+       if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order);
        else this.executeTestCompraBruna();
     }
 
@@ -65,7 +67,7 @@ class TicketCompraBruna {
         //console.log(epsonPrinter);
 
         try{
-            
+
             Printer.printDirect({
                 data: this.printerBruna.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
@@ -82,11 +84,11 @@ class TicketCompraBruna {
             })
 
             setTimeout(() => {
-                this.getComandaCalents(orderItems);
+                this.getComandaCalents(this.brunaOrderItems);
             },3000)
             
             setTimeout(() => {
-                this.getComandaSala(orderItems);
+                this.getComandaSala(this.brunaOrderItems);
             },6000)
 
         } catch(printErrorException) {
@@ -108,16 +110,16 @@ class TicketCompraBruna {
         }
     }
 
-    async executeCompraBruna(newOrder,orderItems){
+    async executeCompraBruna(newOrder){
         //console.log('**************** BRUNA TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        this.generateRawTicket(newOrder,orderItems);
+        this.generateRawTicket(newOrder);
         
     }
 
-    generateRawTicket(orderObj,orderItems){
+    generateRawTicket(orderObj){
         this.printerBruna.newLine();
         this.printerBruna.println('****** HELLO BRUNA !!! *********');
         this.printerBruna.newLine();
