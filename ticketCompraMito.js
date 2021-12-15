@@ -123,7 +123,7 @@ class TicketCompraMito {
 
     async executeCompraMito(newOrder,orderItems){
         console.log('**************** MITO TICKET NOVA COMPRA ****************');
-        console.log(JSON.parse(newOrder));
+        console.log(newOrder);
         console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder,orderItems);
