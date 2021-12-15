@@ -32,6 +32,7 @@ app.listen(8085, () => {
     cron.schedule('*/2 * * * *',function(cron){
         console.log('running a task each 2 minutes!!!');
         let pendingOrders = [];
+        let processingOrdersToProcess = [];
         let processingOrders = [];
         let onHoldOrders = [];
         let completedOrders = [];
@@ -64,6 +65,7 @@ app.listen(8085, () => {
 
                     case 'processing' : // WooCommerceStatus.Processing : 
                         processingOrders.push(orderInfoObj);
+                        processingOrdersToProcess.push(orderItem);
                         break;
 
                     case 'on-hold' : //WooCommerceStatus.OnHold : 
@@ -121,8 +123,15 @@ app.listen(8085, () => {
             console.log('*********** TRASH ORDERS **********');
             console.table(trashOrders);
             console.log('*************************************');
-            if(completedOrdersToProcess.length > 0){
-                completedOrdersToProcess.forEach((printOrder) => {
+            if(processingOrdersToProcess.length > 0){
+                processingOrdersToProcess.forEach((printOrder,k) => {
+                    console.log('ORDER TO PRINT ------------- ',k);
+                    printOrder.line_items.forEach(function(lineItem){
+                        console.table(lineItem)
+                        lineItem.meta.forEach(function(metaObj){
+                            console.table(metaObj)
+                        })
+                    })
                     new NewOrder(printOrder);
                 })
             } else {
