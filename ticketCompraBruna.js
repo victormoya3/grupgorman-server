@@ -128,7 +128,7 @@ class TicketCompraBruna {
         this.printerBruna.println('****** HELLO BRUNA !!! *********');
         this.printerBruna.newLine();
 
-        this.executePrint();
+        //this.executePrint();
     }
 
     getComandaCalents(platsCalents) {

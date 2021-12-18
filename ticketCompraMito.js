@@ -221,7 +221,7 @@ class TicketCompraMito {
 
             filaArray.push(tableObj);
 
-            this.printerMito.customTable(filaArray);
+            this.printerMito.tableCustom(filaArray);
 
             orderObj.line_items.forEach(function(item){
                 console.log('order item',item);
@@ -254,7 +254,7 @@ class TicketCompraMito {
 
                 filaArray.push(tableObj);
 
-                this.printerMito.customTable(filaArray);
+                this.printerMito.tableCustom(filaArray);
 
             })
         }
@@ -263,7 +263,7 @@ class TicketCompraMito {
         this.printerMito.bold(true);
         this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
 
-        this.executePrint();
+        //this.executePrint();
     }
 
     getComandaCalents(platsCalents) {
