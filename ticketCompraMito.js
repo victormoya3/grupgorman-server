@@ -235,7 +235,7 @@ class TicketCompraMito {
                 filaArray = [];
                 tableObj = {};
 
-                tableObj.text = item.quantity;
+                tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
                 tableObj.width = '0.1';
                 filaArray.push(tableObj);
