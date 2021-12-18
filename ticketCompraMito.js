@@ -111,15 +111,6 @@ class TicketCompraMito {
                 setTimeout(() => {
                     this.getComandaCalents(this.mitoOrderItems);
                 },3000)
-                
-                setTimeout(() => {
-                    this.getComandaFreds(this.mitoOrderItems);
-                },6000)
-        
-                setTimeout(() => {
-                    this.getComandaSala(this.mitoOrderItems);
-                    this.printerMito.clear()
-                },9000)  
 
             }
 
@@ -165,6 +156,7 @@ class TicketCompraMito {
     }
 
     generateRawTicket(orderObj){
+        console.log('GENERATING TICKET FOR ORDER :',orderObj.id);
         // Printer Compra Ticket model to design it
         // TICKET HEADER
         this.printerMito.newLine();
@@ -172,6 +164,15 @@ class TicketCompraMito {
         this.printerMito.newLine();
         this.printerMito.alignCenter();
         this.printerMito.println(this.businessName);
+        this.printerMito.setTextSize(7,7);
+        // TICKET CLIENT INFO
+        //this.printerMito.newLine();
+        this.printerMito.alignLeft();
+        this.printerMito.println(orderObj?.billing?.first_name);
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.codiPostalPobalcio);
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.paisBusiness);
         // TICKET BUSINESS INFO
         //this.printerMito.newLine();
         this.printerMito.alignCenter();
@@ -183,6 +184,80 @@ class TicketCompraMito {
         // TICKET ORDER INFO 1
         this.printerMito.newLine();
         this.printerMito.newLine();
+        this.printerMito.newLine();
+        this.printerMito.println('--------------------------------');
+        if(orderObj.line_items.length > 0){
+            let filaArray = [];
+            let tableObj = {
+                text : '',
+                align : '',
+                width : ''
+            }
+
+            tableObj.text = 'QTY';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.1';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'ID';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.2';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'DESC';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.6';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'PREU';
+            tableObj.align = 'RIGHT';
+            tableObj.width = '0.1';
+
+            filaArray.push(tableObj);
+
+            this.printerMito.customTable(filaArray);
+
+            orderObj.line_items.forEach(function(item){
+                console.log('order item',item);
+                filaArray = [];
+                tableObj = {};
+                tableObj.text = item.quantity;
+                tableObj.align = 'LEFT';
+                tableObj.width = '0.1';
+
+                filaArray.push(tableObj);
+
+                tableObj = {};
+                tableObj.text = item.id;
+                tableObj.align = 'LEFT';
+                tableObj.width = '0.2';
+
+                filaArray.push(tableObj);
+
+                tableObj = {};
+                tableObj.text = item.nom;
+                tableObj.align = 'LEFT';
+                tableObj.width = '0.6';
+
+                filaArray.push(tableObj);
+
+                tableObj = {};
+                tableObj.text = item.price;
+                tableObj.align = 'RIGHT';
+                tableObj.width = '0.1';
+
+                filaArray.push(tableObj);
+
+                this.printerMito.customTable(filaArray);
+
+            })
+        }
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
         this.printerMito.bold(true);
@@ -197,8 +272,14 @@ class TicketCompraMito {
             if(this.MITO_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
         //console.log('platsCalentsMito -->', platsCalentsToPrint)
+        this.printerMito.clear();
+
         let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
         //console.log(platsCalentsMito);
+        setTimeout(() => {
+            this.printerMito.clear()
+            this.getComandaFreds(this.mitoOrderItems);
+        },3000)
     }
 
     getComandaFreds(platsFreds){
@@ -209,6 +290,10 @@ class TicketCompraMito {
         //console.log('platsFredsMito -->', platsFredsToPrint)
         let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
         //console.log(platsFredsMito);
+        setTimeout(() => {
+            this.printerMito.clear()
+            this.getComandaSala(this.mitoOrderItems);
+        },3000)  
     }
 
     getComandaSala(begudes){

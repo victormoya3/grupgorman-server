@@ -151,8 +151,13 @@ class NewOrder {
     generateTicketsForMitoAndBruna(order){
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items,this.MITO_SKU_LIST);
         this.brunaOrderItems = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
-        let mitoPrintProcess = new TicketCompraMito(order,this.mitoOrderItems,this.printer);
-        let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
+        setTimeout(()=>{
+            let mitoPrintProcess = new TicketCompraMito(order,this.mitoOrderItems,this.printer);
+        },1000)
+
+        setTimeout(()=>{
+            let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
+        },1500)
         //console.log('MITO PRINT PROCESS :',mitoPrintProcess);
         //console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
     }

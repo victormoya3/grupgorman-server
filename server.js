@@ -47,6 +47,7 @@ app.listen(8085, () => {
             const orders = JSON.parse(result.toJSON().body);
             orders.forEach((orderItem,i)=>{
                 //let newWooCommerceOrder = new WooCommerceOrder()
+                console.log('ORDER ',i, ' - STATUS :', orderItem.status);
                 console.log(orderItem);
                 let orderInfoObj = {
                     identificadorComanda : orderItem.id,
@@ -125,7 +126,7 @@ app.listen(8085, () => {
             console.log('*************************************');
             if(processingOrdersToProcess.length > 0){
                 processingOrdersToProcess.forEach((printOrder,k) => {
-                    console.log('ORDER TO PRINT ------------- ',k);
+                    console.log('ORDER TO PRINT ------------- ',printOrder.id);
                     new NewOrder(printOrder);
                 })
             } else {
