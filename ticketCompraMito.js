@@ -147,7 +147,7 @@ class TicketCompraMito {
         }
     }
 
-    executeCompraMito(newOrder){
+    async executeCompraMito(newOrder){
         //console.log('**************** MITO TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
@@ -225,6 +225,7 @@ class TicketCompraMito {
             this.printerMito.tableCustom(filaArray);
 
             let filasArray = [];
+            let _that = this;
 
             orderObj.line_items.forEach(function(item){
                 console.log('order item',item);
@@ -256,12 +257,12 @@ class TicketCompraMito {
                 tableObj.width = '0.1';
 
                 filaArray.push(tableObj);
-                console.log(' filaArray to push ', filaArray)
-                filasArray.push(filaArray);
+                //console.log(' filaArray to push ', filaArray)
+                _that.printerMito.tableCustom(filaArray); 
 
             })  
 
-            this.printerMito.tableCustom(filasArray);    
+               
         }
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
