@@ -265,7 +265,12 @@ class TicketCompraMito {
 
             })  
 
-            this.printerMito.tableCustom(filasArray);    
+            try{
+                this.printerMito.tableCustom(filasArray);
+            } catch(tableCustomException){
+                throw new Error(tableCustomException);
+            }
+                
         }
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
