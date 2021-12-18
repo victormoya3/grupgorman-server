@@ -149,6 +149,8 @@ class NewOrder {
     }
 
     generateTicketsForMitoAndBruna(order){
+
+        console.log('order execute mito or bruna process', order)
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items,this.MITO_SKU_LIST);
         this.brunaOrderItems = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
         setTimeout(()=>{
@@ -157,7 +159,7 @@ class NewOrder {
 
         setTimeout(()=>{
             let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
-        },1500)
+        },3000)
         //console.log('MITO PRINT PROCESS :',mitoPrintProcess);
         //console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
     }
