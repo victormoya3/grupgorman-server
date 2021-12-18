@@ -152,7 +152,12 @@ class TicketCompraMito {
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        this.generateRawTicket(newOrder);
+        try {
+            this.generateRawTicket(newOrder);
+        } catch(rawTicketException) {
+            throw new Error(rawTicketException)
+        }
+        
     }
 
     generateRawTicket(orderObj){
@@ -224,15 +229,15 @@ class TicketCompraMito {
             this.printerMito.tableCustom(filaArray);
 
             let filasArray = [];
-            
+
             orderObj.line_items.forEach(function(item){
                 console.log('order item',item);
                 filaArray = [];
                 tableObj = {};
+
                 tableObj.text = item.quantity;
                 tableObj.align = 'LEFT';
                 tableObj.width = '0.1';
-
                 filaArray.push(tableObj);
 
                 tableObj = {};
@@ -255,7 +260,7 @@ class TicketCompraMito {
                 tableObj.width = '0.1';
 
                 filaArray.push(tableObj);
-
+                console.log(' filaArray to push ', filaArray)
                 filasArray.push(filaArray);
 
             })  
