@@ -223,6 +223,8 @@ class TicketCompraMito {
 
             this.printerMito.tableCustom(filaArray);
 
+            let filasArray = [];
+            
             orderObj.line_items.forEach(function(item){
                 console.log('order item',item);
                 filaArray = [];
@@ -234,29 +236,31 @@ class TicketCompraMito {
                 filaArray.push(tableObj);
 
                 tableObj = {};
-                tableObj.text = item.id;
+                tableObj.text = item.sku;
                 tableObj.align = 'LEFT';
                 tableObj.width = '0.2';
 
                 filaArray.push(tableObj);
 
                 tableObj = {};
-                tableObj.text = item.nom;
+                tableObj.text = item.name;
                 tableObj.align = 'LEFT';
                 tableObj.width = '0.6';
 
                 filaArray.push(tableObj);
 
                 tableObj = {};
-                tableObj.text = item.price;
+                tableObj.text = item.total;
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.1';
 
                 filaArray.push(tableObj);
 
-                this.printerMito.tableCustom(filaArray);
+                filasArray.push(filaArray);
 
-            })
+            })  
+
+            this.printerMito.tableCustom(filasArray);    
         }
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
