@@ -124,9 +124,117 @@ class TicketCompraBruna {
     }
 
     generateRawTicket(orderObj){
+        console.log('GENERATING TICKET FOR ORDER :',orderObj.id);
+        // Printer Compra Ticket model to design it
+        // TICKET HEADER
         this.printerBruna.newLine();
-        this.printerBruna.println('****** HELLO BRUNA !!! *********');
+        //this.printerBruna.printImage();
         this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.businessName);
+        this.printerBruna.setTextSize(7,7);
+        // TICKET CLIENT INFO
+        //this.printerBruna.newLine();
+        this.printerBruna.alignLeft();
+        this.printerBruna.println(orderObj?.billing?.first_name);
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.codiPostalPobalcio);
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.paisBusiness);
+        // TICKET BUSINESS INFO
+        //this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.direccioBusiness);
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.codiPostalPobalcio);
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.paisBusiness);
+        // TICKET ORDER INFO 1
+        this.printerBruna.newLine();
+        this.printerBruna.newLine();
+        this.printerBruna.newLine();
+        this.printerBruna.println('--------------------------------');
+        if(orderObj.line_items.length > 0){
+            let filaArray = [];
+            let tableObj = {
+                text : '',
+                align : '',
+                width : ''
+            }
+
+            tableObj.text = 'QTY';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.1';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'ID';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.2';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'DESC';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.6';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'PREU';
+            tableObj.align = 'RIGHT';
+            tableObj.width = '0.1';
+
+            filaArray.push(tableObj);
+
+            this.printerBruna.tableCustom(filaArray);
+
+            let filasArray = [];
+            let _that = this;
+
+            orderObj.line_items.forEach(function(item){
+                console.log('order item',item);
+                filaArray = [];
+                tableObj = {};
+
+                tableObj.text = item.quantity.toString();
+                tableObj.align = 'LEFT';
+                tableObj.width = '0.1';
+                filaArray.push(tableObj);
+
+                tableObj = {};
+                tableObj.text = item.sku;
+                tableObj.align = 'LEFT';
+                tableObj.width = '0.2';
+
+                filaArray.push(tableObj);
+
+                tableObj = {};
+                tableObj.text = item.name;
+                tableObj.align = 'LEFT';
+                tableObj.width = '0.6';
+
+                filaArray.push(tableObj);
+
+                tableObj = {};
+                tableObj.text = item.total;
+                tableObj.align = 'RIGHT';
+                tableObj.width = '0.1';
+
+                filaArray.push(tableObj);
+                //console.log(' filaArray to push ', filaArray)
+                _that.printerBruna.tableCustom(filaArray); 
+
+            })  
+
+               
+        }
+        this.printerBruna.newLine();
+        this.printerBruna.println('--------------------------------');
+        this.printerBruna.bold(true);
+        this.printerBruna.leftRight('TOTAL CON IVA', orderObj.total);
 
         //this.executePrint();
     }
