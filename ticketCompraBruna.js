@@ -56,7 +56,7 @@ class TicketCompraBruna {
         this.brunaOrderItems = orderItems;
         //this.constructThermalPrinter();
        if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order);
-       else this.executeTestCompraBruna();
+       //else this.executeTestCompraBruna();
     }
 
     

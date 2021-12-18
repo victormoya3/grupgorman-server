@@ -95,7 +95,7 @@ class TicketCompraMito {
         this.printerMito = printer;
         this.mitoOrderItems = orderItems;
        if(order != undefined && orderItems.length > 0) this.executeCompraMito(order);
-       else this.executeTestCompraMito();
+       //else this.executeTestCompraMito();
     }
 
     executePrint(){
