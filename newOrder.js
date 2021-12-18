@@ -154,11 +154,16 @@ class NewOrder {
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items,this.MITO_SKU_LIST);
         this.brunaOrderItems = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
         setTimeout(()=>{
-            let mitoPrintProcess = new TicketCompraMito(order,this.mitoOrderItems,this.printer);
+            if(this.mitoOrderItems.length > 0){
+                let mitoPrintProcess = new TicketCompraMito(order,this.mitoOrderItems,this.printer);
+            }
         },1000)
 
         setTimeout(()=>{
-            let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
+            if(this.brunaOrderItems.length > 0){
+                let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
+            }
+            
         },3000)
         //console.log('MITO PRINT PROCESS :',mitoPrintProcess);
         //console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
