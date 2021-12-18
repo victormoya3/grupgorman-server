@@ -130,7 +130,7 @@ class TicketCompraMito {
             })                      
 
         } catch(printErrorException) {
-
+            throw new Error('[EPSON Print] Error printing Mito process: ', printErrorException);
         }
 
     }
@@ -147,16 +147,12 @@ class TicketCompraMito {
         }
     }
 
-    async executeCompraMito(newOrder){
+    executeCompraMito(newOrder){
         //console.log('**************** MITO TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        try {
-            this.generateRawTicket(newOrder);
-        } catch(rawTicketException) {
-            throw new Error(rawTicketException)
-        }
+        this.generateRawTicket(newOrder);
         
     }
 
@@ -265,12 +261,7 @@ class TicketCompraMito {
 
             })  
 
-            try{
-                this.printerMito.tableCustom(filasArray);
-            } catch(tableCustomException){
-                throw new Error(tableCustomException);
-            }
-                
+            this.printerMito.tableCustom(filasArray);    
         }
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
