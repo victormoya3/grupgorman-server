@@ -82,10 +82,20 @@ class TicketCompraMito {
     ];
 
     businessName = 'Mito Sushi Restaurant';
-    direccioBusiness = 'Av/Sant Esteve, 83';
-    codiPostalPobalcio = '08211 Castellar del Vallès';
+    direccioBusiness = 'C/ Hospital, 46';
+    codiPostalPobalcio = '08211, Castellar del Vallès, Barcelona';
     paisBusiness = 'Espanya';
 
+    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL';
+    taula = 'Taula:';
+    usuari = 'Usuari Generic';
+    comensals = 'Comensals:';
+    venta = 'Venta - Comanda';
+
+    footerBusinessInfo = 'Mito Sushi';
+    footerCIFNIF = 'CIF/NIF:';
+    footerSerialFactura = 'Serie de Factura:';
+    footerNumeroFactura = 'Numero de Factura:';
 
     constructor(order,orderItems,printer){
         console.log('**** MITO PRINTING CLASS ********');
@@ -166,25 +176,30 @@ class TicketCompraMito {
         this.printerMito.alignCenter();
         this.printerMito.println(this.businessName);
         this.printerMito.setTextSize(7,7);
-        // TICKET CLIENT INFO
-        //this.printerMito.newLine();
-        this.printerMito.alignLeft();
-        this.printerMito.println(orderObj?.billing?.first_name);
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.codiPostalPobalcio);
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.paisBusiness);
         // TICKET BUSINESS INFO
-        //this.printerMito.newLine();
+        this.printerMito.newLine();
         this.printerMito.alignCenter();
         this.printerMito.println(this.direccioBusiness);
         this.printerMito.alignCenter();
         this.printerMito.println(this.codiPostalPobalcio);
         this.printerMito.alignCenter();
         this.printerMito.println(this.paisBusiness);
-        // TICKET ORDER INFO 1
+        // TICKET CLIENT INFO
         this.printerMito.newLine();
+        this.printerMito.alignLeft();
+        const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
+        this.printerMito.println(orderOwner);
+        this.printerMito.alignLeft();
+        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        this.printerMito.println(adrecaOrder);
+        this.printerMito.alignLeft();
+        this.printerMito.println(orderObj?.billing?.phone);
+        // TICKET PURCHASE INFO
         this.printerMito.newLine();
+        this.printerMito.leftRight(this.purchaseType,this.taula + orderObj.id);
+        this.printerMito.leftRight(this.usuari,this.comensals + '1');
+        this.printerMito.leftRight(this.venta,orderObj.date_created);
+        // TICKET ORDER ITEMS TABLE INFO
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
         if(orderObj.line_items.length > 0){
@@ -267,7 +282,20 @@ class TicketCompraMito {
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
         this.printerMito.bold(true);
+        this.printerMito.setTextSize(7,7);
         this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
+        // TICKET FOOTER INFO
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.footerBusinessInfo);
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.footerCIFNIF);
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.footerSerialFactura + orderObj.cart_hash);
+        this.printerMito.alignCenter();
+        this.printerMito.println(this.footerNumeroFactura + orderObj.id);
+        //Partial Cut for other tickets
+        this.printerMito.partialCut();
 
         //this.executePrint();
     }

@@ -47,6 +47,24 @@ class TicketCompraBruna {
         'BPTI1', // Tiramisu
     ];
 
+    BRUNA_SKU_BEGUDES = [];
+
+    businessName = 'La Bruna Grill Restaurant';
+    direccioBusiness = 'C/ Hospital, 46';
+    codiPostalPobalcio = '08211, Castellar del Vallès, Barcelona';
+    paisBusiness = 'Espanya';
+
+    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL';
+    taula = 'Taula:';
+    usuari = 'Usuari Generic';
+    comensals = 'Comensals:';
+    venta = 'Venta - Comanda';
+
+    footerBusinessInfo = 'Bruna Grill';
+    footerCIFNIF = 'CIF/NIF:';
+    footerSerialFactura = 'Serie de Factura:';
+    footerNumeroFactura = 'Numero de Factura:';
+
     constructor(order,orderItems,printer){
         console.log('**** BRUNA PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
@@ -133,25 +151,30 @@ class TicketCompraBruna {
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.businessName);
         this.printerBruna.setTextSize(7,7);
-        // TICKET CLIENT INFO
-        //this.printerBruna.newLine();
-        this.printerBruna.alignLeft();
-        this.printerBruna.println(orderObj?.billing?.first_name);
-        this.printerBruna.alignCenter();
-        this.printerBruna.println(this.codiPostalPobalcio);
-        this.printerBruna.alignCenter();
-        this.printerBruna.println(this.paisBusiness);
         // TICKET BUSINESS INFO
-        //this.printerBruna.newLine();
+        this.printerBruna.newLine();
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.direccioBusiness);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.codiPostalPobalcio);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.paisBusiness);
-        // TICKET ORDER INFO 1
+        // TICKET CLIENT INFO
         this.printerBruna.newLine();
+        this.printerBruna.alignLeft();
+        const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
+        this.printerBruna.println(orderOwner);
+        this.printerBruna.alignLeft();
+        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        this.printerBruna.println(adrecaOrder);
+        this.printerBruna.alignLeft();
+        this.printerBruna.println(orderObj?.billing?.phone);
+        // TICKET PURCHASE INFO
         this.printerBruna.newLine();
+        this.printerBruna.leftRight(this.purchaseType,this.taula + orderObj.id);
+        this.printerBruna.leftRight(this.usuari,this.comensals + '1');
+        this.printerBruna.leftRight(this.venta,orderObj.date_created);
+        // TICKET ORDER ITEMS TABLE INFO
         this.printerBruna.newLine();
         this.printerBruna.println('--------------------------------');
         if(orderObj.line_items.length > 0){
@@ -234,9 +257,22 @@ class TicketCompraBruna {
         this.printerBruna.newLine();
         this.printerBruna.println('--------------------------------');
         this.printerBruna.bold(true);
+        this.printerBruna.setTextSize(7,7);
         this.printerBruna.leftRight('TOTAL CON IVA', orderObj.total);
-
-        //this.executePrint();
+        // TICKET FOOTER INFO
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.footerBusinessInfo);
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.footerCIFNIF);
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.footerSerialFactura + orderObj.cart_hash);
+        this.printerBruna.alignCenter();
+        this.printerBruna.println(this.footerNumeroFactura + orderObj.id);
+        //Partial Cut for other tickets
+        this.printerBruna.partialCut();
+        
+        this.executePrint();
     }
 
     getComandaCalents(platsCalents) {
