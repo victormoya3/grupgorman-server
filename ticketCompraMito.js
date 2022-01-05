@@ -234,7 +234,7 @@ class TicketCompraMito {
         this.printerMito.newLine();
         this.printerMito.alignCenter();
         this.printerMito.println(this.direccioBusiness);
-        this.printerBruna.setTextSize(2,3);
+        this.printerMito.setTextSize(2,3);
         this.printerMito.alignCenter();
         this.printerMito.println(this.codiPostalPobalcio);
         this.printerMito.alignCenter();
