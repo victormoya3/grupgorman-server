@@ -143,7 +143,61 @@ class TicketCompraBruna {
 
     generateRawTicket(orderObj){
         console.log('GENERATING TICKET FOR ORDER :',orderObj.id);
-        // Printer Compra Ticket model to design it
+        // TEXT SIZE ON PRINT TEST
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 1,1');
+        this.printerBruna.setTextSize(1,1);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 2,2');
+        this.printerBruna.setTextSize(2,2);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 3,3');
+        this.printerBruna.setTextSize(3,3);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 4,4');
+        this.printerBruna.setTextSize(4,4);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 5,5');
+        this.printerBruna.setTextSize(5,5);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 6,6');
+        this.printerBruna.setTextSize(6,6);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 7,7');
+        this.printerBruna.setTextSize(7,7);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 1,3');
+        this.printerBruna.setTextSize(1,3);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 2,5');
+        this.printerBruna.setTextSize(2,5);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 3,1');
+        this.printerBruna.setTextSize(3,1);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 4,6');
+        this.printerBruna.setTextSize(4,6);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 5,1');
+        this.printerBruna.setTextSize(5,1);
+        this.printerBruna.newLine();
+        this.printerBruna.alignCenter();
+        this.printerBruna.println('SIZE 6,3');
+        this.printerBruna.setTextSize(6,3);
+        this.printerBruna.partialCut();
+        // Printer Compra Ticket
         // TICKET HEADER
         this.printerBruna.newLine();
         //this.printerBruna.printImage();
@@ -155,6 +209,7 @@ class TicketCompraBruna {
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.direccioBusiness);
+        this.printerBruna.setTextSize(2,3);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.codiPostalPobalcio);
         this.printerBruna.alignCenter();

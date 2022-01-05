@@ -168,7 +168,61 @@ class TicketCompraMito {
 
     generateRawTicket(orderObj){
         console.log('GENERATING TICKET FOR ORDER :',orderObj.id);
-        // Printer Compra Ticket model to design it
+        // TEXT SIZE ON PRINT TEST
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 1,1');
+        this.printerMito.setTextSize(1,1);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 2,2');
+        this.printerMito.setTextSize(2,2);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 3,3');
+        this.printerMito.setTextSize(3,3);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 4,4');
+        this.printerMito.setTextSize(4,4);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 5,5');
+        this.printerMito.setTextSize(5,5);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 6,6');
+        this.printerMito.setTextSize(6,6);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 7,7');
+        this.printerMito.setTextSize(7,7);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 1,3');
+        this.printerMito.setTextSize(1,3);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 2,5');
+        this.printerMito.setTextSize(2,5);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 3,1');
+        this.printerMito.setTextSize(3,1);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 4,6');
+        this.printerMito.setTextSize(4,6);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 5,1');
+        this.printerMito.setTextSize(5,1);
+        this.printerMito.newLine();
+        this.printerMito.alignCenter();
+        this.printerMito.println('SIZE 6,3');
+        this.printerMito.setTextSize(6,3);
+        this.printerMito.partialCut();
+        // Printer Compra Ticket
         // TICKET HEADER
         this.printerMito.newLine();
         //this.printerMito.printImage();
@@ -180,6 +234,7 @@ class TicketCompraMito {
         this.printerMito.newLine();
         this.printerMito.alignCenter();
         this.printerMito.println(this.direccioBusiness);
+        this.printerBruna.setTextSize(2,3);
         this.printerMito.alignCenter();
         this.printerMito.println(this.codiPostalPobalcio);
         this.printerMito.alignCenter();
