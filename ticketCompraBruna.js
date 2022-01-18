@@ -204,12 +204,12 @@ class TicketCompraBruna {
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.businessName);
-        this.printerBruna.setTextSize(7,7);
+        this.printerBruna.setTextSize(2,2);
         // TICKET BUSINESS INFO
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.direccioBusiness);
-        this.printerBruna.setTextSize(2,2);
+        this.printerBruna.setTextSize(1,1);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.codiPostalPobalcio);
         this.printerBruna.alignCenter();
