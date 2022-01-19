@@ -1,12 +1,13 @@
-class TicketFredBruna {
+class TicketBegudes {
 
-    printerFredBruna;
-    platsFredsBruna = [];
+    printerBegudes;
+    begudes_GG = [];
 
-    brunaFredTitol = 'FREDS'
-    constructor(platsFreds,printer){
-        this.printerFredBruna = printer;
-       if(platsFreds.length > 0) this.executeFredsBruna(platsFreds);
+    begudesTitol = 'BEGUDES';
+
+    constructor(begudes,printer){
+        this.printerBegudes = printer;
+       if(begudes.length > 0) this.executeBegudes(begudes);
     }
 
     executePrint(){
@@ -18,15 +19,15 @@ class TicketFredBruna {
         try{
 
             Printer.printDirect({
-                data: this.printerFredBruna.getBuffer(),
+                data: this.printerBegudes.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
                 type: 'RAW',
                 success: function (jobID) {
-                    console.log(`printer job BRUNA Fred: ${jobID}`);
+                    console.log(`printer job Begudes: ${jobID}`);
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
                     //this.printer.clear();
-                    this.printerFredBruna.clear()
+                    this.printerBegudes.clear()
                     // callback(jobID)
                 },
                 error: function (err) {
@@ -40,21 +41,21 @@ class TicketFredBruna {
 
     }
 
-    executeFredsBruna(plats){
-        console.log('**************** BRUNA TICKET FREDS ****************');
+    executeBegudes(begudes){
+        console.log('**************** BEGUDES TICKET ****************');
         console.log(plats);
         console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        this.printerFredBruna.newLine();
-        this.printerFredBruna.alignCenter();
-        this.printerFredBruna.setTextSize(2,2);
-        this.printerFredBruna.bold(true);
-        this.printerFredBruna.invert(true);
-        this.printerFredBruna.println(this.brunaFredTitol);
-        // this.printerFredBruna.print
-        this.printerFredBruna.newLine();
-        this.printerFredBruna.println('--------------------------------');
-        if(plats.length > 0){
+        this.printerBegudes.newLine();
+        this.printerBegudes.alignCenter();
+        this.printerBegudes.setTextSize(2,2);
+        this.printerBegudes.bold(true);
+        this.printerBegudes.invert(true);
+        this.printerBegudes.println(this.begudesTitol);
+        // this.printerBegudes.print
+        this.printerBegudes.newLine();
+        this.printerBegudes.println('--------------------------------');
+        if(begudes.length > 0){
             let filaArray = [];
             let tableObj = {
                 text : '',
@@ -89,7 +90,7 @@ class TicketFredBruna {
 
             filaArray.push(tableObj);
 
-            this.printerFredBruna.tableCustom(filaArray);
+            this.printerBegudes.tableCustom(filaArray);
 
             let filasArray = [];
             let _that = this;
@@ -125,14 +126,14 @@ class TicketFredBruna {
 
                 filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
-                _that.printerFredBruna.tableCustom(filaArray); 
+                _that.printerBegudes.tableCustom(filaArray); 
 
             })  
 
-            this.printerFredBruna.newLine();
-            this.printerFredBruna.println('--------------------------------');
-            this.printerFredBruna.newLine();
-            this.printerFredBruna.cut();
+            this.printerBegudes.newLine();
+            this.printerBegudes.println('--------------------------------');
+            this.printerBegudes.newLine();
+            this.printerBegudes.cut();
         
             this.executePrint();
         }
@@ -140,4 +141,4 @@ class TicketFredBruna {
 
 }
 
-module.exports = TicketFredBruna;
+module.exports = TicketBegudes;

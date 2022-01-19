@@ -2,6 +2,7 @@
 
 const TicketCompraBruna = require("./ticketCompraBruna");
 const TicketCompraMito = require("./ticketCompraMito");
+const TicketBegudes = require("./ticketBegudes");
 const ThermalPrinter = require("node-thermal-printer").printer;
 const PrinterTypes = require("node-thermal-printer").types;
 
@@ -9,10 +10,14 @@ class NewOrder {
 
     printer;
     mitoOrder;
+    mitoOrderItems;
     brunaOrder;
-
+    brunaOrderItems;
+    begudes;
+    WooCommerceAPI;
     mitoSKUs = [];
     brunaSKUs = [];
+    begudesSKUs = [];
 
     MITO_SKU_LIST = [
         '01', // Edamamme
@@ -114,7 +119,8 @@ class NewOrder {
         'BTS01', // Teque Sobrasada
     ]
     
-    constructor(newOrder){
+    constructor(newOrder, WoocommerceInstance){
+        this.WooCommerceAPI = WoocommerceInstance;
         this.constructThermalPrinter();
         setTimeout(() => {
 
@@ -151,11 +157,12 @@ class NewOrder {
     generateTicketsForMitoAndBruna(order){
 
         console.log('order execute mito or bruna process', order)
-        this.mitoOrderItems = this.filterValuesFromLocation(order.line_items,this.MITO_SKU_LIST);
-        this.brunaOrderItems = this.filterValuesFromLocation(order.line_items,this.BRUNA_SKU_LIST);
+        this.mitoOrderItems = this.filterValuesFromLocation(order.line_items, this.MITO_SKU_LIST);
+        this.brunaOrderItems = this.filterValuesFromLocation(order.line_items, this.BRUNA_SKU_LIST);
+        this.begudes = this.filterValuesFromLocation(order.line_items, this.begudesSKUs)
         setTimeout(()=>{
             if(this.mitoOrderItems.length > 0){
-                let mitoPrintProcess = new TicketCompraMito(order,this.mitoOrderItems,this.printer);
+                let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
             }
         },1000)
 
@@ -165,7 +172,14 @@ class NewOrder {
             }
             
         },3000)
-        //console.log('MITO PRINT PROCESS :',mitoPrintProcess);
+
+        setTimeout(()=>{
+            if(order.line_items.length > 0){
+                let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
+            }
+            this.actualitzarEstatComanda(order);
+        },9000)
+        //console.lo =g('MITO PRINT PROCESS :',mitoPrintProcess);
         //console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
     }
 
@@ -181,6 +195,21 @@ class NewOrder {
             }
         })
         return filteredArray;
+    }
+
+    actualitzarEstatComanda(comanda){
+
+        const data = {
+            status : 'completed'
+        };
+
+        this.WooCommerceAPI.put("orders/" + order.id, data)
+        .then((response) => {
+          console.log('**** RESPONSE UPDATING COMANDA: ', response.data);
+        })
+        .catch((error) => {
+          console.log('**** ERROR UPDATING COMANDA: ', error.response.data);
+        });
     }
 }
 

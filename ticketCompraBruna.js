@@ -47,8 +47,6 @@ class TicketCompraBruna {
         'BPTI1', // Tiramisu
     ];
 
-    BRUNA_SKU_BEGUDES = [];
-
     businessName = 'La Bruna Grill Restaurant';
     direccioBusiness = 'C/ Hospital, 46';
     codiPostalPobalcio = '08211, Castellar del Vallès, Barcelona';
@@ -203,13 +201,14 @@ class TicketCompraBruna {
         //this.printerBruna.printImage();
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
-        this.printerBruna.println(this.businessName);
         this.printerBruna.setTextSize(2,2);
+        this.printerBruna.println(this.businessName);
+        
         // TICKET BUSINESS INFO
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
-        this.printerBruna.println(this.direccioBusiness);
         this.printerBruna.setTextSize(1,1);
+        this.printerBruna.println(this.direccioBusiness);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.codiPostalPobalcio);
         this.printerBruna.alignCenter();
@@ -316,6 +315,7 @@ class TicketCompraBruna {
         this.printerBruna.leftRight('TOTAL CON IVA', orderObj.total);
         // TICKET FOOTER INFO
         this.printerBruna.newLine();
+        this.printerBruna.bold(false);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.footerBusinessInfo);
         this.printerBruna.alignCenter();
@@ -349,6 +349,7 @@ class TicketCompraBruna {
         //let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
         //console.log(platsFredsBruna);
     }
+
 }
 
 module.exports = TicketCompraBruna;
