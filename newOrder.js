@@ -203,7 +203,7 @@ class NewOrder {
             status : 'completed'
         };
 
-        this.WooCommerceAPI.put("orders/" + order.id, data)
+        this.WooCommerceAPI.put("orders/" + comanda.id, data)
         .then((response) => {
           console.log('**** RESPONSE UPDATING COMANDA: ', response.data);
         })
