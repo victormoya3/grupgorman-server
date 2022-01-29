@@ -50,9 +50,12 @@ class TicketFredMito {
         this.printerFredMito.bold(true);
         this.printerFredMito.invert(true);
         this.printerFredMito.println(this.brunaFredTitol);
+        this.printerFredMito.invert(false);
         // this.printerFredMito.print
         this.printerFredMito.newLine();
         this.printerFredMito.println('--------------------------------');
+        this.printerFredMito.setTextSize(1,1);
+        this.printerFredMito.bold(false);
         if(plats.length > 0){
             let filaArray = [];
             let tableObj = {

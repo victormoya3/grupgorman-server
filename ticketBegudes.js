@@ -52,9 +52,12 @@ class TicketBegudes {
         this.printerBegudes.bold(true);
         this.printerBegudes.invert(true);
         this.printerBegudes.println(this.begudesTitol);
+        this.printerBegudes.invert(false);
         // this.printerBegudes.print
         this.printerBegudes.newLine();
         this.printerBegudes.println('--------------------------------');
+        this.printerBegudes.setTextSize(1,1);
+        this.printerBegudes.bold(false);
         if(begudes.length > 0){
             let filaArray = [];
             let tableObj = {

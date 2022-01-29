@@ -50,9 +50,12 @@ class TicketCalentMito {
         this.printerCalentsMito.bold(true);
         this.printerCalentsMito.invert(true);
         this.printerCalentsMito.println(this.mitoCalentsTitol);
+        this.printerCalentsMito.invert(false);
         // this.printerCalentsMito.print
         this.printerCalentsMito.newLine();
         this.printerCalentsMito.println('--------------------------------');
+        this.printerCalentsMito.setTextSize(1,1);
+        this.printerCalentsMito.bold(false);
         if(plats.length > 0){
             let filaArray = [];
             let tableObj = {

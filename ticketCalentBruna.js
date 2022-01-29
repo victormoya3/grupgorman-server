@@ -53,9 +53,12 @@ class TicketCalentBruna {
         this.printerCalentsBruna.bold(true);
         this.printerCalentsBruna.invert(true);
         this.printerCalentsBruna.println(this.brunaCalentsTitol);
+        this.printerCalentsBruna.invert(false);
         // this.printerCalentsBruna.print
         this.printerCalentsBruna.newLine();
         this.printerCalentsBruna.println('--------------------------------');
+        this.printerCalentsBruna.setTextSize(1,1);
+        this.printerCalentsBruna.bold(false);
         if(plats.length > 0){
             let filaArray = [];
             let tableObj = {

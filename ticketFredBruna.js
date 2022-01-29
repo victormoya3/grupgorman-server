@@ -51,9 +51,12 @@ class TicketFredBruna {
         this.printerFredBruna.bold(true);
         this.printerFredBruna.invert(true);
         this.printerFredBruna.println(this.brunaFredTitol);
+        this.printerFredBruna.invert(false);
         // this.printerFredBruna.print
         this.printerFredBruna.newLine();
         this.printerFredBruna.println('--------------------------------');
+        this.printerFredBruna.setTextSize(1,1);
+        this.printerFredBruna.bold(false);
         if(plats.length > 0){
             let filaArray = [];
             let tableObj = {
