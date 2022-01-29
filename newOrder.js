@@ -174,7 +174,7 @@ class NewOrder {
         },3000)
 
         setTimeout(()=>{
-            if(order.line_items.length > 0){
+            if(this.begudes.length > 0){
                 let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
             }
             this.actualitzarEstatComanda(order);
@@ -206,6 +206,7 @@ class NewOrder {
         const updateCallback = (response) => {
             console.log('*** UPDATE RESPONSE ***')
             console.log(response);
+            console.log(comanda);
         }
         this.WooCommerceAPI.put("orders/" + comanda.id, data, updateCallback);
     }
