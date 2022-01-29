@@ -203,13 +203,11 @@ class NewOrder {
             status : 'completed'
         };
 
-        this.WooCommerceAPI.put("orders/" + comanda.id, data)
-        .then((response) => {
-          console.log('**** RESPONSE UPDATING COMANDA: ', response.data);
-        })
-        .catch((error) => {
-          console.log('**** ERROR UPDATING COMANDA: ', error.response.data);
-        });
+        const updateCallback = (response) => {
+            console.log('*** UPDATE RESPONSE ***')
+            console.log(response);
+        }
+        this.WooCommerceAPI.put("orders/" + comanda.id, data, updateCallback);
     }
 }
 
