@@ -177,8 +177,15 @@ class NewOrder {
             if(this.begudes.length > 0){
                 let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
             }
-            this.actualitzarEstatComanda(order);
-        },9000)
+            
+        },9000);
+
+        setTimeout(()=>{
+            if (order !== {}){
+                this.actualitzarEstatComanda(order);
+            }
+            
+        },15000)
         //console.lo =g('MITO PRINT PROCESS :',mitoPrintProcess);
         //console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);
     }
