@@ -18,6 +18,7 @@ class TicketFredMito {
 
         try{
 
+            const that = this;
             Printer.printDirect({
                 data: this.printerFredMito.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
@@ -27,7 +28,7 @@ class TicketFredMito {
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
                     //this.printer.clear();
-                    this.printerFredMito.clear()
+                    that.printerFredMito.clear()
                     // callback(jobID)
                 },
                 error: function (err) {

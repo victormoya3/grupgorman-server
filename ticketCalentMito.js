@@ -19,6 +19,7 @@ class TicketCalentMito {
 
         try{
 
+            const that = this;
             Printer.printDirect({
                 data: this.printerCalentsMito.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
@@ -27,7 +28,7 @@ class TicketCalentMito {
                     console.log(`printer job MITO Calents: ${jobID}`);
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
-                    this.printerCalentsMito.clear();
+                    that.printerCalentsMito.clear();
                     // callback(jobID)
                 },
                 error: function (err) {
