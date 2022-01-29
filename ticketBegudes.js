@@ -1,3 +1,5 @@
+const Printer = require('printer');
+
 class TicketBegudes {
 
     printerBegudes;
