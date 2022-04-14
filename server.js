@@ -101,36 +101,34 @@ app.listen(8085, () => {
             });
 
             console.log('*********** PENDING ORDERS **********');
-            console.table(pendingOrders);
+            console.log(pendingOrders.length);
             console.log('*************************************');
             console.log('*********** PROCESSING ORDERS **********');
-            console.table(processingOrders);
+            console.log(processingOrders.length);
             console.log('*************************************');
             console.log('*********** ON-HOLD ORDERS **********');
-            console.table(onHoldOrders);
+            console.log(onHoldOrders.length);
             console.log('*************************************');
             console.log('*********** COMPLETE ORDERS **********');
-            console.table(completedOrders);
+            console.log(completedOrders.length);
             console.log('*************************************');
             console.log('*********** CANCELLED ORDERS **********');
-            console.table(cancelledOrders);
+            console.log(cancelledOrders.length);
             console.log('*************************************');
             console.log('*********** REFUNDED ORDERS **********');
-            console.table(refundedOrders);
+            console.log(refundedOrders.length);
             console.log('*************************************');
             console.log('*********** FAILED ORDERS **********');
-            console.table(failedOrders);
+            console.log(failedOrders.length);
             console.log('*************************************');
             console.log('*********** TRASH ORDERS **********');
-            console.table(trashOrders);
+            console.log(trashOrders.length);
             console.log('*************************************');
             if(processingOrdersToProcess.length > 0){
                 processingOrdersToProcess.forEach((printOrder,k) => {
                     console.log('ORDER TO PRINT ------------- ',printOrder.id);
                     new NewOrder(printOrder, WooCommerce);
                 })
-            } else {
-                new NewOrder({});
             }
 
           });
