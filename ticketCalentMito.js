@@ -8,18 +8,18 @@ class TicketCalentMito {
     mitoCalentsTitol = 'CALENTS'
     constructor(platsCalents,printer){
         this.printerCalentsMito = printer;
+        this.printerCalentsMito.clear();
        if(platsCalents.length > 0) this.executeCalentsMito(platsCalents);
     }
 
     executePrint(){
 
         let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
-        console.log('********************** EPSON_TM-m30II-H Printer for Bruna Process **********************');
+        console.log('********************** EPSON_TM-m30II-H Printer for Mito Process **********************');
         //console.log(epsonPrinter);
 
         try{
 
-            const that = this;
             Printer.printDirect({
                 data: this.printerCalentsMito.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
@@ -28,7 +28,6 @@ class TicketCalentMito {
                     console.log(`printer job MITO Calents: ${jobID}`);
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
-                    that.printerCalentsMito.clear();
                     // callback(jobID)
                 },
                 error: function (err) {

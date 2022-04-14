@@ -103,6 +103,7 @@ class TicketCompraMito {
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
         this.printerMito = printer;
+        this.printerMito.clear();
         this.mitoOrderItems = orderItems;
        if(order != undefined && orderItems.length > 0) this.executeCompraMito(order);
        //else this.executeTestCompraMito();
@@ -505,7 +506,7 @@ class TicketCompraMito {
         //Partial Cut for other tickets
         this.printerMito.cut();
 
-        //this.executePrint();
+        this.executePrint();
     }
 
     getComandaCalents(platsCalents) {
@@ -514,12 +515,10 @@ class TicketCompraMito {
             if(this.MITO_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
         //console.log('platsCalentsMito -->', platsCalentsToPrint)
-        this.printerMito.clear();
 
         let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
         //console.log(platsCalentsMito);
         setTimeout(() => {
-            this.printerMito.clear()
             this.getComandaFreds(this.mitoOrderItems);
         },3000)
     }
@@ -533,7 +532,6 @@ class TicketCompraMito {
         let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
         //console.log(platsFredsMito);
         setTimeout(() => {
-            this.printerMito.clear()
             this.getComandaSala(this.mitoOrderItems);
         },3000)  
     }

@@ -9,13 +9,14 @@ class TicketBegudes {
 
     constructor(begudes,printer){
         this.printerBegudes = printer;
+        this.printerBegudes.clear();
        if(begudes.length > 0) this.executeBegudes(begudes);
     }
 
     executePrint(){
 
         let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
-        console.log('********************** EPSON_TM-m30II-H Printer for Bruna Process **********************');
+        console.log('********************** EPSON_TM-m30II-H Printer for Begudes Process **********************');
         //console.log(epsonPrinter);
 
         try{
@@ -29,7 +30,6 @@ class TicketBegudes {
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
                     //this.printer.clear();
-                    this.printerBegudes.clear()
                     // callback(jobID)
                 },
                 error: function (err) {

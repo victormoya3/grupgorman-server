@@ -69,6 +69,7 @@ class TicketCompraBruna {
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
         this.printerBruna = printer;
+        this.printerBruna.clear();
         this.brunaOrderItems = orderItems;
         //this.constructThermalPrinter();
        if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order);
@@ -92,7 +93,6 @@ class TicketCompraBruna {
                 
                 setTimeout(() => {
                     this.getComandaSala(this.brunaOrderItems);
-                    this.printerBruna.clear()
                 },6000)
                 
             }

@@ -7,18 +7,18 @@ class TicketFredMito {
 
     constructor(platsFreds,printer){
         this.printerFredMito = printer;
+        this.printerFredMito.clear();
        if(platsFreds.length > 0) this.executeFredsMito(platsFreds);
     }
 
     executePrint(){
 
         let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
-        console.log('********************** EPSON_TM-m30II-H Printer for Bruna Process **********************');
+        console.log('********************** EPSON_TM-m30II-H Printer for Mito Process **********************');
         //console.log(epsonPrinter);
 
         try{
 
-            const that = this;
             Printer.printDirect({
                 data: this.printerFredMito.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
@@ -28,7 +28,6 @@ class TicketFredMito {
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
                     //this.printer.clear();
-                    that.printerFredMito.clear()
                     // callback(jobID)
                 },
                 error: function (err) {
