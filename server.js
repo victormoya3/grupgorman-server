@@ -128,14 +128,14 @@ app.listen(8085, () => {
                 processingOrdersToProcess.forEach((printOrder,k) => {
                     console.log('ORDER TO PRINT ------------- ',printOrder.id);
                     // this.getOrder(printOrder);
-                    WooCommerce.get('orders/'+ printOrder.id, (res) => {
+                    WooCommerce.getAsync('orders/'+ printOrder.id).then((res) => {
                         console.log('ORDER OBJ FROM WC API:', res);
                     })
 
-                    WooCommerce.get('orders/'+ printOrder.id + '/notes', (res) => {
+                    WooCommerce.getAsync('orders/'+ printOrder.id + '/notes').then((res) => {
                         console.log('ORDER NOTES OBJ FROM WC API:', res);
                     })
-                    // new NewOrder(printOrder, WooCommerce);
+                    new NewOrder(printOrder, WooCommerce);
                 })
             }
 
