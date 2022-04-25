@@ -48,7 +48,7 @@ app.listen(8085, () => {
             orders.forEach((orderItem,i)=>{
                 //let newWooCommerceOrder = new WooCommerceOrder()
                 console.log('ORDER ',i, ' - STATUS :', orderItem.status);
-                console.log(orderItem);
+                // console.log(orderItem);
                 let orderInfoObj = {
                     identificadorComanda : orderItem.id,
                     estatComanda: orderItem.status,
@@ -128,12 +128,12 @@ app.listen(8085, () => {
                 processingOrdersToProcess.forEach((printOrder,k) => {
                     console.log('ORDER TO PRINT ------------- ',printOrder.id);
                     // this.getOrder(printOrder);
-                    WooCommerce.getAsync('orders/'+ printOrder.id).then((res) => {
-                        console.log('ORDER OBJ FROM WC API:', res);
+                    WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
+                        console.log('ORDER OBJ FROM WC API:', res.toJSON().body);
                     })
 
                     WooCommerce.getAsync('orders/'+ printOrder.id + '/notes').then((res) => {
-                        console.log('ORDER NOTES OBJ FROM WC API:', res);
+                        console.log('ORDER NOTES OBJ FROM WC API:', res.toJSON().body);
                     })
                     new NewOrder(printOrder, WooCommerce);
                 })
