@@ -56,8 +56,8 @@ class TicketFredBruna {
         this.printerFredBruna.invert(false);
         // this.printerFredBruna.print
         this.printerFredBruna.newLine();
-        this.printerFredBruna.println('--------------------------------');
         this.printerFredBruna.setTextSize(1,1);
+        this.printerFredBruna.println('--------------------------------');
         this.printerFredBruna.bold(false);
         if(plats.length > 0){
             let filaArray = [];
@@ -84,13 +84,6 @@ class TicketFredBruna {
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
             tableObj.width = '0.6';
-
-            filaArray.push(tableObj);
-
-            tableObj = {};
-            tableObj.text = 'PREU';
-            tableObj.align = 'RIGHT';
-            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -123,12 +116,6 @@ class TicketFredBruna {
 
                 filaArray.push(tableObj);
 
-                tableObj = {};
-                tableObj.text = item.total;
-                tableObj.align = 'RIGHT';
-                tableObj.width = '0.1';
-
-                filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerFredBruna.tableCustom(filaArray); 
 

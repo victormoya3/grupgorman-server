@@ -127,12 +127,22 @@ app.listen(8085, () => {
             if(processingOrdersToProcess.length > 0){
                 processingOrdersToProcess.forEach((printOrder,k) => {
                     console.log('ORDER TO PRINT ------------- ',printOrder.id);
-                    new NewOrder(printOrder, WooCommerce);
+                    // this.getOrder(printOrder);
+                    WooCommerce.get('orders/'+ printOrder.id, (res) => {
+                        console.log('ORDER OBJ FROM WC API:', res);
+                    })
+
+                    WooCommerce.get('orders/'+ printOrder.id + '/notes', (res) => {
+                        console.log('ORDER NOTES OBJ FROM WC API:', res);
+                    })
+                    // new NewOrder(printOrder, WooCommerce);
                 })
             }
 
-          });
+        });
 
     })
+
+
     
 })

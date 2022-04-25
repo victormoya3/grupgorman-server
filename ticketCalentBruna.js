@@ -58,8 +58,8 @@ class TicketCalentBruna {
         this.printerCalentsBruna.invert(false);
         // this.printerCalentsBruna.print
         this.printerCalentsBruna.newLine();
-        this.printerCalentsBruna.println('--------------------------------');
         this.printerCalentsBruna.setTextSize(1,1);
+        this.printerCalentsBruna.println('--------------------------------');
         this.printerCalentsBruna.bold(false);
         if(plats.length > 0){
             let filaArray = [];
@@ -86,13 +86,6 @@ class TicketCalentBruna {
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
             tableObj.width = '0.6';
-
-            filaArray.push(tableObj);
-
-            tableObj = {};
-            tableObj.text = 'PREU';
-            tableObj.align = 'RIGHT';
-            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -125,12 +118,6 @@ class TicketCalentBruna {
 
                 filaArray.push(tableObj);
 
-                tableObj = {};
-                tableObj.text = item.total;
-                tableObj.align = 'RIGHT';
-                tableObj.width = '0.1';
-
-                filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerCalentsBruna.tableCustom(filaArray); 
 

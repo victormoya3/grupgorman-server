@@ -4,7 +4,8 @@ class TicketFredMito {
 
     printerFredMito;
     platsFredsMito = [];
-
+    mitoFredTitol = 'FREDS';
+    
     constructor(platsFreds,printer){
         this.printerFredMito = printer;
         this.printerFredMito.clear();
@@ -51,12 +52,12 @@ class TicketFredMito {
         this.printerFredMito.setTextSize(2,2);
         this.printerFredMito.bold(true);
         this.printerFredMito.invert(true);
-        this.printerFredMito.println(this.brunaFredTitol);
+        this.printerFredMito.println(this.mitoFredTitol);
         this.printerFredMito.invert(false);
         // this.printerFredMito.print
         this.printerFredMito.newLine();
-        this.printerFredMito.println('--------------------------------');
         this.printerFredMito.setTextSize(1,1);
+        this.printerFredMito.println('--------------------------------');
         this.printerFredMito.bold(false);
         if(plats.length > 0){
             let filaArray = [];
@@ -83,13 +84,6 @@ class TicketFredMito {
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
             tableObj.width = '0.6';
-
-            filaArray.push(tableObj);
-
-            tableObj = {};
-            tableObj.text = 'PREU';
-            tableObj.align = 'RIGHT';
-            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -122,12 +116,6 @@ class TicketFredMito {
 
                 filaArray.push(tableObj);
 
-                tableObj = {};
-                tableObj.text = item.total;
-                tableObj.align = 'RIGHT';
-                tableObj.width = '0.1';
-
-                filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerFredMito.tableCustom(filaArray); 
 

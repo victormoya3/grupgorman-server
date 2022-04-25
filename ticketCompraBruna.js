@@ -466,8 +466,8 @@ class TicketCompraBruna {
         // TICKET FOOTER INFO
         this.printerBruna.newLine();
         this.printerBruna.bold(false);
-        this.printerBruna.setTextSize(1,1);
         this.printerBruna.alignCenter();
+        this.printerBruna.setTextSize(1,1);
         this.printerBruna.println(this.footerBusinessInfo);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.footerCIFNIF);

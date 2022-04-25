@@ -2,7 +2,7 @@ const TicketCalentMito = require("./ticketCalentMito");
 const TicketFredMito = require("./ticketFredMito");
 const Printer = require('printer');
 
-class TicketCompraMito {
+class TicketCompraClient {
 
     printerMito;
     mitoOrderItems;
@@ -119,9 +119,9 @@ class TicketCompraMito {
             
             let callback = ( jobID ) => {
                 console.log(`printer job: ${jobID}`);
-                setTimeout(() => {
-                    this.getComandaCalents(this.mitoOrderItems);
-                },3000)
+                // setTimeout(() => {
+                //     this.getComandaCalents(this.mitoOrderItems);
+                // },3000)
 
             }
 
@@ -387,6 +387,7 @@ class TicketCompraMito {
         this.printerMito.alignCenter();
         this.printerMito.setTextSize(1,1);
         this.printerMito.println(this.direccioBusiness);
+        // this.printerMito.setTextSize(1,1);
         this.printerMito.alignCenter();
         this.printerMito.println(this.codiPostalPobalcio);
         this.printerMito.alignCenter();
@@ -492,10 +493,10 @@ class TicketCompraMito {
         this.printerMito.setTextSize(2,2);
         this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
         this.printerMito.bold(false);
+        this.printerMito.setTextSize(1,1);
         // TICKET FOOTER INFO
         this.printerMito.newLine();
         this.printerMito.alignCenter();
-        this.printerMito.setTextSize(1,1);
         this.printerMito.println(this.footerBusinessInfo);
         this.printerMito.alignCenter();
         this.printerMito.println(this.footerCIFNIF);
@@ -547,4 +548,4 @@ class TicketCompraMito {
     }
 }
 
-module.exports = TicketCompraMito;
+module.exports = TicketCompraClient;

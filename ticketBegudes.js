@@ -57,8 +57,8 @@ class TicketBegudes {
         this.printerBegudes.invert(false);
         // this.printerBegudes.print
         this.printerBegudes.newLine();
-        this.printerBegudes.println('--------------------------------');
         this.printerBegudes.setTextSize(1,1);
+        this.printerBegudes.println('--------------------------------');
         this.printerBegudes.bold(false);
         if(begudes.length > 0){
             let filaArray = [];
@@ -85,13 +85,6 @@ class TicketBegudes {
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
             tableObj.width = '0.6';
-
-            filaArray.push(tableObj);
-
-            tableObj = {};
-            tableObj.text = 'PREU';
-            tableObj.align = 'RIGHT';
-            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -124,12 +117,6 @@ class TicketBegudes {
 
                 filaArray.push(tableObj);
 
-                tableObj = {};
-                tableObj.text = item.total;
-                tableObj.align = 'RIGHT';
-                tableObj.width = '0.1';
-
-                filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerBegudes.tableCustom(filaArray); 
 
