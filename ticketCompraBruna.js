@@ -351,7 +351,7 @@ class TicketCompraBruna {
         //this.printerBruna.printImage();
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
-        this.printerBruna.setTextSize(2,2);
+        this.printerBruna.setTextSize(1,1);
         this.printerBruna.println(this.businessName);
         
         // TICKET BUSINESS INFO

@@ -380,7 +380,7 @@ class TicketCompraClient {
         //this.printerMito.printImage();
         this.printerMito.newLine();
         this.printerMito.alignCenter();
-        this.printerMito.setTextSize(2,2);
+        this.printerMito.setTextSize(1,1);
         this.printerMito.println(this.businessName);
         // TICKET BUSINESS INFO
         this.printerMito.newLine();

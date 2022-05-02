@@ -49,7 +49,7 @@ class TicketFredMito {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerFredMito.newLine();
         this.printerFredMito.alignCenter();
-        this.printerFredMito.setTextSize(2,2);
+        this.printerFredMito.setTextSize(1,1);
         this.printerFredMito.bold(true);
         this.printerFredMito.invert(true);
         this.printerFredMito.println(this.mitoFredTitol);

@@ -50,7 +50,7 @@ class TicketBegudes {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerBegudes.newLine();
         this.printerBegudes.alignCenter();
-        this.printerBegudes.setTextSize(2,2);
+        this.printerBegudes.setTextSize(1,1);
         this.printerBegudes.bold(true);
         this.printerBegudes.invert(true);
         this.printerBegudes.println(this.begudesTitol);

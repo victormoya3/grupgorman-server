@@ -51,7 +51,7 @@ class TicketCalentBruna {
 
         this.printerCalentsBruna.newLine();
         this.printerCalentsBruna.alignCenter();
-        this.printerCalentsBruna.setTextSize(2,2);
+        this.printerCalentsBruna.setTextSize(1,1);
         this.printerCalentsBruna.bold(true);
         this.printerCalentsBruna.invert(true);
         this.printerCalentsBruna.println(this.brunaCalentsTitol);

@@ -48,7 +48,7 @@ class TicketCalentMito {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerCalentsMito.newLine();
         this.printerCalentsMito.alignCenter();
-        this.printerCalentsMito.setTextSize(2,2);
+        this.printerCalentsMito.setTextSize(1,1);
         this.printerCalentsMito.bold(true);
         this.printerCalentsMito.invert(true);
         this.printerCalentsMito.println(this.mitoCalentsTitol);

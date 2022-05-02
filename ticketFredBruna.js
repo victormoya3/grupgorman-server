@@ -49,7 +49,7 @@ class TicketFredBruna {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerFredBruna.newLine();
         this.printerFredBruna.alignCenter();
-        this.printerFredBruna.setTextSize(2,2);
+        this.printerFredBruna.setTextSize(1,1);
         this.printerFredBruna.bold(true);
         this.printerFredBruna.invert(true);
         this.printerFredBruna.println(this.brunaFredTitol);
