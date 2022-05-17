@@ -132,6 +132,10 @@ app.listen(8085, () => {
                         // this.getOrder(printOrder);
                         WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
                             console.log('ORDER OBJ FROM WC API:', res.toJSON().body);
+                            const order = res.toJSON().body;
+                            order.meta_data.forEach((customField) => {
+                                console.log('CUSTOM FIELD ON ORDER :', customField);
+                            });
                         })
     
                         WooCommerce.getAsync('orders/'+ printOrder.id + '/notes').then((res) => {
