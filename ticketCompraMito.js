@@ -449,8 +449,9 @@ class TicketCompraMito {
             let filasArray = [];
             let _that = this;
 
-            orderObj.line_items.forEach(function(item){
+            this.mitoOrderItems.forEach(function(item){
                 console.log('order item',item);
+                // aplicar
                 filaArray = [];
                 tableObj = {};
 

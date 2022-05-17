@@ -421,7 +421,7 @@ class TicketCompraBruna {
             let filasArray = [];
             let _that = this;
 
-            orderObj.line_items.forEach(function(item){
+            this.brunaOrderItems.forEach(function(item){
                 console.log('order item',item);
                 filaArray = [];
                 tableObj = {};

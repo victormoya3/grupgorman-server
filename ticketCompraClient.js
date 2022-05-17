@@ -81,7 +81,7 @@ class TicketCompraClient {
         
     ];
 
-    businessName = 'Mito Sushi Restaurant';
+    businessName = 'Gorman Restauració S.L.U';
     direccioBusiness = 'C/ Hospital, 46';
     codiPostalPobalcio = '08211, Castellar del Vallès, Barcelona';
     paisBusiness = 'Espanya';
