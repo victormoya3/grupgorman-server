@@ -32,7 +32,7 @@ app.listen(8085, () => {
     const aperturaTenda = cron.schedule('0 0 19 * * *', function(cron) {
         console.log('--------- OBRINT TENDA VIRTUAL ------------');
         // A partir de les 19 cada 2 minuts demanem les comandes a WooCommerce
-        const getComandesRealitzades = cron.schedule('*/2 * * * *',function(cron){
+        cron.schedule('*/2 * * * *',function(cron){
             console.log('running a task each 2 minutes!!!');
             let pendingOrders = [];
             let processingOrdersToProcess = [];
@@ -153,12 +153,9 @@ app.listen(8085, () => {
     });
 
 
-    const tancamentTenda = cron.schedule('0 30 22 * * *',function(cron){
+    cron.schedule('0 30 22 * * *',function(cron){
         console.log('--------- TANCANT TENDA VIRTUAL ------------');
         aperturaTenda.stop();
-        getComandesRealitzades.stop();
     })
-
-
     
 })
