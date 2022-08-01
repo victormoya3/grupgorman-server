@@ -92,7 +92,7 @@ class TicketCompraClient {
     comensals = 'Comensals:';
     venta = 'Venta - Comanda';
 
-    footerBusinessInfo = 'Mito Sushi';
+    footerBusinessInfo = 'Gorman Restauració S.L.U';
     footerCIFNIF = 'CIF/NIF:';
     footerSerialFactura = 'Serie de Factura:';
     footerNumeroFactura = 'Numero de Factura:';
@@ -105,7 +105,7 @@ class TicketCompraClient {
         this.printerMito = printer;
         this.printerMito.clear();
         this.mitoOrderItems = orderItems;
-       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order);
+       if(order != undefined && orderItems.length > 0) this.executeCompra(order);
        //else this.executeTestCompraMito();
     }
 
@@ -158,8 +158,8 @@ class TicketCompraClient {
         }
     }
 
-    async executeCompraMito(newOrder){
-        //console.log('**************** MITO TICKET NOVA COMPRA ****************');
+    async executeCompra(newOrder){
+        //console.log('**************** GORMAN TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
@@ -380,8 +380,10 @@ class TicketCompraClient {
         //this.printerMito.printImage();
         this.printerMito.newLine();
         this.printerMito.alignCenter();
-        this.printerMito.setTextSize(1,1);
+        this.printerMito.setTextSize(2,2);
         this.printerMito.println(this.businessName);
+        this.executePrint();
+        this.printerMito.clear();
         // TICKET BUSINESS INFO
         this.printerMito.newLine();
         this.printerMito.alignCenter();
@@ -409,7 +411,7 @@ class TicketCompraClient {
         this.printerMito.leftRight(this.venta,orderObj.date_created);
         // TICKET ORDER ITEMS TABLE INFO
         this.printerMito.newLine();
-        this.printerMito.println('--------------------------------');
+        this.printerMito.drawLine();
         if(orderObj.line_items.length > 0){
             let filaArray = [];
             let tableObj = {
@@ -487,11 +489,16 @@ class TicketCompraClient {
 
                
         }
+
+        this.executePrint();
+        this.printerMito.clear();
         this.printerMito.newLine();
-        this.printerMito.println('--------------------------------');
+        this.printerMito.drawLine();
         this.printerMito.bold(true);
         this.printerMito.setTextSize(2,2);
         this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
+        this.executePrint();
+        this.printerMito.clear();
         this.printerMito.bold(false);
         this.printerMito.setTextSize(1,1);
         // TICKET FOOTER INFO
@@ -510,42 +517,42 @@ class TicketCompraClient {
         this.executePrint();
     }
 
-    getComandaCalents(platsCalents) {
-        let platsCalentsToPrint = [];
-        platsCalents.forEach((platC)=>{
-            if(this.MITO_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
-        })
-        //console.log('platsCalentsMito -->', platsCalentsToPrint)
+    // getComandaCalents(platsCalents) {
+    //     let platsCalentsToPrint = [];
+    //     platsCalents.forEach((platC)=>{
+    //         if(this.MITO_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
+    //     })
+    //     //console.log('platsCalentsMito -->', platsCalentsToPrint)
 
-        let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
-        //console.log(platsCalentsMito);
-        setTimeout(() => {
-            this.getComandaFreds(this.mitoOrderItems);
-        },3000)
-    }
+    //     let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
+    //     //console.log(platsCalentsMito);
+    //     setTimeout(() => {
+    //         this.getComandaFreds(this.mitoOrderItems);
+    //     },3000)
+    // }
 
-    getComandaFreds(platsFreds){
-        let platsFredsToPrint = [];
-        platsFreds.forEach((platF)=>{
-            if(this.MITO_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
-        })
-        //console.log('platsFredsMito -->', platsFredsToPrint)
-        let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
-        //console.log(platsFredsMito);
-        setTimeout(() => {
-            this.getComandaSala(this.mitoOrderItems);
-        },3000)  
-    }
+    // getComandaFreds(platsFreds){
+    //     let platsFredsToPrint = [];
+    //     platsFreds.forEach((platF)=>{
+    //         if(this.MITO_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
+    //     })
+    //     //console.log('platsFredsMito -->', platsFredsToPrint)
+    //     let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
+    //     //console.log(platsFredsMito);
+    //     setTimeout(() => {
+    //         this.getComandaSala(this.mitoOrderItems);
+    //     },3000)  
+    // }
 
-    getComandaSala(begudes){
-        let begudesToPrint = [];
-        begudes.forEach((beg)=>{
-            if(this.MITO_SKU_BEGUDES.includes(beg.sku)) begudesToPrint.push(beg);
-        })
-        console.log('begudes mito -->', begudesToPrint)
-        //let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
-        //console.log(platsFredsBruna);
-    }
+    // getComandaSala(begudes){
+    //     let begudesToPrint = [];
+    //     begudes.forEach((beg)=>{
+    //         if(this.MITO_SKU_BEGUDES.includes(beg.sku)) begudesToPrint.push(beg);
+    //     })
+    //     console.log('begudes mito -->', begudesToPrint)
+    //     //let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
+    //     //console.log(platsFredsBruna);
+    // }
 }
 
 module.exports = TicketCompraClient;
