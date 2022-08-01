@@ -29,7 +29,7 @@ app.listen(8085, () => {
         encoding : 'utf-8'
     })
 
-    const aperturaTenda = cron.schedule('0 40 21 * * *', function(cronI) {
+    const aperturaTenda = cron.schedule('0 50 21 * * *', function(cronI) {
         console.log('--------- OBRINT TENDA VIRTUAL ------------');
         // A partir de les 19 cada 2 minuts demanem les comandes a WooCommerce
         cron.schedule('*/2 * * * *',function(cron){
@@ -132,8 +132,8 @@ app.listen(8085, () => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
                         WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
-                            console.log('ORDER OBJ FROM WC API:', res.toJSON().body);
-                            const order = res.toJSON().body;
+                            console.log('ORDER OBJ FROM WC API:', JSON.parse(res.toJSON().body));
+                            const order = JSON.parse(res.toJSON().body);
                             if (order === null) { return; }
                             new NewOrder(order, WooCommerce);
                             // order.meta_data.forEach((customField) => {
@@ -142,7 +142,7 @@ app.listen(8085, () => {
                         })
     
                         WooCommerce.getAsync('orders/'+ printOrder.id + '/notes').then((res) => {
-                            console.log('ORDER NOTES OBJ FROM WC API:', res.toJSON().body);
+                            console.log('ORDER NOTES OBJ FROM WC API:', JSON.parse(res.toJSON().body));
                         })
                         
                     })
