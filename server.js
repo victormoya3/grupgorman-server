@@ -133,8 +133,8 @@ app.listen(8085, () => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
                         WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
-                            console.log('ORDER OBJ FROM WC API:', JSON.parse(res.toJSON()));
-                            const order = JSON.parse(res.toJSON().body);
+                            console.log('ORDER OBJ FROM WC API:', res.toJSON().body);
+                            const order = res.toJSON().body;
                             if (order === null) { return; }
                             // new NewOrder(order, WooCommerce);
                             order.meta_data.forEach((customField) => {
