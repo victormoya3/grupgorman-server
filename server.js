@@ -23,13 +23,13 @@ app.listen(8085, () => {
         consumerKey : 'ck_7de1ccdc07994b46f8229ff38d6827463275ffde',
         consumerSecret : 'cs_0f640b36b58bd9d7698329405be23665e739ed9f',
         wpAPI : true,
-        version : 'wc/v1',
+        version : 'wc/v3',
         verifySsl : false,
         queryStringAuth : true,
         encoding : 'utf-8'
     })
 
-    const aperturaTenda = cron.schedule('0 0 19 * * *', function(cronI) {
+    // const aperturaTenda = cron.schedule('0 0 19 * * *', function(cronI) {
         console.log('--------- OBRINT TENDA VIRTUAL ------------');
         // A partir de les 19 cada 2 minuts demanem les comandes a WooCommerce
         const comandes = cron.schedule('*/2 * * * *',function(cron){
@@ -45,8 +45,9 @@ app.listen(8085, () => {
             let trashOrders = [];
             let failedOrders = [];
     
-            WooCommerce.getAsync('orders').then(function(result) {
-                
+            WooCommerce.get('orders').then(function(result) {
+                console.log('ORDERS ',result);
+                // console.log('ORDERS ',result);
                 const orders = JSON.parse(result.toJSON().body);
                 orders.forEach((orderItem,i)=>{
                     //let newWooCommerceOrder = new WooCommerceOrder()
@@ -132,7 +133,7 @@ app.listen(8085, () => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
                         WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
-                            console.log('ORDER OBJ FROM WC API:', JSON.parse(res.toJSON().body));
+                            console.log('ORDER OBJ FROM WC API:', JSON.parse(res.toJSON()));
                             const order = JSON.parse(res.toJSON().body);
                             if (order === null) { return; }
                             new NewOrder(order, WooCommerce);
@@ -157,11 +158,11 @@ app.listen(8085, () => {
             comandes.stop();
         })
 
-    });
+    // });
 
     cron.schedule('0 30 22 * * *',function(cron){
         console.log('--------- TANCANT TENDA VIRTUAL ------------');
-        aperturaTenda.stop();
+        // aperturaTenda.stop();
     })
     
 })
