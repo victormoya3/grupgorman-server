@@ -44,8 +44,8 @@ class TicketCalentBruna {
 
     executeCalentsBruna(plats){
         console.log('**************** BRUNA TICKET CALENTS ****************');
-        console.log(plats);
-        console.log('***********************************************************')
+        // console.log(plats);
+        // console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         // CALENTS TITOL
 
@@ -95,7 +95,7 @@ class TicketCalentBruna {
             let _that = this;
 
             plats.forEach(function(item){
-                console.log('order item',item);
+                // console.log('order item',item);
                 filaArray = [];
                 tableObj = {};
 

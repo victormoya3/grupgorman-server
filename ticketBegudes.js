@@ -45,8 +45,8 @@ class TicketBegudes {
 
     executeBegudes(begudes){
         console.log('**************** BEGUDES TICKET ****************');
-        console.log(plats);
-        console.log('***********************************************************')
+        // console.log(plats);
+        // console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerBegudes.newLine();
         this.printerBegudes.alignCenter();

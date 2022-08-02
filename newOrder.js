@@ -157,7 +157,7 @@ class NewOrder {
 
     generateTicketsForMitoAndBruna(order){
 
-        console.log('order execute mito or bruna process', order)
+        // console.log('order execute mito or bruna process', order)
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items, this.MITO_SKU_LIST);
         this.brunaOrderItems = this.filterValuesFromLocation(order.line_items, this.BRUNA_SKU_LIST);
         this.begudes = this.filterValuesFromLocation(order.line_items, this.begudesSKUs);

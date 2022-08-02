@@ -4,8 +4,8 @@ const Printer = require('printer');
 
 class TicketCompraClient {
 
-    printerMito;
-    mitoOrderItems;
+    printer;
+    orderItems;
     
     MITO_SKU_FRED = [
         '01', // Edamamme
@@ -50,6 +50,7 @@ class TicketCompraClient {
         '141', // Uramaki Alvocat amb ceba, llagosti tempuritzat, salsa fruita passio i coco
         '144' // Uramaki de llagosti en tempura, mzclum, mermelada maduixa
     ];
+
     MITO_SKU_CALENT = [
         '04', // Yakisoba Verdures
         '05', // Gyozas Verdures
@@ -98,13 +99,13 @@ class TicketCompraClient {
     footerNumeroFactura = 'Numero de Factura:';
 
     constructor(order,orderItems,printer){
-        console.log('**** MITO PRINTING CLASS ********');
+        console.log('**** GRUP GORMAN ORDER PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
-        this.printerMito = printer;
-        this.printerMito.clear();
-        this.mitoOrderItems = orderItems;
+        this.printer = printer;
+        this.printer.clear();
+        this.orderItems = orderItems;
        if(order != undefined && orderItems.length > 0) this.executeCompra(order);
        //else this.executeTestCompraMito();
     }
@@ -112,7 +113,7 @@ class TicketCompraClient {
     executePrint(){
 
         let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
-        console.log('********************** EPSON_TM-m30II-H Printer Mito process **********************');
+        console.log('********************** EPSON_TM-m30II-H Printer Order process **********************');
         //console.log(epsonPrinter);
 
         try{
@@ -126,7 +127,7 @@ class TicketCompraClient {
             }
 
             Printer.printDirect({
-                data: this.printerMito.getBuffer(),
+                data: this.printer.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
                 type: 'RAW',
                 success: function (jobID) {
@@ -141,20 +142,20 @@ class TicketCompraClient {
             })                      
 
         } catch(printErrorException) {
-            throw new Error('[EPSON Print] Error printing Mito process: ', printErrorException);
+            throw new Error('[EPSON Print] Error printing Order process: ', printErrorException);
         }
 
     }
 
     async executeTestCompraMito(){
         try {
-            console.log('********************** MITO TICKET EMPTY ******************');
-            //this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********');
+            console.log('********************** ORDER TICKET EMPTY ******************');
+            //this.printer.print('***** GrupGorman MITO COMPRA TICKET ********');
             //console.log('********************** EXECUTING PRINT PROCESS ******************');
-            //console.log(this.printerMito.print('***** GrupGorman MITO COMPRA TICKET ********'));
+            //console.log(this.printer.print('***** GrupGorman MITO COMPRA TICKET ********'));
             //console.log('******************************************************************');
         } catch(printError){
-            throw new Error('[EPSON Print] Error printing Mito process: ', printError);
+            throw new Error('[EPSON Print] Error printing order process: ', printError);
         }
     }
 
@@ -170,248 +171,248 @@ class TicketCompraClient {
     generateRawTicket(orderObj){
         console.log('GENERATING TICKET FOR ORDER :',orderObj.id);
         // TEXT SIZE ON PRINT TEST
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(1,1);
-        // this.printerMito.println('SIZE 1,1');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(1,2);
-        // this.printerMito.println('SIZE 1,2');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(1,3);
-        // this.printerMito.println('SIZE 1,3');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(1,4);
-        // this.printerMito.println('SIZE 1,4');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(1,5);
-        // this.printerMito.println('SIZE 1,5');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(1,6);
-        // this.printerMito.println('SIZE 1,6');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(1,7);
-        // this.printerMito.println('SIZE 1,7');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(1,1);
+        // this.printer.println('SIZE 1,1');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(1,2);
+        // this.printer.println('SIZE 1,2');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(1,3);
+        // this.printer.println('SIZE 1,3');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(1,4);
+        // this.printer.println('SIZE 1,4');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(1,5);
+        // this.printer.println('SIZE 1,5');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(1,6);
+        // this.printer.println('SIZE 1,6');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(1,7);
+        // this.printer.println('SIZE 1,7');
 
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(2,1);
-        // this.printerMito.println('SIZE 2,1');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(2,2);
-        // this.printerMito.println('SIZE 2,2');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(2,3);
-        // this.printerMito.println('SIZE 2,3');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(2,4);
-        // this.printerMito.println('SIZE 2,4');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(2,5);
-        // this.printerMito.println('SIZE 2,5');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(2,6);
-        // this.printerMito.println('SIZE 2,6');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(2,7);
-        // this.printerMito.println('SIZE 2,7');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(2,1);
+        // this.printer.println('SIZE 2,1');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(2,2);
+        // this.printer.println('SIZE 2,2');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(2,3);
+        // this.printer.println('SIZE 2,3');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(2,4);
+        // this.printer.println('SIZE 2,4');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(2,5);
+        // this.printer.println('SIZE 2,5');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(2,6);
+        // this.printer.println('SIZE 2,6');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(2,7);
+        // this.printer.println('SIZE 2,7');
 
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(3,1);
-        // this.printerMito.println('SIZE 3,1');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(3,2);
-        // this.printerMito.println('SIZE 3,2');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(3,3);
-        // this.printerMito.println('SIZE 3,3');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(3,4);
-        // this.printerMito.println('SIZE 3,4');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(3,5);
-        // this.printerMito.println('SIZE 3,5');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(3,6);
-        // this.printerMito.println('SIZE 3,6');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(3,7);
-        // this.printerMito.println('SIZE 3,7');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(3,1);
+        // this.printer.println('SIZE 3,1');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(3,2);
+        // this.printer.println('SIZE 3,2');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(3,3);
+        // this.printer.println('SIZE 3,3');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(3,4);
+        // this.printer.println('SIZE 3,4');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(3,5);
+        // this.printer.println('SIZE 3,5');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(3,6);
+        // this.printer.println('SIZE 3,6');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(3,7);
+        // this.printer.println('SIZE 3,7');
 
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(4,1);
-        // this.printerMito.println('SIZE 4,1');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(4,2);
-        // this.printerMito.println('SIZE 4,2');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(4,3);
-        // this.printerMito.println('SIZE 4,3');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(4,4);
-        // this.printerMito.println('SIZE 4,4');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(4,5);
-        // this.printerMito.println('SIZE 4,5');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(4,6);
-        // this.printerMito.println('SIZE 4,6');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(4,7);
-        // this.printerMito.println('SIZE 4,7');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(4,1);
+        // this.printer.println('SIZE 4,1');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(4,2);
+        // this.printer.println('SIZE 4,2');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(4,3);
+        // this.printer.println('SIZE 4,3');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(4,4);
+        // this.printer.println('SIZE 4,4');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(4,5);
+        // this.printer.println('SIZE 4,5');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(4,6);
+        // this.printer.println('SIZE 4,6');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(4,7);
+        // this.printer.println('SIZE 4,7');
 
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(5,1);
-        // this.printerMito.println('SIZE 5,1');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(5,2);
-        // this.printerMito.println('SIZE 5,2');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(5,3);
-        // this.printerMito.println('SIZE 5,3');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(5,4);
-        // this.printerMito.println('SIZE 5,4');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(5,5);
-        // this.printerMito.println('SIZE 5,5');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(5,6);
-        // this.printerMito.println('SIZE 5,6');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(5,7);
-        // this.printerMito.println('SIZE 5,7');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(5,1);
+        // this.printer.println('SIZE 5,1');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(5,2);
+        // this.printer.println('SIZE 5,2');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(5,3);
+        // this.printer.println('SIZE 5,3');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(5,4);
+        // this.printer.println('SIZE 5,4');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(5,5);
+        // this.printer.println('SIZE 5,5');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(5,6);
+        // this.printer.println('SIZE 5,6');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(5,7);
+        // this.printer.println('SIZE 5,7');
 
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(6,1);
-        // this.printerMito.println('SIZE 6,1');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(6,2);
-        // this.printerMito.println('SIZE 6,2');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(6,3);
-        // this.printerMito.println('SIZE 6,3');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(6,4);
-        // this.printerMito.println('SIZE 6,4');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(6,5);
-        // this.printerMito.println('SIZE 6,5');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(6,6);
-        // this.printerMito.println('SIZE 6,6');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(6,7);
-        // this.printerMito.println('SIZE 6,7');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(6,1);
+        // this.printer.println('SIZE 6,1');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(6,2);
+        // this.printer.println('SIZE 6,2');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(6,3);
+        // this.printer.println('SIZE 6,3');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(6,4);
+        // this.printer.println('SIZE 6,4');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(6,5);
+        // this.printer.println('SIZE 6,5');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(6,6);
+        // this.printer.println('SIZE 6,6');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(6,7);
+        // this.printer.println('SIZE 6,7');
 
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(7,1);
-        // this.printerMito.println('SIZE 7,1');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(7,2);
-        // this.printerMito.println('SIZE 7,2');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(7,3);
-        // this.printerMito.println('SIZE 7,3');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(7,4);
-        // this.printerMito.println('SIZE 4,4');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(7,5);
-        // this.printerMito.println('SIZE 7,5');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(7,6);
-        // this.printerMito.println('SIZE 7,6');
-        // this.printerMito.newLine();
-        // this.printerMito.alignCenter();
-        // this.printerMito.setTextSize(7,7);
-        // this.printerMito.println('SIZE 7,7');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(7,1);
+        // this.printer.println('SIZE 7,1');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(7,2);
+        // this.printer.println('SIZE 7,2');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(7,3);
+        // this.printer.println('SIZE 7,3');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(7,4);
+        // this.printer.println('SIZE 4,4');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(7,5);
+        // this.printer.println('SIZE 7,5');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(7,6);
+        // this.printer.println('SIZE 7,6');
+        // this.printer.newLine();
+        // this.printer.alignCenter();
+        // this.printer.setTextSize(7,7);
+        // this.printer.println('SIZE 7,7');
         
-        // this.printerMito.cut();
+        // this.printer.cut();
         // Printer Compra Ticket
         // TICKET HEADER
-        this.printerMito.newLine();
-        //this.printerMito.printImage();
-        this.printerMito.newLine();
-        this.printerMito.alignCenter();
-        this.printerMito.setTextSize(2,2);
-        this.printerMito.println(this.businessName);
+        this.printer.newLine();
+        //this.printer.printImage();
+        this.printer.newLine();
+        this.printer.alignCenter();
+        this.printer.setTextSize(2,2);
+        this.printer.println(this.businessName);
         this.executePrint();
-        this.printerMito.clear();
+        this.printer.clear();
         // TICKET BUSINESS INFO
-        this.printerMito.newLine();
-        this.printerMito.alignCenter();
-        this.printerMito.setTextSize(1,1);
-        this.printerMito.println(this.direccioBusiness);
-        // this.printerMito.setTextSize(1,1);
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.codiPostalPobalcio);
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.paisBusiness);
+        this.printer.newLine();
+        this.printer.alignCenter();
+        this.printer.setTextSize(1,1);
+        this.printer.println(this.direccioBusiness);
+        // this.printer.setTextSize(1,1);
+        this.printer.alignCenter();
+        this.printer.println(this.codiPostalPobalcio);
+        this.printer.alignCenter();
+        this.printer.println(this.paisBusiness);
         // TICKET CLIENT INFO
-        this.printerMito.newLine();
-        this.printerMito.alignLeft();
+        this.printer.newLine();
+        this.printer.alignLeft();
         const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
-        this.printerMito.println(orderOwner);
-        this.printerMito.alignLeft();
+        this.printer.println(orderOwner);
+        this.printer.alignLeft();
         const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
-        this.printerMito.println(adrecaOrder);
-        this.printerMito.alignLeft();
-        this.printerMito.println(orderObj?.billing?.phone);
+        this.printer.println(adrecaOrder);
+        this.printer.alignLeft();
+        this.printer.println(orderObj?.billing?.phone);
         // TICKET PURCHASE INFO
-        this.printerMito.newLine();
-        this.printerMito.leftRight(this.purchaseType,this.taula + orderObj.id);
-        this.printerMito.leftRight(this.usuari,this.comensals + '1');
-        this.printerMito.leftRight(this.venta,orderObj.date_created);
+        this.printer.newLine();
+        this.printer.leftRight(this.purchaseType,this.taula + orderObj.id);
+        this.printer.leftRight(this.usuari,this.comensals + '1');
+        this.printer.leftRight(this.venta,orderObj.date_created);
         // TICKET ORDER ITEMS TABLE INFO
-        this.printerMito.newLine();
-        this.printerMito.drawLine();
+        this.printer.newLine();
+        this.printer.drawLine();
         if(orderObj.line_items.length > 0){
             let filaArray = [];
             let tableObj = {
@@ -447,7 +448,7 @@ class TicketCompraClient {
 
             filaArray.push(tableObj);
 
-            this.printerMito.tableCustom(filaArray);
+            this.printer.tableCustom(filaArray);
 
             let filasArray = [];
             let _that = this;
@@ -483,7 +484,7 @@ class TicketCompraClient {
 
                 filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
-                _that.printerMito.tableCustom(filaArray); 
+                _that.printer.tableCustom(filaArray); 
 
             })  
 
@@ -491,28 +492,28 @@ class TicketCompraClient {
         }
 
         this.executePrint();
-        this.printerMito.clear();
-        this.printerMito.newLine();
-        this.printerMito.drawLine();
-        this.printerMito.bold(true);
-        this.printerMito.setTextSize(2,2);
-        this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
+        this.printer.clear();
+        this.printer.newLine();
+        this.printer.drawLine();
+        this.printer.bold(true);
+        this.printer.setTextSize(2,2);
+        this.printer.leftRight('TOTAL CON IVA', orderObj.total);
         this.executePrint();
-        this.printerMito.clear();
-        this.printerMito.bold(false);
-        this.printerMito.setTextSize(1,1);
+        this.printer.clear();
+        this.printer.bold(false);
+        this.printer.setTextSize(1,1);
         // TICKET FOOTER INFO
-        this.printerMito.newLine();
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.footerBusinessInfo);
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.footerCIFNIF);
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.footerSerialFactura + orderObj.cart_hash);
-        this.printerMito.alignCenter();
-        this.printerMito.println(this.footerNumeroFactura + orderObj.id);
+        this.printer.newLine();
+        this.printer.alignCenter();
+        this.printer.println(this.footerBusinessInfo);
+        this.printer.alignCenter();
+        this.printer.println(this.footerCIFNIF);
+        this.printer.alignCenter();
+        this.printer.println(this.footerSerialFactura + orderObj.cart_hash);
+        this.printer.alignCenter();
+        this.printer.println(this.footerNumeroFactura + orderObj.id);
         //Partial Cut for other tickets
-        this.printerMito.cut();
+        this.printer.cut();
 
         this.executePrint();
     }
@@ -524,7 +525,7 @@ class TicketCompraClient {
     //     })
     //     //console.log('platsCalentsMito -->', platsCalentsToPrint)
 
-    //     let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
+    //     let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printer);
     //     //console.log(platsCalentsMito);
     //     setTimeout(() => {
     //         this.getComandaFreds(this.mitoOrderItems);
@@ -537,7 +538,7 @@ class TicketCompraClient {
     //         if(this.MITO_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
     //     })
     //     //console.log('platsFredsMito -->', platsFredsToPrint)
-    //     let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
+    //     let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printer);
     //     //console.log(platsFredsMito);
     //     setTimeout(() => {
     //         this.getComandaSala(this.mitoOrderItems);
