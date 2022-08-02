@@ -45,7 +45,7 @@ app.listen(8085, () => {
             let trashOrders = [];
             let failedOrders = [];
     
-            WooCommerce.get('orders').then(function(result) {
+            WooCommerce.getAsync('orders').then(function(result) {
                 console.log('ORDERS ',result);
                 // console.log('ORDERS ',result);
                 const orders = JSON.parse(result.toJSON().body);
