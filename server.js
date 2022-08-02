@@ -46,9 +46,9 @@ app.listen(8085, () => {
             let failedOrders = [];
     
             WooCommerce.getAsync('orders').then(function(result) {
-                console.log('ORDERS ',result);
+                console.log('ORDERS ',result.toJSON());
                 // console.log('ORDERS ',result);
-                const orders = JSON.parse(result.toJSON().body);
+                const orders = result.toJSON().body;
                 orders.forEach((orderItem,i)=>{
                     //let newWooCommerceOrder = new WooCommerceOrder()
                     console.log('ORDER ',i, ' - STATUS :', orderItem.status);
@@ -136,7 +136,7 @@ app.listen(8085, () => {
                             console.log('ORDER OBJ FROM WC API:', JSON.parse(res.toJSON()));
                             const order = JSON.parse(res.toJSON().body);
                             if (order === null) { return; }
-                            new NewOrder(order, WooCommerce);
+                            // new NewOrder(order, WooCommerce);
                             order.meta_data.forEach((customField) => {
                                 console.log('CUSTOM FIELD ON ORDER :', customField);
                             });
