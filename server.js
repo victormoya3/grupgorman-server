@@ -29,7 +29,7 @@ app.listen(8085, () => {
         encoding : 'utf-8'
     })
 
-    // const aperturaTenda = cron.schedule('0 0 19 * * *', function(cronI) {
+    const aperturaTenda = cron.schedule('0 0 19 * * *', function(cronI) {
         console.log('--------- OBRINT TENDA VIRTUAL ------------');
         // A partir de les 19 cada 2 minuts demanem les comandes a WooCommerce
         const comandes = cron.schedule('*/2 * * * *',function(cron){
@@ -158,11 +158,11 @@ app.listen(8085, () => {
             comandes.stop();
         })
 
-    // });
+    });
 
     cron.schedule('0 30 22 * * *',function(cron){
         console.log('--------- TANCANT TENDA VIRTUAL ------------');
-        // aperturaTenda.stop();
+        aperturaTenda.stop();
     })
     
 })
