@@ -157,36 +157,36 @@ class NewOrder {
 
     generateTicketsForMitoAndBruna(order){
 
-        // console.log('order execute mito or bruna process', order)
+        console.log('order execute grup gorman process', order)
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items, this.MITO_SKU_LIST);
         this.brunaOrderItems = this.filterValuesFromLocation(order.line_items, this.BRUNA_SKU_LIST);
         this.begudes = this.filterValuesFromLocation(order.line_items, this.begudesSKUs);
 
         if ( order.line_items.length > 0){
-            const ticketClient = new TicketCompraClient(order, order.line_items, this.printer);
+            // const ticketClient = new TicketCompraClient(order, order.line_items, this.printer);
             setTimeout(()=>{
                 if(this.mitoOrderItems.length > 0){
-                    let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
+                    // let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
                 }
             },3000)
     
             setTimeout(()=>{
                 if(this.brunaOrderItems.length > 0){
-                    let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
+                    // let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
                 }
                 
             },8000)
     
             setTimeout(()=>{
                 if(this.begudes.length > 0){
-                    let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
+                    // let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
                 }
                 
             },11000);
     
             setTimeout(()=>{
                 if (order !== {}){
-                    this.actualitzarEstatComanda(order);
+                    // this.actualitzarEstatComanda(order);
                 }
                 
             },18000)
@@ -218,7 +218,7 @@ class NewOrder {
         const updateCallback = (response) => {
             console.log('*** UPDATE RESPONSE ***')
             console.log(response);
-            console.log(comanda);
+            // console.log(comanda);
         }
         this.WooCommerceAPI.put("orders/" + comanda.id, data, updateCallback);
     }

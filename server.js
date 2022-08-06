@@ -29,7 +29,7 @@ app.listen(8085, () => {
         encoding : 'utf-8'
     })
 
-    const aperturaTenda = cron.schedule('0 0 19 * * *', function(cronI) {
+    // const aperturaTenda = cron.schedule('0 0 19 * * *', function(cronI) {
         console.log('--------- OBRINT TENDA VIRTUAL ------------');
         // A partir de les 19 cada 2 minuts demanem les comandes a WooCommerce
         const comandes = cron.schedule('*/2 * * * *',function(cronI){
@@ -44,8 +44,11 @@ app.listen(8085, () => {
             let refundedOrders = [];
             let trashOrders = [];
             let failedOrders = [];
-    
-            WooCommerce.getAsync('orders').then(function(result) {
+            
+            // WooCommerce.get('orders').then((res) => {
+            //     console.log('res sync orders:',JSON.parse(res));
+            // })
+            WooCommerce.getAsync('orders?status=processing').then(function(result) {
                 // console.log('ORDERS ',result.toJSON());
                 // console.log('ORDERS ',result);
                 const orders = JSON.parse(result.toJSON().body);
@@ -132,19 +135,20 @@ app.listen(8085, () => {
                     processingOrdersToProcess.forEach((printOrder,k) => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
-                        WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
-                            console.log('ORDER OBJ FROM WC API:', res.toJSON().body);
-                            const order = JSON.parse(res.toJSON().body);
-                            if (order === null) { return; }
-                            new NewOrder(order, WooCommerce);
-                            order.meta_data.forEach((customField) => {
-                                console.log('CUSTOM FIELD ON ORDER :', customField);
-                            });
-                        })
+                        new NewOrder(printOrder, WooCommerce);
+                        // WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
+                        //     // console.log('ORDER OBJ FROM WC API:', res.toJSON().body);
+                        //     const order = JSON.parse(res.toJSON().body);
+                        //     if (order === null) { return; }
+                        //     // new NewOrder(order, WooCommerce);
+                        //     order.meta_data.forEach((customField) => {
+                        //         // console.log('CUSTOM FIELD ON ORDER :', customField);
+                        //     });
+                        // })
     
-                        WooCommerce.getAsync('orders/'+ printOrder.id + '/notes').then((res) => {
-                            console.log('ORDER NOTES OBJ FROM WC API:', JSON.parse(res.toJSON().body));
-                        })
+                        // WooCommerce.getAsync('orders/'+ printOrder.id + '/notes').then((res) => {
+                        //     // console.log('ORDER NOTES OBJ FROM WC API:', JSON.parse(res.toJSON().body));
+                        // })
                         
                     })
                 }
@@ -158,7 +162,7 @@ app.listen(8085, () => {
             comandes.stop();
         })
 
-    });
+    // });
 
     cron.schedule('0 30 22 * * *',function(cron){
         console.log('--------- TANCANT TENDA VIRTUAL ------------');
