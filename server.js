@@ -135,6 +135,9 @@ app.listen(8085, () => {
                     processingOrdersToProcess.forEach((printOrder,k) => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
+                        if(k === processingOrdersToProcess - 1){
+                            console.log('ORDER JSON ------------- ',printOrder);
+                        }
                         new NewOrder(printOrder, WooCommerce);
                         // WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
                         //     // console.log('ORDER OBJ FROM WC API:', res.toJSON().body);

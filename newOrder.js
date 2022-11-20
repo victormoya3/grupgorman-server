@@ -157,7 +157,7 @@ class NewOrder {
 
     generateTicketsForMitoAndBruna(order){
 
-        console.log('order execute grup gorman process', order)
+        // console.log('order execute grup gorman process', order)
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items, this.MITO_SKU_LIST);
         this.brunaOrderItems = this.filterValuesFromLocation(order.line_items, this.BRUNA_SKU_LIST);
         this.begudes = this.filterValuesFromLocation(order.line_items, this.begudesSKUs);
@@ -216,8 +216,8 @@ class NewOrder {
         };
 
         const updateCallback = (response) => {
-            console.log('*** UPDATE RESPONSE ***')
-            console.log(response);
+            // console.log('*** UPDATE RESPONSE ***')
+            // console.log(response);
             // console.log(comanda);
         }
         this.WooCommerceAPI.put("orders/" + comanda.id, data, updateCallback);

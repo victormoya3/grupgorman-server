@@ -89,7 +89,7 @@ class TicketCompraMito {
     purchaseType = 'FACTURA SIMPLICIFICADA GENERAL';
     taula = 'Taula:';
     usuari = 'Usuari Generic';
-    comensals = 'Comensals:';
+    comensals = 'Comensals: ';
     venta = 'Venta - Comanda';
 
     footerBusinessInfo = 'Mito Sushi';
@@ -392,24 +392,30 @@ class TicketCompraMito {
         this.printerMito.alignCenter();
         this.printerMito.println(this.paisBusiness);
         // TICKET CLIENT INFO
-        this.printerMito.newLine();
-        this.printerMito.alignLeft();
-        const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
-        this.printerMito.println(orderOwner);
-        this.printerMito.alignLeft();
-        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
-        this.printerMito.println(adrecaOrder);
-        this.printerMito.alignLeft();
-        this.printerMito.println(orderObj?.billing?.phone);
-        // TICKET PURCHASE INFO
-        this.printerMito.newLine();
-        this.printerMito.leftRight(this.purchaseType,this.taula + orderObj.id);
-        this.printerMito.leftRight(this.usuari,this.comensals + '1');
-        this.printerMito.leftRight(this.venta,orderObj.date_created);
+        if (this.mitoOrderItems.meta_data.length > 0){
+            // aqui tenemos que recoger toda la informacion del usuario y el pedido a mostrar que no tenga nada que ver con la comida
+            // purchaseType, taula, usuari, comensals, venta
+        } else {
+            this.printerMito.newLine();
+            this.printerMito.alignLeft();
+            const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
+            this.printerMito.println(orderOwner);
+            this.printerMito.alignLeft();
+            const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+            this.printerMito.println(adrecaOrder);
+            this.printerMito.alignLeft();
+            this.printerMito.println(orderObj?.billing?.phone);
+            // TICKET PURCHASE INFO
+            this.printerMito.newLine();
+            this.printerMito.leftRight(this.purchaseType,this.taula + orderObj.id);
+            this.printerMito.leftRight(this.usuari,this.comensals + '1');
+            this.printerMito.leftRight(this.venta,orderObj.date_created);
+        }
+        
         // TICKET ORDER ITEMS TABLE INFO
         this.printerMito.newLine();
         this.printerMito.println('--------------------------------');
-        if(orderObj.line_items.length > 0){
+        if (orderObj.line_items.length > 0){
             let filaArray = [];
             let tableObj = {
                 text : '',
@@ -483,6 +489,31 @@ class TicketCompraMito {
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerMito.tableCustom(filaArray); 
 
+                // condicional para saber si hay meta datos associados al elemento del pedido o no
+                if (item.meta_data.length > 0){
+
+                    let subTableObj = {
+                        text : '',
+                        align : '',
+                        width : ''
+                    };
+                    let subFilaArray = []
+                    item.forEach(function(metaData){
+                        console.log('order metaData',metaData);
+                        // aplicar
+                        subFilaArray = [];
+                        subTableObj = {};
+        
+                        subTableObj.text = item.quantity.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printerMito.tableCustom(subFilaArray); 
+        
+                    }) 
+                }
             })  
 
                
