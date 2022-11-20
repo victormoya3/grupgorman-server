@@ -135,7 +135,7 @@ app.listen(8085, () => {
                     processingOrdersToProcess.forEach((printOrder,k) => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
-                        if(k === processingOrdersToProcess - 1){
+                        if(k === (processingOrdersToProcess - 1)){
                             console.log('ORDER JSON ------------- ',printOrder);
                         }
                         new NewOrder(printOrder, WooCommerce);
