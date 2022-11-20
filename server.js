@@ -137,6 +137,9 @@ app.listen(8085, () => {
                         // this.getOrder(printOrder);
                         if(k === (processingOrdersToProcess.length - 1)){
                             console.log('ORDER JSON ------------- ',printOrder);
+                            printOrder.line_items.forEach((producte) => {
+                                console.log('producte metaData: ', producte.meta_data);
+                            })
                         }
                         new NewOrder(printOrder, WooCommerce);
                         // WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {

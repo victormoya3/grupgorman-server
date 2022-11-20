@@ -486,6 +486,32 @@ class TicketCompraClient {
                 //console.log(' filaArray to push ', filaArray)
                 _that.printer.tableCustom(filaArray); 
 
+                // condicional para saber si hay meta datos associados al elemento del pedido o no
+                if (item.meta_data.length > 0){
+
+                    let subTableObj = {
+                        text : '',
+                        align : '',
+                        width : ''
+                    };
+                    let subFilaArray = []
+                    item.forEach(function(metaData){
+                        console.log('order metaData',metaData);
+                        // aplicar
+                        subFilaArray = [];
+                        subTableObj = {};
+        
+                        subTableObj.text = item.quantity.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printer.tableCustom(subFilaArray); 
+        
+                    }) 
+                }
+
             })  
 
                
