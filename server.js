@@ -135,7 +135,7 @@ app.listen(8085, () => {
                     processingOrdersToProcess.forEach((printOrder,k) => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
-                        if(k === (processingOrdersToProcess.length - 1)){
+                        if(k === 0){
                             console.log('ORDER JSON ------------- ',printOrder);
                             printOrder.line_items.forEach((producte) => {
                                 console.log('producte metaData: ', producte.meta_data);
