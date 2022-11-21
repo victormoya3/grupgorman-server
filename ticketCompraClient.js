@@ -495,7 +495,7 @@ class TicketCompraClient {
                         width : ''
                     };
                     let subFilaArray = []
-                    item.forEach(function(metaData){
+                    item.meta_data.forEach(function(metaData){
                         console.log('order metaData',metaData);
                         // aplicar
                         subFilaArray = [];
@@ -511,7 +511,7 @@ class TicketCompraClient {
 
                         subFilaArray = [];
                         subTableObj = {};
-                        
+
                         subTableObj.text = metaData.value.toString();
                         subTableObj.align = 'LEFT';
                         // subTableObj.width = '0.1';
