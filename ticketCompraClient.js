@@ -384,6 +384,7 @@ class TicketCompraClient {
         this.printer.alignCenter();
         this.printer.setTextSize(2,2);
         this.printer.println(this.businessName);
+
         const companyCallback = (jobId) => {
             console.log('retornant jobId: ', jobId, ' al proces de generacio del ticket, continuem...');
             this.printer.clear();
@@ -529,8 +530,8 @@ class TicketCompraClient {
                 
             }
 
-            const comandaCallback = (jobId) => {
-                console.log('retornant jobId - 2: ', jobId, ' al proces de generacio del ticket, continuem...');
+            const comandaCallback = (jobId2) => {
+                console.log('retornant jobId - 2: ', jobId2, ' al proces de generacio del ticket, continuem...');
                 this.printer.clear();
                 this.printer.newLine();
                 this.printer.drawLine();
@@ -554,11 +555,12 @@ class TicketCompraClient {
                 //Partial Cut for other tickets
                 this.printer.cut();
 
-                const compraCallback = (jobId) => {
-                    console.log('retornant jobId - 3: ', jobId, ' al proces de generacio del ticket, finalitzem!');
+                const compraCallback = (jobId3) => {
+                    console.log('retornant jobId - 3: ', jobId3, ' al proces de generacio del ticket, finalitzem!');
                 }
                 this.executePrint(compraCallback);
             }
+
             this.executePrint(comandaCallback);
         }
 
