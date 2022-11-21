@@ -163,7 +163,7 @@ class NewOrder {
         this.begudes = this.filterValuesFromLocation(order.line_items, this.begudesSKUs);
 
         if ( order.line_items.length > 0){
-            // const ticketClient = new TicketCompraClient(order, order.line_items, this.printer);
+            const ticketClient = new TicketCompraClient(order, order.line_items, this.printer);
             setTimeout(()=>{
                 if(this.mitoOrderItems.length > 0){
                     // let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);

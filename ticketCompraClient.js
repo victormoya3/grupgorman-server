@@ -501,13 +501,24 @@ class TicketCompraClient {
                         subFilaArray = [];
                         subTableObj = {};
         
-                        subTableObj.text = item.quantity.toString();
+                        subTableObj.text = metaData.key.toString();
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.1';
+                        // subTableObj.width = '0.1';
                         subFilaArray.push(subTableObj);
         
                         //console.log(' filaArray to push ', filaArray)
                         _that.printer.tableCustom(subFilaArray); 
+
+                        subFilaArray = [];
+                        subTableObj = {};
+                        
+                        subTableObj.text = metaData.value.toString();
+                        subTableObj.align = 'LEFT';
+                        // subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printer.tableCustom(subFilaArray);
         
                     }) 
                 }
