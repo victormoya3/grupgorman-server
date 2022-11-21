@@ -140,8 +140,8 @@ app.listen(8085, () => {
                             printOrder.line_items.forEach((producte) => {
                                 console.log('producte metaData: ', producte.meta_data);
                             })
+                            new NewOrder(printOrder, WooCommerce);
                         }
-                        new NewOrder(printOrder, WooCommerce);
                         // WooCommerce.getAsync('orders/' + printOrder.id).then((res) => {
                         //     // console.log('ORDER OBJ FROM WC API:', res.toJSON().body);
                         //     const order = JSON.parse(res.toJSON().body);
