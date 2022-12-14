@@ -141,6 +141,9 @@ class TicketCompraClient {
                 data: this.printer.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
                 type: 'RAW',
+                options: {
+                    width: 50
+                },
                 success: function (jobID) {
                     //console.log('***** EPSON PRINTER ************');
                     //console.log(epsonPrinter)
@@ -150,11 +153,10 @@ class TicketCompraClient {
                 error: function (err) {
                     console.log(err);
                 }
-            }, {
-                width: 50
             })                      
 
         } catch(printErrorException) {
+            console.log('printErrorException: ', printErrorException);
             throw new Error('[EPSON Print] Error printing Order process: ', printErrorException);
         }
 
@@ -168,6 +170,7 @@ class TicketCompraClient {
             //console.log(this.printer.print('***** GrupGorman MITO COMPRA TICKET ********'));
             //console.log('******************************************************************');
         } catch(printError){
+            console.log('error: ', printError);
             throw new Error('[EPSON Print] Error printing order process: ', printError);
         }
     }
