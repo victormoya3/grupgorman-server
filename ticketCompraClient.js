@@ -142,7 +142,7 @@ class TicketCompraClient {
                 printer: 'EPSON_TM-m30II-H',
                 type: 'RAW',
                 options: {
-                    width: 50
+                    width: 20
                 },
                 success: function (jobID) {
                     //console.log('***** EPSON PRINTER ************');
