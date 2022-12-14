@@ -150,6 +150,8 @@ class TicketCompraClient {
                 error: function (err) {
                     console.log(err);
                 }
+            }, {
+                width: 50
             })                      
 
         } catch(printErrorException) {
