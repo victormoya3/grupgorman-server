@@ -407,7 +407,7 @@ class TicketCompraClient {
         //this.printer.printImage();
         this.printer.newLine();
         this.printer.alignCenter();
-        this.printer.setTextSize(2,2);
+        this.printer.setTextSize(1,1);
         this.printer.println(this.businessName);
 
         const companyCallback = (jobId) => {
