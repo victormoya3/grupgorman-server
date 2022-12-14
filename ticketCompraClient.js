@@ -435,12 +435,13 @@ class TicketCompraClient {
         this.printer.println(orderObj?.billing?.phone);
         // TICKET PURCHASE INFO
         this.printer.newLine();
-        this.printer.leftRight(this.purchaseType);
+        this.printer.println(this.purchaseType);
         this.printer.newLine();
-        this.printer.leftRight(this.taula + orderObj.id);
-        this.printer.leftRight(this.usuari);
+        this.printer.println(this.taula + orderObj.id);
         this.printer.newLine();
-        this.printer.leftRight(this.comensals);
+        this.printer.println(this.usuari);
+        this.printer.newLine();
+        this.printer.println(this.comensals);
         this.printer.newLine();
         this.printer.leftRight(this.venta,orderObj.date_created);
         // TICKET ORDER ITEMS TABLE INFO
