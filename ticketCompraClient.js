@@ -140,7 +140,7 @@ class TicketCompraClient {
                 data: this.printer.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
                 options: {
-                    width : '25mm'
+                    width : 25
                 },
                 type: 'RAW',
                 success: function (jobID) {
