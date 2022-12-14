@@ -139,9 +139,6 @@ class TicketCompraClient {
             Printer.printDirect({
                 data: this.printer.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
-                options: {
-                    width : 25
-                },
                 type: 'RAW',
                 success: function (jobID) {
                     //console.log('***** EPSON PRINTER ************');
@@ -457,7 +454,7 @@ class TicketCompraClient {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.1';
+            tableObj.width = '0.2';
 
             filaArray.push(tableObj);
 
@@ -471,14 +468,14 @@ class TicketCompraClient {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.6';
+            tableObj.width = '0.3';
 
             filaArray.push(tableObj);
 
             tableObj = {};
             tableObj.text = 'PREU';
             tableObj.align = 'RIGHT';
-            tableObj.width = '0.1';
+            tableObj.width = '0.2';
 
             filaArray.push(tableObj);
 
@@ -494,7 +491,7 @@ class TicketCompraClient {
 
                 tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.1';
+                tableObj.width = '0.2';
                 filaArray.push(tableObj);
 
                 tableObj = {};
@@ -507,14 +504,14 @@ class TicketCompraClient {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.6';
+                tableObj.width = '0.3';
 
                 filaArray.push(tableObj);
 
                 tableObj = {};
                 tableObj.text = item.total;
                 tableObj.align = 'RIGHT';
-                tableObj.width = '0.1';
+                tableObj.width = '0.2';
 
                 filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
