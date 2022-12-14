@@ -120,7 +120,7 @@ class TicketCompraClient {
        //else this.executeTestCompraMito();
     }
 
-    executePrint(cb){
+    executePrint(){
 
         let epsonPrinter = Printer.getPrinter('EPSON_TM-m30II-H');
         console.log('********************** EPSON_TM-m30II-H Printer Order process **********************');
@@ -133,8 +133,7 @@ class TicketCompraClient {
                 // setTimeout(() => {
                 //     this.getComandaCalents(this.mitoOrderItems);
                 // },3000)
-                return cb(jobID)
-
+                // return cb(jobID)
             }
 
             Printer.printDirect({
@@ -412,186 +411,352 @@ class TicketCompraClient {
         this.printer.setTextSize(2,2);
         this.printer.println(this.businessName);
 
-        const companyCallback = (jobId) => {
-            console.log('retornant jobId: ', jobId, ' al proces de generacio del ticket, continuem...');
-            this.printer.clear();
-            // TICKET BUSINESS INFO
-            this.printer.setTextSize(1,1);
-            this.printer.newLine();
-            this.printer.alignCenter();
-            this.printer.println(this.direccioBusiness);
-            // this.printer.setTextSize(1,1);
-            this.printer.alignCenter();
-            this.printer.println(this.codiPostalPobalcio);
-            this.printer.alignCenter();
-            this.printer.println(this.paisBusiness);
-            // TICKET CLIENT INFO
-            this.printer.newLine();
-            this.printer.alignLeft();
-            const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
-            this.printer.println(orderOwner);
-            this.printer.alignLeft();
-            const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
-            this.printer.println(adrecaOrder);
-            this.printer.alignLeft();
-            this.printer.println(orderObj?.billing?.phone);
-            // TICKET PURCHASE INFO
-            this.printer.newLine();
-            this.printer.leftRight(this.purchaseType,this.taula + orderObj.id);
-            this.printer.leftRight(this.usuari,this.comensals);
-            this.printer.leftRight(this.venta,orderObj.date_created);
-            // TICKET ORDER ITEMS TABLE INFO
-            this.printer.newLine();
-            this.printer.drawLine();
-            if(orderObj.line_items.length > 0){
-                let filaArray = [];
-                let tableObj = {
-                    text : '',
-                    align : '',
-                    width : ''
-                }
+        this.printer.setTextSize(1,1);
+        this.printer.newLine();
+        this.printer.alignCenter();
+        this.printer.println(this.direccioBusiness);
+        // this.printer.setTextSize(1,1);
+        this.printer.alignCenter();
+        this.printer.println(this.codiPostalPobalcio);
+        this.printer.alignCenter();
+        this.printer.println(this.paisBusiness);
+        // TICKET CLIENT INFO
+        this.printer.newLine();
+        this.printer.alignLeft();
+        const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
+        this.printer.println(orderOwner);
+        this.printer.alignLeft();
+        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        this.printer.println(adrecaOrder);
+        this.printer.alignLeft();
+        this.printer.println(orderObj?.billing?.phone);
+        // TICKET PURCHASE INFO
+        this.printer.newLine();
+        this.printer.leftRight(this.purchaseType,this.taula + orderObj.id);
+        this.printer.leftRight(this.usuari,this.comensals);
+        this.printer.leftRight(this.venta,orderObj.date_created);
+        // TICKET ORDER ITEMS TABLE INFO
+        this.printer.newLine();
+        this.printer.drawLine();
+        if(orderObj.line_items.length > 0){
+            let filaArray = [];
+            let tableObj = {
+                text : '',
+                align : '',
+                width : ''
+            }
 
-                tableObj.text = 'QTY';
+            tableObj.text = 'QTY';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.1';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'ID';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.2';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'DESC';
+            tableObj.align = 'LEFT';
+            tableObj.width = '0.6';
+
+            filaArray.push(tableObj);
+
+            tableObj = {};
+            tableObj.text = 'PREU';
+            tableObj.align = 'RIGHT';
+            tableObj.width = '0.1';
+
+            filaArray.push(tableObj);
+
+            this.printer.tableCustom(filaArray);
+
+            let filasArray = [];
+            let _that = this;
+
+            orderObj.line_items.forEach(function(item){
+                console.log('order item',item);
+                filaArray = [];
+                tableObj = {};
+
+                tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
                 tableObj.width = '0.1';
-
                 filaArray.push(tableObj);
 
                 tableObj = {};
-                tableObj.text = 'ID';
+                tableObj.text = item.sku;
                 tableObj.align = 'LEFT';
                 tableObj.width = '0.2';
 
                 filaArray.push(tableObj);
 
                 tableObj = {};
-                tableObj.text = 'DESC';
+                tableObj.text = item.name;
                 tableObj.align = 'LEFT';
                 tableObj.width = '0.6';
 
                 filaArray.push(tableObj);
 
                 tableObj = {};
-                tableObj.text = 'PREU';
+                tableObj.text = item.total;
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.1';
 
                 filaArray.push(tableObj);
+                //console.log(' filaArray to push ', filaArray)
+                _that.printer.tableCustom(filaArray); 
 
-                this.printer.tableCustom(filaArray);
+                // condicional para saber si hay meta datos associados al elemento del pedido o no
+                if (item.meta_data.length > 0){
 
-                let filasArray = [];
-                let _that = this;
+                    let subTableObj = {
+                        text : '',
+                        align : '',
+                        width : ''
+                    };
+                    let subFilaArray = []
+                    item.meta_data.forEach(function(metaData){
+                        console.log('order metaData',metaData);
+                        // aplicar
+                        subFilaArray = [];
+                        subTableObj = {};
+        
+                        subTableObj.text = metaData.key.toString();
+                        subTableObj.align = 'LEFT';
+                        // subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printer.tableCustom(subFilaArray); 
 
-                orderObj.line_items.forEach(function(item){
-                    console.log('order item',item);
-                    filaArray = [];
-                    tableObj = {};
+                        subFilaArray = [];
+                        subTableObj = {};
 
-                    tableObj.text = item.quantity.toString();
-                    tableObj.align = 'LEFT';
-                    tableObj.width = '0.1';
-                    filaArray.push(tableObj);
-
-                    tableObj = {};
-                    tableObj.text = item.sku;
-                    tableObj.align = 'LEFT';
-                    tableObj.width = '0.2';
-
-                    filaArray.push(tableObj);
-
-                    tableObj = {};
-                    tableObj.text = item.name;
-                    tableObj.align = 'LEFT';
-                    tableObj.width = '0.6';
-
-                    filaArray.push(tableObj);
-
-                    tableObj = {};
-                    tableObj.text = item.total;
-                    tableObj.align = 'RIGHT';
-                    tableObj.width = '0.1';
-
-                    filaArray.push(tableObj);
-                    //console.log(' filaArray to push ', filaArray)
-                    _that.printer.tableCustom(filaArray); 
-
-                    // condicional para saber si hay meta datos associados al elemento del pedido o no
-                    if (item.meta_data.length > 0){
-
-                        let subTableObj = {
-                            text : '',
-                            align : '',
-                            width : ''
-                        };
-                        let subFilaArray = []
-                        item.meta_data.forEach(function(metaData){
-                            console.log('order metaData',metaData);
-                            // aplicar
-                            subFilaArray = [];
-                            subTableObj = {};
-            
-                            subTableObj.text = metaData.key.toString();
-                            subTableObj.align = 'LEFT';
-                            // subTableObj.width = '0.1';
-                            subFilaArray.push(subTableObj);
-            
-                            //console.log(' filaArray to push ', filaArray)
-                            _that.printer.tableCustom(subFilaArray); 
-
-                            subFilaArray = [];
-                            subTableObj = {};
-
-                            subTableObj.text = metaData.value.toString();
-                            subTableObj.align = 'LEFT';
-                            // subTableObj.width = '0.1';
-                            subFilaArray.push(subTableObj);
-            
-                            //console.log(' filaArray to push ', filaArray)
-                            _that.printer.tableCustom(subFilaArray);
-            
-                        }) 
-                    }
-
-                })
-                
-            }
-
-            const comandaCallback = (jobId2) => {
-                console.log('retornant jobId - 2: ', jobId2, ' al proces de generacio del ticket, continuem...');
-                this.printer.clear();
-                this.printer.newLine();
-                this.printer.drawLine();
-                this.printer.bold(true);
-                this.printer.setTextSize(2,2);
-                this.printer.leftRight('TOTAL CON IVA', orderObj.total);
-                this.executePrint();
-                this.printer.clear();
-                this.printer.bold(false);
-                this.printer.setTextSize(1,1);
-                // TICKET FOOTER INFO
-                this.printer.newLine();
-                this.printer.alignCenter();
-                this.printer.println(this.footerBusinessInfo);
-                this.printer.alignCenter();
-                this.printer.println(this.footerCIFNIF);
-                this.printer.alignCenter();
-                this.printer.println(this.footerSerialFactura + orderObj.cart_hash);
-                this.printer.alignCenter();
-                this.printer.println(this.footerNumeroFactura + orderObj.id);
-                //Partial Cut for other tickets
-                this.printer.cut();
-
-                const compraCallback = (jobId3) => {
-                    console.log('retornant jobId - 3: ', jobId3, ' al proces de generacio del ticket, finalitzem!');
+                        subTableObj.text = metaData.value.toString();
+                        subTableObj.align = 'LEFT';
+                        // subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printer.tableCustom(subFilaArray);
+        
+                    }) 
                 }
-                this.executePrint(compraCallback);
-            }
 
-            this.executePrint(comandaCallback);
+            })
+            
         }
 
-        this.executePrint(companyCallback);
+        this.printer.newLine();
+        this.printer.drawLine();
+        this.printer.bold(true);
+        this.printer.setTextSize(2,2);
+        this.printer.leftRight('TOTAL CON IVA', orderObj.total);
+        this.executePrint();
+        this.printer.clear();
+        this.printer.bold(false);
+        this.printer.setTextSize(1,1);
+        // TICKET FOOTER INFO
+        this.printer.newLine();
+        this.printer.alignCenter();
+        this.printer.println(this.footerBusinessInfo);
+        this.printer.alignCenter();
+        this.printer.println(this.footerCIFNIF);
+        this.printer.alignCenter();
+        this.printer.println(this.footerSerialFactura + orderObj.cart_hash);
+        this.printer.alignCenter();
+        this.printer.println(this.footerNumeroFactura + orderObj.id);
+        //Partial Cut for other tickets
+        this.printer.cut();
+        
+        this.executePrint()
+
+        // ANTERIOR SOLUCION
+        // const companyCallback = (jobId) => {
+        //     console.log('retornant jobId: ', jobId, ' al proces de generacio del ticket, continuem...');
+        //     this.printer.clear();
+        //     // TICKET BUSINESS INFO
+        //     this.printer.setTextSize(1,1);
+        //     this.printer.newLine();
+        //     this.printer.alignCenter();
+        //     this.printer.println(this.direccioBusiness);
+        //     // this.printer.setTextSize(1,1);
+        //     this.printer.alignCenter();
+        //     this.printer.println(this.codiPostalPobalcio);
+        //     this.printer.alignCenter();
+        //     this.printer.println(this.paisBusiness);
+        //     // TICKET CLIENT INFO
+        //     this.printer.newLine();
+        //     this.printer.alignLeft();
+        //     const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
+        //     this.printer.println(orderOwner);
+        //     this.printer.alignLeft();
+        //     const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        //     this.printer.println(adrecaOrder);
+        //     this.printer.alignLeft();
+        //     this.printer.println(orderObj?.billing?.phone);
+        //     // TICKET PURCHASE INFO
+        //     this.printer.newLine();
+        //     this.printer.leftRight(this.purchaseType,this.taula + orderObj.id);
+        //     this.printer.leftRight(this.usuari,this.comensals);
+        //     this.printer.leftRight(this.venta,orderObj.date_created);
+        //     // TICKET ORDER ITEMS TABLE INFO
+        //     this.printer.newLine();
+        //     this.printer.drawLine();
+        //     if(orderObj.line_items.length > 0){
+        //         let filaArray = [];
+        //         let tableObj = {
+        //             text : '',
+        //             align : '',
+        //             width : ''
+        //         }
+
+        //         tableObj.text = 'QTY';
+        //         tableObj.align = 'LEFT';
+        //         tableObj.width = '0.1';
+
+        //         filaArray.push(tableObj);
+
+        //         tableObj = {};
+        //         tableObj.text = 'ID';
+        //         tableObj.align = 'LEFT';
+        //         tableObj.width = '0.2';
+
+        //         filaArray.push(tableObj);
+
+        //         tableObj = {};
+        //         tableObj.text = 'DESC';
+        //         tableObj.align = 'LEFT';
+        //         tableObj.width = '0.6';
+
+        //         filaArray.push(tableObj);
+
+        //         tableObj = {};
+        //         tableObj.text = 'PREU';
+        //         tableObj.align = 'RIGHT';
+        //         tableObj.width = '0.1';
+
+        //         filaArray.push(tableObj);
+
+        //         this.printer.tableCustom(filaArray);
+
+        //         let filasArray = [];
+        //         let _that = this;
+
+        //         orderObj.line_items.forEach(function(item){
+        //             console.log('order item',item);
+        //             filaArray = [];
+        //             tableObj = {};
+
+        //             tableObj.text = item.quantity.toString();
+        //             tableObj.align = 'LEFT';
+        //             tableObj.width = '0.1';
+        //             filaArray.push(tableObj);
+
+        //             tableObj = {};
+        //             tableObj.text = item.sku;
+        //             tableObj.align = 'LEFT';
+        //             tableObj.width = '0.2';
+
+        //             filaArray.push(tableObj);
+
+        //             tableObj = {};
+        //             tableObj.text = item.name;
+        //             tableObj.align = 'LEFT';
+        //             tableObj.width = '0.6';
+
+        //             filaArray.push(tableObj);
+
+        //             tableObj = {};
+        //             tableObj.text = item.total;
+        //             tableObj.align = 'RIGHT';
+        //             tableObj.width = '0.1';
+
+        //             filaArray.push(tableObj);
+        //             //console.log(' filaArray to push ', filaArray)
+        //             _that.printer.tableCustom(filaArray); 
+
+        //             // condicional para saber si hay meta datos associados al elemento del pedido o no
+        //             if (item.meta_data.length > 0){
+
+        //                 let subTableObj = {
+        //                     text : '',
+        //                     align : '',
+        //                     width : ''
+        //                 };
+        //                 let subFilaArray = []
+        //                 item.meta_data.forEach(function(metaData){
+        //                     console.log('order metaData',metaData);
+        //                     // aplicar
+        //                     subFilaArray = [];
+        //                     subTableObj = {};
+            
+        //                     subTableObj.text = metaData.key.toString();
+        //                     subTableObj.align = 'LEFT';
+        //                     // subTableObj.width = '0.1';
+        //                     subFilaArray.push(subTableObj);
+            
+        //                     //console.log(' filaArray to push ', filaArray)
+        //                     _that.printer.tableCustom(subFilaArray); 
+
+        //                     subFilaArray = [];
+        //                     subTableObj = {};
+
+        //                     subTableObj.text = metaData.value.toString();
+        //                     subTableObj.align = 'LEFT';
+        //                     // subTableObj.width = '0.1';
+        //                     subFilaArray.push(subTableObj);
+            
+        //                     //console.log(' filaArray to push ', filaArray)
+        //                     _that.printer.tableCustom(subFilaArray);
+            
+        //                 }) 
+        //             }
+
+        //         })
+                
+        //     }
+
+        //     const comandaCallback = (jobId2) => {
+        //         console.log('retornant jobId - 2: ', jobId2, ' al proces de generacio del ticket, continuem...');
+        //         this.printer.clear();
+        //         this.printer.newLine();
+        //         this.printer.drawLine();
+        //         this.printer.bold(true);
+        //         this.printer.setTextSize(2,2);
+        //         this.printer.leftRight('TOTAL CON IVA', orderObj.total);
+        //         this.executePrint();
+        //         this.printer.clear();
+        //         this.printer.bold(false);
+        //         this.printer.setTextSize(1,1);
+        //         // TICKET FOOTER INFO
+        //         this.printer.newLine();
+        //         this.printer.alignCenter();
+        //         this.printer.println(this.footerBusinessInfo);
+        //         this.printer.alignCenter();
+        //         this.printer.println(this.footerCIFNIF);
+        //         this.printer.alignCenter();
+        //         this.printer.println(this.footerSerialFactura + orderObj.cart_hash);
+        //         this.printer.alignCenter();
+        //         this.printer.println(this.footerNumeroFactura + orderObj.id);
+        //         //Partial Cut for other tickets
+        //         this.printer.cut();
+
+        //         const compraCallback = (jobId3) => {
+        //             console.log('retornant jobId - 3: ', jobId3, ' al proces de generacio del ticket, finalitzem!');
+        //         }
+        //         this.executePrint(compraCallback);
+        //     }
+
+        //     this.executePrint(comandaCallback);
+        // }
+
+        // this.executePrint(companyCallback);
         
     }
 
