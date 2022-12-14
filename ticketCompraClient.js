@@ -436,7 +436,7 @@ class TicketCompraClient {
             // TICKET PURCHASE INFO
             this.printer.newLine();
             this.printer.leftRight(this.purchaseType,this.taula + orderObj.id);
-            this.printer.leftRight(this.usuari,this.comensals + '1');
+            this.printer.leftRight(this.usuari,this.comensals);
             this.printer.leftRight(this.venta,orderObj.date_created);
             // TICKET ORDER ITEMS TABLE INFO
             this.printer.newLine();

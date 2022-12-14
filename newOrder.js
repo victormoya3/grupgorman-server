@@ -168,21 +168,21 @@ class NewOrder {
                 if(this.mitoOrderItems.length > 0){
                     // let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
                 }
-            },3000)
+            }, 6000)
     
             setTimeout(()=>{
                 if(this.brunaOrderItems.length > 0){
                     // let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
                 }
                 
-            },8000)
+            },9000)
     
             setTimeout(()=>{
                 if(this.begudes.length > 0){
                     // let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
                 }
                 
-            },11000);
+            },12000);
     
             setTimeout(()=>{
                 if (order !== {}){
