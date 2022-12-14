@@ -139,6 +139,9 @@ class TicketCompraClient {
             Printer.printDirect({
                 data: this.printer.getBuffer(),
                 printer: 'EPSON_TM-m30II-H',
+                options: {
+                    width : '25mm'
+                },
                 type: 'RAW',
                 success: function (jobID) {
                     //console.log('***** EPSON PRINTER ************');
@@ -432,8 +435,13 @@ class TicketCompraClient {
         this.printer.println(orderObj?.billing?.phone);
         // TICKET PURCHASE INFO
         this.printer.newLine();
-        this.printer.leftRight(this.purchaseType,this.taula + orderObj.id);
-        this.printer.leftRight(this.usuari,this.comensals);
+        this.printer.leftRight(this.purchaseType);
+        this.printer.newLine();
+        this.printer.leftRight(this.taula + orderObj.id);
+        this.printer.leftRight(this.usuari);
+        this.printer.newLine();
+        this.printer.leftRight(this.comensals);
+        this.printer.newLine();
         this.printer.leftRight(this.venta,orderObj.date_created);
         // TICKET ORDER ITEMS TABLE INFO
         this.printer.newLine();
