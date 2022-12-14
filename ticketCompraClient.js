@@ -88,10 +88,19 @@ class TicketCompraClient {
     paisBusiness = 'Espanya';
 
     purchaseType = 'FACTURA SIMPLICIFICADA GENERAL';
-    taula = 'Taula:';
-    usuari = 'Usuari Generic';
-    comensals = 'Comensals:';
+    taula = 'Taula: ';
+    usuari = 'Usuari Generic ';
+    comensals = 'Comensals: ';
     venta = 'Venta - Comanda';
+
+    sector = '';
+    horaRecollida = '';
+    recollidaTipus = '';
+    comensalsMitoSoja = 'Soja ';
+    comensalsMitoPalillos = 'Palillos '
+    comensalsMitoWasabi = 'Wasabi ';
+    comensalsMitoGengibre = 'Gengibre ';
+    alergensClient = '';
 
     footerBusinessInfo = 'Gorman Restauració S.L.U';
     footerCIFNIF = 'CIF/NIF:';
@@ -103,6 +112,7 @@ class TicketCompraClient {
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
+        this.setUpTicketVariables(order);
         this.printer = printer;
         this.printer.clear();
         this.orderItems = orderItems;
@@ -167,6 +177,21 @@ class TicketCompraClient {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder);
         
+    }
+
+    setUpTicketVariables(order) {
+        // get key: sector value: JSON.parse(JSON.stringify(value)) + camp del valor
+        console.log('sector ', JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value)));
+        this.sector += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value));
+        // get key: comensals value: X
+        this.comensals += order.meta_data.filter((metaData) => metaData.key === 'comensals')[0].value;
+        // get key: hora_recollida value: JSON.parse(JSON.stringify(value)) + camp del valor
+        // get key: recollida_tipus value: JSON.parse(JSON.stringify(value)) + camp del valor
+        // get key: complements_mito_palillos value: JSON.parse(JSON.stringify(value)) + camp del valor
+        // get key: complements_mito_soja value: JSON.parse(JSON.stringify(value))+ camp del valor
+        // get key: complements_mito_wasabi value: JSON.parse(JSON.stringify(value))+ camp del valor
+        // get key: complements_mito_gengibre value: JSON.parse(JSON.stringify(value))+ camp del valor
+        // get key: alergenos_clientes value: X
     }
 
     generateRawTicket(orderObj){
