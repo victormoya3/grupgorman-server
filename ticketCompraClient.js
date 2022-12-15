@@ -408,10 +408,10 @@ class TicketCompraClient {
         //this.printer.printImage();
         this.printer.newLine();
         this.printer.alignCenter();
-        this.printer.setTextSize(1,1);
+        // this.printer.setTextSize(1,1);
         this.printer.println(this.businessName);
 
-        this.printer.setTextSize(1,1);
+        // this.printer.setTextSize(1,1);
         this.printer.newLine();
         this.printer.alignCenter();
         this.printer.println(this.direccioBusiness);
@@ -561,12 +561,12 @@ class TicketCompraClient {
         this.printer.newLine();
         this.printer.drawLine();
         this.printer.bold(true);
-        this.printer.setTextSize(2,2);
+        // this.printer.setTextSize(2,2);
         this.printer.leftRight('TOTAL CON IVA', orderObj.total);
-        this.executePrint();
+        // this.executePrint();
         this.printer.clear();
         this.printer.bold(false);
-        this.printer.setTextSize(1,1);
+        // this.printer.setTextSize(1,1);
         // TICKET FOOTER INFO
         this.printer.newLine();
         this.printer.alignCenter();
