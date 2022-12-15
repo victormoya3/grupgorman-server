@@ -564,7 +564,7 @@ class TicketCompraClient {
         // this.printer.setTextSize(2,2);
         this.printer.leftRight('TOTAL CON IVA', orderObj.total);
         // this.executePrint();
-        this.printer.clear();
+        // this.printer.clear();
         this.printer.bold(false);
         // this.printer.setTextSize(1,1);
         // TICKET FOOTER INFO
