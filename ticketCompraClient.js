@@ -285,7 +285,7 @@ class TicketCompraClient {
             orderObj.line_items.forEach(function(item){
                 console.log('order item',item);
 
-                this.checkIfMitoProductsExist(item);
+                _that.checkIfMitoProductsExist(item);
 
                 filaArray = [];
                 tableObj = {};
