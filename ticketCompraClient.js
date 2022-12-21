@@ -326,10 +326,12 @@ class TicketCompraClient {
                         align : '',
                         width : ''
                     };
-                    let subFilaArray = []
+
+                    let subFilaArray = [];
+
                     item.meta_data.forEach(function(metaData){
                         console.log('order metaData',metaData);
-                        if (metaData.key.indexOf('_') < 0) { return; }
+                        if (metaData.key.indexOf('_') >= 0) { return; }
                         // aplicar
                         subFilaArray = [];
                         subTableObj = {};
