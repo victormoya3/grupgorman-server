@@ -239,9 +239,7 @@ class TicketCompraClient {
         this.printer.leftRight(this.venta,orderObj.date_created);
         // AFEGIR META DATA PURCHASE INFO
         // horaRecollida, recollidaTipus, alergensClient
-        this.printer.newLine();
         this.printer.leftRight(this.recollidaTipus,this.horaRecollida);
-        this.printer.newLine();
         this.printer.println(this.alergensClient);
         // TICKET ORDER ITEMS TABLE INFO
         this.printer.newLine();
