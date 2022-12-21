@@ -12,7 +12,7 @@ class TicketCompraClient {
     codiPostalPobalcio = '08211, Castellar del Vallès, Barcelona';
     paisBusiness = 'Espanya';
 
-    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL';
+    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL - ';
     taula = 'Taula: ';
     usuari = 'Usuari Generic ';
     comensals = 'Comensals: ';
@@ -218,8 +218,12 @@ class TicketCompraClient {
         const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
         this.printer.println(orderOwner);
         this.printer.alignLeft();
-        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}`
         this.printer.println(adrecaOrder);
+        this.printer.newLine();
+        const adrecaOrder2 = `${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}`;
+        const adrecaOrder3 = `${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        this.printer.leftRight(adrecaOrder2, adrecaOrder3);
         this.printer.newLine();
         this.printer.println(this.sector);
         this.printer.newLine();
@@ -227,7 +231,7 @@ class TicketCompraClient {
         this.printer.println('Contacte: ' + orderObj?.billing?.phone);
         // TICKET PURCHASE INFO
         this.printer.newLine();
-        this.printer.println(this.purchaseType);
+        this.printer.println(this.purchaseType + orderObj.id);
         this.printer.newLine();
         this.printer.println(this.usuari);
         this.printer.newLine();
@@ -278,6 +282,8 @@ class TicketCompraClient {
             filaArray.push(tableObj);
 
             this.printer.tableCustom(filaArray);
+
+            this.printer.drawLine();
 
             let filasArray = [];
             let _that = this;
