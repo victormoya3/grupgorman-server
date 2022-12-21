@@ -172,7 +172,7 @@ class TicketCompraClient {
 
     setUpTicketVariables(order) {
         // get key: sector value: JSON.parse(JSON.stringify(value)) + camp del valor
-        console.log('sector ', JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value)));
+        console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_clientes'));
         this.sector += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value));
         // get key: comensals value: X
         this.comensals += order.meta_data.filter((metaData) => metaData.key === 'comensals')[0].value;
@@ -286,6 +286,7 @@ class TicketCompraClient {
                 console.log('order item',item);
 
                 this.checkIfMitoProductsExist(item);
+
                 filaArray = [];
                 tableObj = {};
 
@@ -328,6 +329,7 @@ class TicketCompraClient {
                     let subFilaArray = []
                     item.meta_data.forEach(function(metaData){
                         console.log('order metaData',metaData);
+                        if (metaData.key.indexOf('_') < 0) { return; }
                         // aplicar
                         subFilaArray = [];
                         subTableObj = {};
