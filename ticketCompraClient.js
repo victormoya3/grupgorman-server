@@ -217,10 +217,10 @@ class TicketCompraClient {
         this.printer.alignLeft();
         const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
         this.printer.println(orderOwner);
+        this.printer.newLine();
         this.printer.alignLeft();
         const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}`
         this.printer.println(adrecaOrder);
-        this.printer.newLine();
         const adrecaOrder2 = `${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}`;
         const adrecaOrder3 = `${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
         this.printer.leftRight(adrecaOrder2, adrecaOrder3);
