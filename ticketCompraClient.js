@@ -172,7 +172,7 @@ class TicketCompraClient {
 
     setUpTicketVariables(order) {
         // get key: sector value: JSON.parse(JSON.stringify(value)) + camp del valor
-        console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_clientes'));
+        console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente'));
         this.sector += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value));
         // get key: comensals value: X
         this.comensals += order.meta_data.filter((metaData) => metaData.key === 'comensals')[0].value;
@@ -188,8 +188,8 @@ class TicketCompraClient {
         this.comensalsMitoWasabi += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_wasabi')[0].value)); 
         // get key: complements_mito_gengibre value: JSON.parse(JSON.stringify(value))+ camp del valor
         this.comensalsMitoGengibre += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_gengibre')[0].value));
-        // get key: alergenos_clientes value: X
-        this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_clientes')[0].value;
+        // get key: alergenos_cliente value: X
+        this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente')[0].value;
     }
 
     generateRawTicket(orderObj){
