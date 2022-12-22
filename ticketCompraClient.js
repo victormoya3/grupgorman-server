@@ -298,7 +298,7 @@ class TicketCompraClient {
 
                 tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.2';
+                tableObj.width = '0.1';
                 filaArray.push(tableObj);
 
                 tableObj = {};
@@ -311,7 +311,7 @@ class TicketCompraClient {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.3';
+                tableObj.width = '0.5';
 
                 filaArray.push(tableObj);
 
@@ -375,13 +375,11 @@ class TicketCompraClient {
 
             })
             
-            setTimeout(() => {
                 
-                if (this.existMitoProducts === true){
-                    this.addInfoComplementsMito(_that.printer);
-                }
+            if (this.existMitoProducts === true){
+                this.addInfoComplementsMito(_that.printer);
+            }
 
-            },100);
             
         }
 

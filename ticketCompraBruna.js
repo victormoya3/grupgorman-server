@@ -277,7 +277,7 @@ class TicketCompraBruna {
 
                 tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.2';
+                tableObj.width = '0.1';
                 filaArray.push(tableObj);
 
                 tableObj = {};
@@ -290,7 +290,7 @@ class TicketCompraBruna {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.3';
+                tableObj.width = '0.5';
 
                 filaArray.push(tableObj);
 

@@ -53,13 +53,18 @@ class TicketCalentBruna {
         this.printerCalentsBruna.alignCenter();
         this.printerCalentsBruna.bold(true);
         this.printerCalentsBruna.invert(true);
+        this.printerCalentsBruna.newLine();
+
         this.printerCalentsBruna.println(this.brunaCalentsTitol);
+        this.printerCalentsBruna.newLine();
+
         this.printerCalentsBruna.invert(false);
         // this.printerCalentsBruna.print
-        this.printerCalentsBruna.newLine();
         // this.printerCalentsBruna.setTextSize(1,1);
-        this.printerCalentsBruna.drawLine();
+        this.printerCalentsBruna.newLine();
         this.printerCalentsBruna.bold(false);
+        this.printerCalentsBruna.drawLine();
+        
         if(plats.length > 0){
             let filaArray = [];
             let tableObj = {
@@ -113,7 +118,7 @@ class TicketCalentBruna {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.6';
+                tableObj.width = '0.7';
 
                 filaArray.push(tableObj);
 

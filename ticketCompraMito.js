@@ -487,7 +487,7 @@ class TicketCompraMito {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.2';
+            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -501,7 +501,7 @@ class TicketCompraMito {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.3';
+            tableObj.width = '0.5';
 
             filaArray.push(tableObj);
 

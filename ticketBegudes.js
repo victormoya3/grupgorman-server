@@ -70,7 +70,7 @@ class TicketBegudes {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.2';
+            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -84,7 +84,7 @@ class TicketBegudes {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.6';
+            tableObj.width = '0.7';
 
             filaArray.push(tableObj);
 
@@ -93,7 +93,7 @@ class TicketBegudes {
             let filasArray = [];
             let _that = this;
 
-            plats.forEach(function(item){
+            begudes.forEach(function(item){
                 // console.log('beguda: ',item);
                 filaArray = [];
                 tableObj = {};

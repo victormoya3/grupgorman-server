@@ -112,7 +112,7 @@ class TicketFredMito {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.6';
+                tableObj.width = '0.7';
 
                 filaArray.push(tableObj);
 

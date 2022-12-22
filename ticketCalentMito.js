@@ -51,13 +51,15 @@ class TicketCalentMito {
         // this.printerCalentsMito.setTextSize(1,1);
         this.printerCalentsMito.bold(true);
         this.printerCalentsMito.invert(true);
+        this.printerCalentsMito.newLine();
         this.printerCalentsMito.println(this.mitoCalentsTitol);
+        this.printerCalentsMito.newLine();
         this.printerCalentsMito.invert(false);
         // this.printerCalentsMito.print
         this.printerCalentsMito.newLine();
         // this.printerCalentsMito.setTextSize(1,1);
-        this.printerCalentsMito.drawLine();
         this.printerCalentsMito.bold(false);
+        this.printerCalentsMito.drawLine();
         if(plats.length > 0){
             let filaArray = [];
             let tableObj = {
@@ -111,7 +113,7 @@ class TicketCalentMito {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.6';
+                tableObj.width = '0.7';
 
                 filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
