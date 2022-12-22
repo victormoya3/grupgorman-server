@@ -84,11 +84,13 @@ class TicketBegudes {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.7';
+            tableObj.width = '0.6';
 
             filaArray.push(tableObj);
 
             this.printerBegudes.tableCustom(filaArray);
+
+            this.printerBegudes.drawLine();
 
             let filasArray = [];
             let _that = this;

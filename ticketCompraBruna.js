@@ -364,7 +364,7 @@ class TicketCompraBruna {
         this.printerBruna.drawLine();
         this.printerBruna.bold(true);
         // this.printerBruna.setTextSize(2,2);
-        this.printerBruna.leftRight('TOTAL CON IVA', brunaTotalPreu);
+        this.printerBruna.leftRight('TOTAL CON IVA', brunaTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
         // this.printerBruna.clear();
         this.printerBruna.bold(false);

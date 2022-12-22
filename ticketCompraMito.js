@@ -619,7 +619,7 @@ class TicketCompraMito {
         this.printerMito.drawLine();
         this.printerMito.bold(true);
         // this.printerMito.setTextSize(2,2);
-        this.printerMito.leftRight('TOTAL CON IVA', mitoTotalPreu);
+        this.printerMito.leftRight('TOTAL CON IVA', mitoTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
         // this.printerMito.clear();
         this.printerMito.bold(false);
@@ -646,28 +646,28 @@ class TicketCompraMito {
 
         tableObj.text = this.comensalsMitoSoja;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
 
         tableObj = {};
 
         tableObj.text = this.comensalsMitoPalillos;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
 
         tableObj = {};
 
         tableObj.text = this.comensalsMitoWasabi;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
 
         tableObj = {};
 
         tableObj.text = this.comensalsMitoGengibre;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
         
         //console.log(' filaArray to push ', filaArray)

@@ -256,7 +256,7 @@ class TicketCompraClient {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.2';
+            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -387,7 +387,7 @@ class TicketCompraClient {
         this.printer.drawLine();
         this.printer.bold(true);
         // this.printer.setTextSize(2,2);
-        this.printer.leftRight('TOTAL CON IVA', orderObj.total);
+        this.printer.leftRight('TOTAL CON IVA', orderObj.total + ' €');
         // this.executePrint();
         // this.printer.clear();
         this.printer.bold(false);
@@ -601,28 +601,28 @@ class TicketCompraClient {
 
         tableObj.text = this.comensalsMitoSoja;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
 
         tableObj = {};
 
         tableObj.text = this.comensalsMitoPalillos;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
 
         tableObj = {};
 
         tableObj.text = this.comensalsMitoWasabi;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
 
         tableObj = {};
 
         tableObj.text = this.comensalsMitoGengibre;
         tableObj.align = 'LEFT';
-        tableObj.width = '0.9';
+        tableObj.width = '1';
         filaArray.push(tableObj);
         
         //console.log(' filaArray to push ', filaArray)

@@ -95,6 +95,8 @@ class TicketCalentBruna {
 
             this.printerCalentsBruna.tableCustom(filaArray);
 
+            this.printerCalentsBruna.drawLine();
+
             let filasArray = [];
             let _that = this;
 
@@ -118,7 +120,7 @@ class TicketCalentBruna {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.7';
+                tableObj.width = '0.6';
 
                 filaArray.push(tableObj);
 

@@ -90,6 +90,8 @@ class TicketCalentMito {
 
             this.printerCalentsMito.tableCustom(filaArray);
 
+            this.printerCalentsMito.drawLine();
+
             let filasArray = [];
             let _that = this;
 
@@ -113,7 +115,7 @@ class TicketCalentMito {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.7';
+                tableObj.width = '0.6';
 
                 filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
