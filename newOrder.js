@@ -189,7 +189,7 @@ class NewOrder {
         if ( order.line_items.length > 0){
             const ticketClient = new TicketCompraClient(order, order.line_items, this.printer);
             setTimeout(()=>{
-                console.lo =g('MITO PRINT PROCESS :',this.mitoOrderItems);
+                console.log('MITO PRINT PROCESS :',this.mitoOrderItems);
                 if(this.mitoOrderItems.length > 0){
                     let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
                 }
