@@ -179,6 +179,8 @@ class TicketCompraBruna {
 
     generateRawTicket(orderObj){
         console.log('GENERATING TICKET FOR ORDER :',orderObj.id);
+
+        let brunaTotalPreu = 0;
         // TICKET HEADER
         this.printerBruna.newLine();
         //this.printerBruna.printImage();
@@ -272,6 +274,8 @@ class TicketCompraBruna {
             this.brunaOrderItems.forEach(function(item){
                 // console.log('order item',item);
 
+                brunaTotalPreu += item.total;
+
                 filaArray = [];
                 tableObj = {};
 
@@ -360,7 +364,7 @@ class TicketCompraBruna {
         this.printerBruna.drawLine();
         this.printerBruna.bold(true);
         // this.printerBruna.setTextSize(2,2);
-        this.printerBruna.leftRight('TOTAL CON IVA', orderObj.total);
+        this.printerBruna.leftRight('TOTAL CON IVA', brunaTotalPreu);
         // this.executePrint();
         // this.printerBruna.clear();
         this.printerBruna.bold(false);

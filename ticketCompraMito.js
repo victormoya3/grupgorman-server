@@ -429,6 +429,7 @@ class TicketCompraMito {
         // this.printerMito.cut();
 
         // Printer Compra Ticket
+        let mitoTotalPreu = 0;
         // TICKET HEADER
         this.printerMito.newLine();
         //this.printerMito.printImage();
@@ -521,6 +522,8 @@ class TicketCompraMito {
 
             this.mitoOrderItems.forEach(function(item){
                 // console.log('order item',item);
+
+                mitoTotalPreu += item.total;
 
                 filaArray = [];
                 tableObj = {};
@@ -616,7 +619,7 @@ class TicketCompraMito {
         this.printerMito.drawLine();
         this.printerMito.bold(true);
         // this.printerMito.setTextSize(2,2);
-        this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
+        this.printerMito.leftRight('TOTAL CON IVA', mitoTotalPreu);
         // this.executePrint();
         // this.printerMito.clear();
         this.printerMito.bold(false);
