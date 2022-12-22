@@ -48,15 +48,15 @@ class TicketCalentMito {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerCalentsMito.newLine();
         this.printerCalentsMito.alignCenter();
-        this.printerCalentsMito.setTextSize(1,1);
+        // this.printerCalentsMito.setTextSize(1,1);
         this.printerCalentsMito.bold(true);
         this.printerCalentsMito.invert(true);
         this.printerCalentsMito.println(this.mitoCalentsTitol);
         this.printerCalentsMito.invert(false);
         // this.printerCalentsMito.print
         this.printerCalentsMito.newLine();
-        this.printerCalentsMito.setTextSize(1,1);
-        this.printerCalentsMito.println('--------------------------------');
+        // this.printerCalentsMito.setTextSize(1,1);
+        this.printerCalentsMito.drawLine();
         this.printerCalentsMito.bold(false);
         if(plats.length > 0){
             let filaArray = [];
@@ -117,10 +117,57 @@ class TicketCalentMito {
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerCalentsMito.tableCustom(filaArray); 
 
+                if (item.meta_data.length > 0){
+
+                    let subTableObj = {
+                        text : '',
+                        align : '',
+                        width : ''
+                    };
+
+                    let subFilaArray = [];
+
+                    item.meta_data.forEach(function(metaData){
+                        // console.log('order metaData',metaData);
+                        if (metaData.key.indexOf('_') >= 0) { return; }
+                        // aplicar
+                        subFilaArray = [];
+                        subTableObj = {};
+        
+                        subTableObj.text = '';
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.2';
+
+                        // subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.key.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.4';
+
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.value.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.3';
+
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+        
+                        _that.printerCalentsMito.tableCustom(subFilaArray);
+        
+                    }) 
+                }
+
             })  
 
             this.printerCalentsMito.newLine();
-            this.printerCalentsMito.println('--------------------------------');
+            this.printerCalentsMito.drawLine();
             this.printerCalentsMito.newLine();
             this.printerCalentsMito.cut();
         

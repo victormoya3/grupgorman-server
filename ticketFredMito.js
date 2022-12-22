@@ -49,15 +49,15 @@ class TicketFredMito {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerFredMito.newLine();
         this.printerFredMito.alignCenter();
-        this.printerFredMito.setTextSize(1,1);
+        // this.printerFredMito.setTextSize(1,1);
         this.printerFredMito.bold(true);
         this.printerFredMito.invert(true);
         this.printerFredMito.println(this.mitoFredTitol);
         this.printerFredMito.invert(false);
         // this.printerFredMito.print
         this.printerFredMito.newLine();
-        this.printerFredMito.setTextSize(1,1);
-        this.printerFredMito.println('--------------------------------');
+        // this.printerFredMito.setTextSize(1,1);
+        this.printerFredMito.drawLine();
         this.printerFredMito.bold(false);
         if(plats.length > 0){
             let filaArray = [];
@@ -119,10 +119,57 @@ class TicketFredMito {
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerFredMito.tableCustom(filaArray); 
 
+                if (item.meta_data.length > 0){
+
+                    let subTableObj = {
+                        text : '',
+                        align : '',
+                        width : ''
+                    };
+
+                    let subFilaArray = [];
+
+                    item.meta_data.forEach(function(metaData){
+                        // console.log('order metaData',metaData);
+                        if (metaData.key.indexOf('_') >= 0) { return; }
+                        // aplicar
+                        subFilaArray = [];
+                        subTableObj = {};
+        
+                        subTableObj.text = '';
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.2';
+
+                        // subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.key.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.4';
+
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.value.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.3';
+
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printerFredMito.tableCustom(subFilaArray);
+        
+                    }) 
+                }
             })  
 
             this.printerFredMito.newLine();
-            this.printerFredMito.println('--------------------------------');
+            this.printerFredMito.drawLine();
             this.printerFredMito.newLine();
             this.printerFredMito.cut();
         

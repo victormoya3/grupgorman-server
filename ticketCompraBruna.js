@@ -7,7 +7,25 @@ class TicketCompraBruna {
     printerBruna;
     brunaOrderItems;
     BRUNA_SKU_BEGUDES = [
-        
+        'VINO02', // Abadal Blanc
+        'VINO01', // Missenyora Blanc
+        'BEB03', // Estrella Damm
+        'BEB02', // Coca-Cola
+        'BEB01', // Coca-Cola Zero
+        'BEB07', // Aigua
+        'BEB06', // Trina
+        'BEB05', // Fanta Llimona
+        'BEB04', // Fanta Taronja
+        'CAVA02', // Bertha Rosa
+        'CAVA01', // Bertha Blanc
+        'VINO09', // Formiga Negre
+        'VINO08', // Llavors Negre
+        'VINO10', // Pura Vida
+        'VINO07', // Marrec Negre
+        'VINO06', // Petit Arnau Rosat
+        'VINO05', // Cap Creus Blanc
+        'VINO04', // Marrec Blanc
+        'VINO03', // 
     ];
     
     BRUNA_SKU_CALENT = [
@@ -18,7 +36,8 @@ class TicketCompraBruna {
         'BBCB1', // Cabra Boja
         'BBDB1', // Doble Bruna
         'BBDF1', // De Foie
-        'BBDP1', // De Pebrots
+        // 'BBDP1', // De Pebrots
+        'BBY1', // De la Yaya
         'BBLG1', // La Gouda
         'BBLT1', // La Trufada
         'BBPB1', // Pollastre Brasa
@@ -38,13 +57,15 @@ class TicketCompraBruna {
         'BPTN1', // Teques Nutella
         'BPXC1', // Coulant
         'BTC01', // Teque Formatge Cabra
-        'BTM01', // Teque Mozzarella
+        // 'BTM01', // Teque Mozzarella
         'BTS01', // Teque Sobrasada
         'BAC01', // Amanida Cesar
         'BAL01', // Amanida Lionesa
         'BENV1', // Nachos Veggie
         'BPSX1', // Sopa xocolata Blanca
         'BPTI1', // Tiramisu
+        'BTF01', // Teque Frankfurt
+        'BTG01', // Teque Gouda
     ];
 
     businessName = 'La Bruna Grill Restaurant';
@@ -68,6 +89,7 @@ class TicketCompraBruna {
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
+        this.setUpTicketVariables(order);
         this.printerBruna = printer;
         this.printerBruna.clear();
         this.brunaOrderItems = orderItems;
@@ -91,9 +113,6 @@ class TicketCompraBruna {
                     this.getComandaCalents(this.brunaOrderItems);
                 },3000)
                 
-                setTimeout(() => {
-                    this.getComandaSala(this.brunaOrderItems);
-                },6000)
                 
             }
 
@@ -139,225 +158,41 @@ class TicketCompraBruna {
         
     }
 
+    setUpTicketVariables(order) {
+        // get key: sector value: JSON.parse(JSON.stringify(value)) + camp del valor
+        console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente'));
+        this.sector += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value));
+        // get key: comensals value: X
+        this.comensals += order.meta_data.filter((metaData) => metaData.key === 'comensals')[0].value;
+        // get key: hora_recollida value: JSON.parse(JSON.stringify(value)) + camp del valor
+        this.horaRecollida += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'hora_recollida')[0].value));
+        // get key: recollida_tipus value: JSON.parse(JSON.stringify(value)) + camp del valor
+        this.recollidaTipus += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'recollida_tipus')[0].value));
+        // get key: complements_mito_palillos value: JSON.parse(JSON.stringify(value)) + camp del valor
+        this.comensalsMitoPalillos += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_palillos')[0].value));
+        // get key: complements_mito_soja value: JSON.parse(JSON.stringify(value))+ camp del valor
+        this.comensalsMitoSoja += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_soja')[0].value));
+        // get key: complements_mito_wasabi value: JSON.parse(JSON.stringify(value))+ camp del valor
+        this.comensalsMitoWasabi += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_wasabi')[0].value)); 
+        // get key: complements_mito_gengibre value: JSON.parse(JSON.stringify(value))+ camp del valor
+        this.comensalsMitoGengibre += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_gengibre')[0].value));
+        // get key: alergenos_cliente value: X
+        this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente')[0].value;
+    }
+
     generateRawTicket(orderObj){
         console.log('GENERATING TICKET FOR ORDER :',orderObj.id);
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(1,1);
-        // this.printerBruna.println('SIZE 1,1');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(1,2);
-        // this.printerBruna.println('SIZE 1,2');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(1,3);
-        // this.printerBruna.println('SIZE 1,3');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(1,4);
-        // this.printerBruna.println('SIZE 1,4');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(1,5);
-        // this.printerBruna.println('SIZE 1,5');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(1,6);
-        // this.printerBruna.println('SIZE 1,6');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(1,7);
-        // this.printerBruna.println('SIZE 1,7');
-
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(2,1);
-        // this.printerBruna.println('SIZE 2,1');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(2,2);
-        // this.printerBruna.println('SIZE 2,2');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(2,3);
-        // this.printerBruna.println('SIZE 2,3');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(2,4);
-        // this.printerBruna.println('SIZE 2,4');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(2,5);
-        // this.printerBruna.println('SIZE 2,5');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(2,6);
-        // this.printerBruna.println('SIZE 2,6');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(2,7);
-        // this.printerBruna.println('SIZE 2,7');
-
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(3,1);
-        // this.printerBruna.println('SIZE 3,1');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(3,2);
-        // this.printerBruna.println('SIZE 3,2');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(3,3);
-        // this.printerBruna.println('SIZE 3,3');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(3,4);
-        // this.printerBruna.println('SIZE 3,4');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(3,5);
-        // this.printerBruna.println('SIZE 3,5');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(3,6);
-        // this.printerBruna.println('SIZE 3,6');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(3,7);
-        // this.printerBruna.println('SIZE 3,7');
-
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(4,1);
-        // this.printerBruna.println('SIZE 4,1');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(4,2);
-        // this.printerBruna.println('SIZE 4,2');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(4,3);
-        // this.printerBruna.println('SIZE 4,3');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(4,4);
-        // this.printerBruna.println('SIZE 4,4');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(4,5);
-        // this.printerBruna.println('SIZE 4,5');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(4,6);
-        // this.printerBruna.println('SIZE 4,6');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(4,7);
-        // this.printerBruna.println('SIZE 4,7');
-
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(5,1);
-        // this.printerBruna.println('SIZE 5,1');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(5,2);
-        // this.printerBruna.println('SIZE 5,2');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(5,3);
-        // this.printerBruna.println('SIZE 5,3');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(5,4);
-        // this.printerBruna.println('SIZE 5,4');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(5,5);
-        // this.printerBruna.println('SIZE 5,5');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(5,6);
-        // this.printerBruna.println('SIZE 5,6');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(5,7);
-        // this.printerBruna.println('SIZE 5,7');
-
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(6,1);
-        // this.printerBruna.println('SIZE 6,1');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(6,2);
-        // this.printerBruna.println('SIZE 6,2');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(6,3);
-        // this.printerBruna.println('SIZE 6,3');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(6,4);
-        // this.printerBruna.println('SIZE 6,4');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(6,5);
-        // this.printerBruna.println('SIZE 6,5');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(6,6);
-        // this.printerBruna.println('SIZE 6,6');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(6,7);
-        // this.printerBruna.println('SIZE 6,7');
-
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(7,1);
-        // this.printerBruna.println('SIZE 7,1');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(7,2);
-        // this.printerBruna.println('SIZE 7,2');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(7,3);
-        // this.printerBruna.println('SIZE 7,3');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(7,4);
-        // this.printerBruna.println('SIZE 4,4');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(7,5);
-        // this.printerBruna.println('SIZE 7,5');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(7,6);
-        // this.printerBruna.println('SIZE 7,6');
-        // this.printerBruna.newLine();
-        // this.printerBruna.alignCenter();
-        // this.printerBruna.setTextSize(7,7);
-        // this.printerBruna.println('SIZE 7,7');
-        
-        // this.printerBruna.cut();
-        // Printer Compra Ticket
         // TICKET HEADER
         this.printerBruna.newLine();
         //this.printerBruna.printImage();
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
-        this.printerBruna.setTextSize(1,1);
+        // this.printerBruna.setTextSize(1,1);
+        this.printerBruna.bold(true);
         this.printerBruna.println(this.businessName);
-        
-        // TICKET BUSINESS INFO
+        this.printerBruna.bold(false);
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
-        this.printerBruna.setTextSize(1,1);
         this.printerBruna.println(this.direccioBusiness);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.codiPostalPobalcio);
@@ -368,20 +203,34 @@ class TicketCompraBruna {
         this.printerBruna.alignLeft();
         const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
         this.printerBruna.println(orderOwner);
+        this.printerBruna.newLine();
         this.printerBruna.alignLeft();
-        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}`
         this.printerBruna.println(adrecaOrder);
+        const adrecaOrder2 = `${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}`;
+        const adrecaOrder3 = `${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        this.printerBruna.leftRight(adrecaOrder2, adrecaOrder3);
+        this.printerBruna.newLine();
+        this.printerBruna.println(this.sector);
+        this.printerBruna.newLine();
         this.printerBruna.alignLeft();
-        this.printerBruna.println(orderObj?.billing?.phone);
+        this.printerBruna.println('Contacte: ' + orderObj?.billing?.phone);
         // TICKET PURCHASE INFO
         this.printerBruna.newLine();
-        this.printerBruna.leftRight(this.purchaseType,this.taula + orderObj.id);
-        this.printerBruna.leftRight(this.usuari,this.comensals + '1');
+        this.printerBruna.println(this.purchaseType + orderObj.id);
+        this.printerBruna.newLine();
+        this.printerBruna.println(this.usuari);
+        this.printerBruna.newLine();
+        this.printerBruna.leftRight(this.taula + orderObj.id,this.comensals);
         this.printerBruna.leftRight(this.venta,orderObj.date_created);
+        // AFEGIR META DATA PURCHASE INFO
+        // horaRecollida, recollidaTipus, alergensClient
+        this.printerBruna.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerBruna.println(this.alergensClient);
         // TICKET ORDER ITEMS TABLE INFO
         this.printerBruna.newLine();
-        this.printerBruna.println('--------------------------------');
-        if(orderObj.line_items.length > 0){
+        this.printerBruna.drawLine();
+        if(this.brunaOrderItems.length > 0){
             let filaArray = [];
             let tableObj = {
                 text : '',
@@ -391,7 +240,7 @@ class TicketCompraBruna {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.1';
+            tableObj.width = '0.2';
 
             filaArray.push(tableObj);
 
@@ -405,30 +254,35 @@ class TicketCompraBruna {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.6';
+            tableObj.width = '0.3';
 
             filaArray.push(tableObj);
 
             tableObj = {};
             tableObj.text = 'PREU';
             tableObj.align = 'RIGHT';
-            tableObj.width = '0.1';
+            tableObj.width = '0.2';
 
             filaArray.push(tableObj);
 
             this.printerBruna.tableCustom(filaArray);
 
+            this.printerBruna.drawLine();
+
             let filasArray = [];
             let _that = this;
 
             this.brunaOrderItems.forEach(function(item){
-                console.log('order item',item);
+                // console.log('order item',item);
+
+                _that.checkIfMitoProductsExist(item);
+
                 filaArray = [];
                 tableObj = {};
 
                 tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.1';
+                tableObj.width = '0.2';
                 filaArray.push(tableObj);
 
                 tableObj = {};
@@ -441,33 +295,92 @@ class TicketCompraBruna {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.6';
+                tableObj.width = '0.3';
 
                 filaArray.push(tableObj);
 
                 tableObj = {};
                 tableObj.text = item.total;
                 tableObj.align = 'RIGHT';
-                tableObj.width = '0.1';
+                tableObj.width = '0.2';
 
                 filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
                 _that.printerBruna.tableCustom(filaArray); 
 
-            })  
+                // condicional para saber si hay meta datos associados al elemento del pedido o no
+                if (item.meta_data.length > 0){
 
-               
+                    let subTableObj = {
+                        text : '',
+                        align : '',
+                        width : ''
+                    };
+
+                    let subFilaArray = [];
+
+                    item.meta_data.forEach(function(metaData){
+                        console.log('order metaData',metaData);
+                        if (metaData.key.indexOf('_') >= 0) { return; }
+                        // aplicar
+                        subFilaArray = [];
+                        subTableObj = {};
+        
+                        subTableObj.text = '';
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.2';
+
+                        // subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.key.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.4';
+
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.value.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.3';
+
+                        subFilaArray.push(subTableObj);
+        
+                        //console.log(' filaArray to push ', filaArray)
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printerBruna.tableCustom(subFilaArray);
+        
+                    }) 
+                }
+
+            })
+            
+            setTimeout(() => {
+                
+                if (this.existMitoProducts === true){
+                    this.addInfoComplementsMito(_that.printerBruna);
+                }
+
+            },100);
+            
         }
+
         this.printerBruna.newLine();
-        this.printerBruna.println('--------------------------------');
+        this.printerBruna.drawLine();
         this.printerBruna.bold(true);
-        this.printerBruna.setTextSize(2,2);
+        // this.printerBruna.setTextSize(2,2);
         this.printerBruna.leftRight('TOTAL CON IVA', orderObj.total);
+        // this.executePrint();
+        // this.printerBruna.clear();
+        this.printerBruna.bold(false);
+        // this.printerBruna.setTextSize(1,1);
         // TICKET FOOTER INFO
         this.printerBruna.newLine();
-        this.printerBruna.bold(false);
         this.printerBruna.alignCenter();
-        this.printerBruna.setTextSize(1,1);
         this.printerBruna.println(this.footerBusinessInfo);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.footerCIFNIF);
@@ -489,16 +402,6 @@ class TicketCompraBruna {
         //console.log('platsCalentsBruna -->', platsCalentsToPrint)
         let platsCalentsBruna = new TicketCalentBruna(platsCalentsToPrint, this.printerBruna);
         //console.log(platsCalentsMito);
-    }
-
-    getComandaSala(begudes){
-        let begudesToPrint = [];
-        begudes.forEach((beg)=>{
-            if(this.BRUNA_SKU_BEGUDES.includes(beg.sku)) begudesToPrint.push(beg);
-        })
-        console.log('begudes bruna-->', begudesToPrint)
-        //let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
-        //console.log(platsFredsBruna);
     }
 
 }

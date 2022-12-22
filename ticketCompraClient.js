@@ -45,6 +45,7 @@ class TicketCompraClient {
         '08C', // Gyozas 2.0
         '08E', // Gyozas Bolets
         '10', // Yakimeshi
+        '11', // Bolets pollastre
         '101', // Mocchi Xocolata
         '102', // Mocchi Te Verd
         '104', // Mocchi Cheseecake
@@ -57,7 +58,7 @@ class TicketCompraClient {
         '130', // Uramaki Alvocat ceba car, salmo flamejat, salsa teriyaki
         '132', // Uramaki Foie micuit, gelee figa, coulis de gerds i nous
         '136', // Farcit Alvocat, ceba car, tartar salmo, tartarai tobiko
-        '141', // Uramaki Alvocat amb ceba, llagosti tempuritzat, salsa fruita passio i coco
+        '141', // Uramaki Alvocat amb ceba, llagosti tempuritzat, salsa mermelada maduixa
         '143', // Uramaki a la italiana
         '144', // Uramaki de llagosti en tempura, mzclum, mermelada maduixa
         '16', // Ebi Tempura llagosti tempuritzat
@@ -78,13 +79,13 @@ class TicketCompraClient {
         '42', // Niguiri tonyina
         '47', // Niguiri tonyina flamejat
         '48', // Niguiri salmo flamejada
-        '52', // Maki Salmo
+        '62', // Maki Salmo
         '63', // Maki de tonyina
         '66', // Maki de llagosti
         '69', // Maki tempuritzat amb brie amb mermelada
         '73', // Maki tempuritzart de foie caramelitzat
         '75', // Pollastre Kar-Age amb salsa cajun
-        '76', // Pollastre amb teriyaki a la catalana
+        // '76', // Pollastre amb teriyaki a la catalana
         '78', // Udon
         '79', // Maki tempuritzat alvocat amb tonyina, salsa teriyaki picant
         '80', // Maki tempuritzat amb salmo, salsa teriyaki picant
@@ -95,7 +96,7 @@ class TicketCompraClient {
         '89', // Uramaki de pollastre kar-age, ceba car, mango i salsa de ceba
         '94', // Uramaki de pollastre kar-age, mezclum i salsa cajun
         'O8D', // Gyozas fricando
-    ]
+    ];
 
     constructor(order,orderItems,printer){
         console.log('**** GRUP GORMAN ORDER PRINTING CLASS ********');
@@ -287,7 +288,7 @@ class TicketCompraClient {
             let _that = this;
 
             orderObj.line_items.forEach(function(item){
-                console.log('order item',item);
+                // console.log('order item',item);
 
                 _that.checkIfMitoProductsExist(item);
 
@@ -334,7 +335,7 @@ class TicketCompraClient {
                     let subFilaArray = [];
 
                     item.meta_data.forEach(function(metaData){
-                        console.log('order metaData',metaData);
+                        // console.log('order metaData',metaData);
                         if (metaData.key.indexOf('_') >= 0) { return; }
                         // aplicar
                         subFilaArray = [];
@@ -405,7 +406,7 @@ class TicketCompraClient {
         //Partial Cut for other tickets
         this.printer.cut();
         
-        this.executePrint()
+        this.executePrint();
 
         // ANTERIOR SOLUCION
         // const companyCallback = (jobId) => {

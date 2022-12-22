@@ -47,9 +47,10 @@ class TicketCompraMito {
         '130', // Uramaki Alvocat ceba car, salmo flamejat, salsa teriyaki
         '132', // Uramaki Foie micuit, gelee figa, coulis de gerds i nous
         '136', // Farcit Alvocat, ceba car, tartar salmo, tartarai tobiko
-        '141', // Uramaki Alvocat amb ceba, llagosti tempuritzat, salsa fruita passio i coco
+        '141', // Uramaki Alvocat amb ceba, llagosti tempuritzat, salsa maduixa
         '144' // Uramaki de llagosti en tempura, mzclum, mermelada maduixa
     ];
+
     MITO_SKU_CALENT = [
         '04', // Yakisoba Verdures
         '05', // Gyozas Verdures
@@ -60,6 +61,7 @@ class TicketCompraMito {
         '08C', // Gyozas 2.0
         '08E', // Gyozas Bolets
         '10', // Yakimeshi
+        '11', // Bolets pollastre
         '12', // Torikatsu de Pollastre
         '16', // Ebi Tempura llagosti tempuritzat
         '162', // Pa Bao
@@ -70,7 +72,7 @@ class TicketCompraMito {
         '69', // Maki tempuritzat amb brie amb mermelada
         '73', // Maki tempuritzart de foie caramelitzat
         '75', // Pollastre Kar-Age amb salsa cajun
-        '76', // Pollastre amb teriyaki a la catalana
+        // '76', // Pollastre amb teriyaki a la catalana
         '78', // Udon
         '79', // Maki tempuritzat alvocat amb tonyina, salsa teriyaki picant
         '80', // Maki tempuritzat amb salmo, salsa teriyaki picant
@@ -78,7 +80,26 @@ class TicketCompraMito {
     ];
 
     MITO_SKU_BEGUDES = [
-        
+        'VINO02', // Abadal Blanc
+        'VINO01', // Missenyora Blanc
+        'BEB03', // Estrella Damm
+        'BEB02', // Coca-Cola
+        'BEB01', // Coca-Cola Zero
+        'BEB07', // Aigua
+        'BEB06', // Trina
+        'BEB05', // Fanta Llimona
+        'BEB04', // Fanta Taronja
+        'CAVA02', // Bertha Rosa
+        'CAVA01', // Bertha Blanc
+        'VINO09', // Formiga Negre
+        'VINO08', // Llavors Negre
+        'VINO10', // Pura Vida
+        'VINO07', // Marrec Negre
+        'VINO06', // Petit Arnau Rosat
+        'VINO05', // Cap Creus Blanc
+        'VINO04', // Marrec Blanc
+        'VINO03', // 
+        'SAKE01' // Sake
     ];
 
     businessName = 'Mito Sushi Restaurant';
@@ -86,13 +107,22 @@ class TicketCompraMito {
     codiPostalPobalcio = '08211, Castellar del Vallès, Barcelona';
     paisBusiness = 'Espanya';
 
-    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL';
-    taula = 'Taula:';
-    usuari = 'Usuari Generic';
+    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL - ';
+    taula = 'Taula: ';
+    usuari = 'Usuari Generic ';
     comensals = 'Comensals: ';
     venta = 'Venta - Comanda';
 
-    footerBusinessInfo = 'Mito Sushi';
+    sector = 'Sector: ';
+    horaRecollida = 'Entrega: ';
+    recollidaTipus = 'Recollida: ';
+    comensalsMitoSoja = 'Soja ';
+    comensalsMitoPalillos = 'Palillos'
+    comensalsMitoWasabi = 'Wasabi';
+    comensalsMitoGengibre = 'Gengibre';
+    alergensClient = 'Alergens: ';
+
+    footerBusinessInfo = 'Gorman Restauració S.L.U';
     footerCIFNIF = 'CIF/NIF:';
     footerSerialFactura = 'Serie de Factura:';
     footerNumeroFactura = 'Numero de Factura:';
@@ -102,6 +132,7 @@ class TicketCompraMito {
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
         //console.log('***** PARAM : printer --> ', printer);
+        this.setUpTicketVariables(order);
         this.printerMito = printer;
         this.printerMito.clear();
         this.mitoOrderItems = orderItems;
@@ -165,6 +196,28 @@ class TicketCompraMito {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.generateRawTicket(newOrder);
         
+    }
+
+    setUpTicketVariables(order) {
+        // get key: sector value: JSON.parse(JSON.stringify(value)) + camp del valor
+        console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente'));
+        this.sector += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value));
+        // get key: comensals value: X
+        this.comensals += order.meta_data.filter((metaData) => metaData.key === 'comensals')[0].value;
+        // get key: hora_recollida value: JSON.parse(JSON.stringify(value)) + camp del valor
+        this.horaRecollida += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'hora_recollida')[0].value));
+        // get key: recollida_tipus value: JSON.parse(JSON.stringify(value)) + camp del valor
+        this.recollidaTipus += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'recollida_tipus')[0].value));
+        // get key: complements_mito_palillos value: JSON.parse(JSON.stringify(value)) + camp del valor
+        this.comensalsMitoPalillos += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_palillos')[0].value));
+        // get key: complements_mito_soja value: JSON.parse(JSON.stringify(value))+ camp del valor
+        this.comensalsMitoSoja += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_soja')[0].value));
+        // get key: complements_mito_wasabi value: JSON.parse(JSON.stringify(value))+ camp del valor
+        this.comensalsMitoWasabi += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_wasabi')[0].value)); 
+        // get key: complements_mito_gengibre value: JSON.parse(JSON.stringify(value))+ camp del valor
+        this.comensalsMitoGengibre += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_gengibre')[0].value));
+        // get key: alergenos_cliente value: X
+        this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente')[0].value;
     }
 
     generateRawTicket(orderObj){
@@ -374,48 +427,57 @@ class TicketCompraMito {
         // this.printerMito.println('SIZE 7,7');
         
         // this.printerMito.cut();
+
         // Printer Compra Ticket
         // TICKET HEADER
         this.printerMito.newLine();
         //this.printerMito.printImage();
         this.printerMito.newLine();
         this.printerMito.alignCenter();
-        this.printerMito.setTextSize(1,1);
+        // this.printerMito.setTextSize(1,1);
+        this.printerMito.bold(true);
         this.printerMito.println(this.businessName);
-        // TICKET BUSINESS INFO
+        this.printerMito.bold(false);
         this.printerMito.newLine();
         this.printerMito.alignCenter();
-        this.printerMito.setTextSize(1,1);
         this.printerMito.println(this.direccioBusiness);
         this.printerMito.alignCenter();
         this.printerMito.println(this.codiPostalPobalcio);
         this.printerMito.alignCenter();
         this.printerMito.println(this.paisBusiness);
         // TICKET CLIENT INFO
-        if (this.mitoOrderItems.meta_data.length > 0){
-            // aqui tenemos que recoger toda la informacion del usuario y el pedido a mostrar que no tenga nada que ver con la comida
-            // purchaseType, taula, usuari, comensals, venta
-        } else {
-            this.printerMito.newLine();
-            this.printerMito.alignLeft();
-            const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
-            this.printerMito.println(orderOwner);
-            this.printerMito.alignLeft();
-            const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}, ${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}, ${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
-            this.printerMito.println(adrecaOrder);
-            this.printerMito.alignLeft();
-            this.printerMito.println(orderObj?.billing?.phone);
-            // TICKET PURCHASE INFO
-            this.printerMito.newLine();
-            this.printerMito.leftRight(this.purchaseType,this.taula + orderObj.id);
-            this.printerMito.leftRight(this.usuari,this.comensals + '1');
-            this.printerMito.leftRight(this.venta,orderObj.date_created);
-        }
-        
+        this.printerMito.newLine();
+        this.printerMito.alignLeft();
+        const orderOwner = `${orderObj?.billing?.first_name} ${orderObj?.billing?.last_name}`
+        this.printerMito.println(orderOwner);
+        this.printerMito.newLine();
+        this.printerMito.alignLeft();
+        const adrecaOrder = `${orderObj?.billing?.address_1}, ${orderObj?.billing?.address_2}`
+        this.printerMito.println(adrecaOrder);
+        const adrecaOrder2 = `${orderObj?.billing?.postcode}, ${orderObj?.billing?.city}`;
+        const adrecaOrder3 = `${orderObj?.billing?.state}, ${orderObj?.billing?.country}`
+        this.printerMito.leftRight(adrecaOrder2, adrecaOrder3);
+        this.printerMito.newLine();
+        this.printerMito.println(this.sector);
+        this.printerMito.newLine();
+        this.printerMito.alignLeft();
+        this.printerMito.println('Contacte: ' + orderObj?.billing?.phone);
+        // TICKET PURCHASE INFO
+        this.printerMito.newLine();
+        this.printerMito.println(this.purchaseType + orderObj.id);
+        this.printerMito.newLine();
+        this.printerMito.println(this.usuari);
+        this.printerMito.newLine();
+        this.printerMito.leftRight(this.taula + orderObj.id,this.comensals);
+        this.printerMito.leftRight(this.venta,orderObj.date_created);
+        // AFEGIR META DATA PURCHASE INFO
+        // horaRecollida, recollidaTipus, alergensClient
+        this.printerMito.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerMito.println(this.alergensClient);
         // TICKET ORDER ITEMS TABLE INFO
         this.printerMito.newLine();
-        this.printerMito.println('--------------------------------');
-        if (orderObj.line_items.length > 0){
+        this.printerMito.drawLine();
+        if(this.mitoOrderItems.length > 0){
             let filaArray = [];
             let tableObj = {
                 text : '',
@@ -425,7 +487,7 @@ class TicketCompraMito {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.1';
+            tableObj.width = '0.2';
 
             filaArray.push(tableObj);
 
@@ -439,31 +501,35 @@ class TicketCompraMito {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.6';
+            tableObj.width = '0.3';
 
             filaArray.push(tableObj);
 
             tableObj = {};
             tableObj.text = 'PREU';
             tableObj.align = 'RIGHT';
-            tableObj.width = '0.1';
+            tableObj.width = '0.2';
 
             filaArray.push(tableObj);
 
             this.printerMito.tableCustom(filaArray);
 
+            this.printerMito.drawLine();
+
             let filasArray = [];
             let _that = this;
 
             this.mitoOrderItems.forEach(function(item){
-                console.log('order item',item);
-                // aplicar
+                // console.log('order item',item);
+
+                _that.checkIfMitoProductsExist(item);
+
                 filaArray = [];
                 tableObj = {};
 
                 tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.1';
+                tableObj.width = '0.2';
                 filaArray.push(tableObj);
 
                 tableObj = {};
@@ -476,14 +542,14 @@ class TicketCompraMito {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.6';
+                tableObj.width = '0.3';
 
                 filaArray.push(tableObj);
 
                 tableObj = {};
                 tableObj.text = item.total;
                 tableObj.align = 'RIGHT';
-                tableObj.width = '0.1';
+                tableObj.width = '0.2';
 
                 filaArray.push(tableObj);
                 //console.log(' filaArray to push ', filaArray)
@@ -497,37 +563,71 @@ class TicketCompraMito {
                         align : '',
                         width : ''
                     };
-                    let subFilaArray = []
-                    item.forEach(function(metaData){
-                        console.log('order metaData',metaData);
+
+                    let subFilaArray = [];
+
+                    item.meta_data.forEach(function(metaData){
+                        // console.log('order metaData',metaData);
+                        if (metaData.key.indexOf('_') >= 0) { return; }
                         // aplicar
                         subFilaArray = [];
                         subTableObj = {};
         
-                        subTableObj.text = item.quantity.toString();
+                        subTableObj.text = '';
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.1';
+                        subTableObj.width = '0.2';
+
+                        // subTableObj.width = '0.1';
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.key.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.4';
+
+                        subFilaArray.push(subTableObj);
+
+                        subTableObj = {};
+
+                        subTableObj.text = metaData.value.toString();
+                        subTableObj.align = 'LEFT';
+                        subTableObj.width = '0.3';
+
                         subFilaArray.push(subTableObj);
         
                         //console.log(' filaArray to push ', filaArray)
-                        _that.printerMito.tableCustom(subFilaArray); 
+        
+                        //console.log(' filaArray to push ', filaArray)
+                        _that.printerMito.tableCustom(subFilaArray);
         
                     }) 
                 }
-            })  
 
-               
+            })
+            
+            setTimeout(() => {
+                
+                if (this.existMitoProducts === true){
+                    this.addInfoComplementsMito(_that.printerMito);
+                }
+
+            },100);
+            
         }
+
         this.printerMito.newLine();
-        this.printerMito.println('--------------------------------');
+        this.printerMito.drawLine();
         this.printerMito.bold(true);
-        this.printerMito.setTextSize(2,2);
+        // this.printerMito.setTextSize(2,2);
         this.printerMito.leftRight('TOTAL CON IVA', orderObj.total);
+        // this.executePrint();
+        // this.printerMito.clear();
         this.printerMito.bold(false);
+        // this.printerMito.setTextSize(1,1);
         // TICKET FOOTER INFO
         this.printerMito.newLine();
         this.printerMito.alignCenter();
-        this.printerMito.setTextSize(1,1);
         this.printerMito.println(this.footerBusinessInfo);
         this.printerMito.alignCenter();
         this.printerMito.println(this.footerCIFNIF);
@@ -537,7 +637,7 @@ class TicketCompraMito {
         this.printerMito.println(this.footerNumeroFactura + orderObj.id);
         //Partial Cut for other tickets
         this.printerMito.cut();
-
+        
         this.executePrint();
     }
 
@@ -563,20 +663,8 @@ class TicketCompraMito {
         //console.log('platsFredsMito -->', platsFredsToPrint)
         let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
         //console.log(platsFredsMito);
-        setTimeout(() => {
-            this.getComandaSala(this.mitoOrderItems);
-        },3000)  
     }
 
-    getComandaSala(begudes){
-        let begudesToPrint = [];
-        begudes.forEach((beg)=>{
-            if(this.MITO_SKU_BEGUDES.includes(beg.sku)) begudesToPrint.push(beg);
-        })
-        console.log('begudes mito -->', begudesToPrint)
-        //let platsFredsBruna = new TicketFredBruna(platsFredsToPrint, this.printerBruna);
-        //console.log(platsFredsBruna);
-    }
 }
 
 module.exports = TicketCompraMito;

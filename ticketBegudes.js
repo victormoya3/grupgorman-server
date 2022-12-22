@@ -50,15 +50,15 @@ class TicketBegudes {
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         this.printerBegudes.newLine();
         this.printerBegudes.alignCenter();
-        this.printerBegudes.setTextSize(1,1);
+        // this.printerBegudes.setTextSize(1,1);
         this.printerBegudes.bold(true);
         this.printerBegudes.invert(true);
         this.printerBegudes.println(this.begudesTitol);
         this.printerBegudes.invert(false);
         // this.printerBegudes.print
         this.printerBegudes.newLine();
-        this.printerBegudes.setTextSize(1,1);
-        this.printerBegudes.println('--------------------------------');
+        // this.printerBegudes.setTextSize(1,1);
+        this.printerBegudes.drawLine();
         this.printerBegudes.bold(false);
         if(begudes.length > 0){
             let filaArray = [];
@@ -70,7 +70,7 @@ class TicketBegudes {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.1';
+            tableObj.width = '0.2';
 
             filaArray.push(tableObj);
 
@@ -94,7 +94,7 @@ class TicketBegudes {
             let _that = this;
 
             plats.forEach(function(item){
-                console.log('order item',item);
+                // console.log('beguda: ',item);
                 filaArray = [];
                 tableObj = {};
 
@@ -123,7 +123,7 @@ class TicketBegudes {
             })  
 
             this.printerBegudes.newLine();
-            this.printerBegudes.println('--------------------------------');
+            this.printerBegudes.drawLine();
             this.printerBegudes.newLine();
             this.printerBegudes.cut();
         

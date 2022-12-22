@@ -16,9 +16,6 @@ class NewOrder {
     brunaOrderItems;
     begudes;
     WooCommerceAPI;
-    mitoSKUs = [];
-    brunaSKUs = [];
-    begudesSKUs = [];
 
     MITO_SKU_LIST = [
         '01', // Edamamme
@@ -31,6 +28,7 @@ class NewOrder {
         '08C', // Gyozas 2.0
         '08E', // Gyozas Bolets
         '10', // Yakimeshi
+        '11', // Bolets pollastre
         '101', // Mocchi Xocolata
         '102', // Mocchi Te Verd
         '104', // Mocchi Cheseecake
@@ -43,7 +41,7 @@ class NewOrder {
         '130', // Uramaki Alvocat ceba car, salmo flamejat, salsa teriyaki
         '132', // Uramaki Foie micuit, gelee figa, coulis de gerds i nous
         '136', // Farcit Alvocat, ceba car, tartar salmo, tartarai tobiko
-        '141', // Uramaki Alvocat amb ceba, llagosti tempuritzat, salsa fruita passio i coco
+        '141', // Uramaki Alvocat amb ceba, llagosti tempuritzat, salsa mermelada maduixa
         '143', // Uramaki a la italiana
         '144', // Uramaki de llagosti en tempura, mzclum, mermelada maduixa
         '16', // Ebi Tempura llagosti tempuritzat
@@ -64,13 +62,13 @@ class NewOrder {
         '42', // Niguiri tonyina
         '47', // Niguiri tonyina flamejat
         '48', // Niguiri salmo flamejada
-        '52', // Maki Salmo
+        '62', // Maki Salmo
         '63', // Maki de tonyina
         '66', // Maki de llagosti
         '69', // Maki tempuritzat amb brie amb mermelada
         '73', // Maki tempuritzart de foie caramelitzat
         '75', // Pollastre Kar-Age amb salsa cajun
-        '76', // Pollastre amb teriyaki a la catalana
+        // '76', // Pollastre amb teriyaki a la catalana
         '78', // Udon
         '79', // Maki tempuritzat alvocat amb tonyina, salsa teriyaki picant
         '80', // Maki tempuritzat amb salmo, salsa teriyaki picant
@@ -81,7 +79,7 @@ class NewOrder {
         '89', // Uramaki de pollastre kar-age, ceba car, mango i salsa de ceba
         '94', // Uramaki de pollastre kar-age, mezclum i salsa cajun
         'O8D', // Gyozas fricando
-    ]
+    ];
 
     BRUNA_SKU_LIST = [
         'BAC01', // Amanida Cesar
@@ -93,7 +91,8 @@ class NewOrder {
         'BBCB1', // Cabra Boja
         'BBDB1', // Doble Bruna
         'BBDF1', // De Foie
-        'BBDP1', // De Pebrots
+        // 'BBDP1', // De Pebrots
+        'BBY1', // De la yaya
         'BBLG1', // La Gouda
         'BBLT1', // La Trufada
         'BBPB1', // Pollastre Brasa
@@ -116,9 +115,34 @@ class NewOrder {
         'BPTN1', // Teques Nutella
         'BPXC1', // Coulant
         'BTC01', // Teque Formatge Cabra
-        'BTM01', // Teque Mozzarella
+        // 'BTM01', // Teque Mozzarella
         'BTS01', // Teque Sobrasada
-    ]
+        'BTF01', // Teque Frankfurt
+        'BTG01', // Teque Gouda
+    ];
+
+    BEGUDES_SKU_LIST = [
+        'VINO02', // Abadal Blanc
+        'VINO01', // Missenyora Blanc
+        'BEB03', // Estrella Damm
+        'BEB02', // Coca-Cola
+        'BEB01', // Coca-Cola Zero
+        'BEB07', // Aigua
+        'BEB06', // Trina
+        'BEB05', // Fanta Llimona
+        'BEB04', // Fanta Taronja
+        'CAVA02', // Bertha Rosa
+        'CAVA01', // Bertha Blanc
+        'VINO09', // Formiga Negre
+        'VINO08', // Llavors Negre
+        'VINO10', // Pura Vida
+        'VINO07', // Marrec Negre
+        'VINO06', // Petit Arnau Rosat
+        'VINO05', // Cap Creus Blanc
+        'VINO04', // Marrec Blanc
+        'VINO03', // 
+        'SAKE01' // Sake
+    ];
     
     constructor(newOrder, WoocommerceInstance){
         this.WooCommerceAPI = WoocommerceInstance;
@@ -160,26 +184,26 @@ class NewOrder {
         // console.log('order execute grup gorman process', order)
         this.mitoOrderItems = this.filterValuesFromLocation(order.line_items, this.MITO_SKU_LIST);
         this.brunaOrderItems = this.filterValuesFromLocation(order.line_items, this.BRUNA_SKU_LIST);
-        this.begudes = this.filterValuesFromLocation(order.line_items, this.begudesSKUs);
+        this.begudes = this.filterValuesFromLocation(order.line_items, this.BEGUDES_SKU_LIST);
 
         if ( order.line_items.length > 0){
             const ticketClient = new TicketCompraClient(order, order.line_items, this.printer);
             setTimeout(()=>{
                 if(this.mitoOrderItems.length > 0){
-                    // let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
+                    let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
                 }
             }, 6000)
     
             setTimeout(()=>{
                 if(this.brunaOrderItems.length > 0){
-                    // let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
+                    let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
                 }
                 
             },9000)
     
             setTimeout(()=>{
                 if(this.begudes.length > 0){
-                    // let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
+                    let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
                 }
                 
             },12000);
