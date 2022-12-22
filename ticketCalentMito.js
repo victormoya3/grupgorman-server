@@ -5,7 +5,7 @@ class TicketCalentMito {
     printerCalentsMito;
     platsCalentsMito = [];
 
-    mitoCalentsTitol = 'CALENTS'
+    mitoCalentsTitol = 'CALENTS - MITO'
     constructor(platsCalents,printer){
         this.printerCalentsMito = printer;
         this.printerCalentsMito.clear();

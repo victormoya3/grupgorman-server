@@ -4,7 +4,7 @@ class TicketFredMito {
 
     printerFredMito;
     platsFredsMito = [];
-    mitoFredTitol = 'FREDS';
+    mitoFredTitol = 'FREDS - MITO';
     
     constructor(platsFreds,printer){
         this.printerFredMito = printer;
