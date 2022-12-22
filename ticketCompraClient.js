@@ -169,7 +169,7 @@ class TicketCompraClient {
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
         
-        for(let i = 0; i < copies; i++) {
+        for(let i = 0; i >= copies; i++) {
             this.generateRawTicket(newOrder);
         }
     }
