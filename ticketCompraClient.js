@@ -21,10 +21,10 @@ class TicketCompraClient {
     sector = 'Sector: ';
     horaRecollida = 'Entrega: ';
     recollidaTipus = 'Recollida: ';
-    comensalsMitoSoja = 'Soja ';
-    comensalsMitoPalillos = 'Palillos'
-    comensalsMitoWasabi = 'Wasabi';
-    comensalsMitoGengibre = 'Gengibre';
+    comensalsMitoSoja = 'Soja: ';
+    comensalsMitoPalillos = 'Palillos: '
+    comensalsMitoWasabi = 'Wasabi: ';
+    comensalsMitoGengibre = 'Gengibre: ';
     alergensClient = 'Alergens: ';
 
     footerBusinessInfo = 'Gorman Restauració S.L.U';

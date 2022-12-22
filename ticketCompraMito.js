@@ -606,12 +606,8 @@ class TicketCompraMito {
                 }
 
             })
-            
-            setTimeout(() => {
-                
-                this.addInfoComplementsMito(_that.printerMito);
-
-            },100);
+                            
+            this.addInfoComplementsMito(_that.printerMito);
             
         }
 
