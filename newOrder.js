@@ -187,7 +187,7 @@ class NewOrder {
         this.begudes = this.filterValuesFromLocation(order.line_items, this.BEGUDES_SKU_LIST);
 
         if ( order.line_items.length > 0){
-            const ticketClient = new TicketCompraClient(order, order.line_items, this.printer);
+            const ticketClient = new TicketCompraClient(order, order.line_items, this.printer, 2);
             setTimeout(()=>{
                 console.log('MITO PRINT PROCESS :',this.mitoOrderItems);
                 if(this.mitoOrderItems.length > 0){

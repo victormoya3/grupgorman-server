@@ -98,7 +98,7 @@ class TicketCompraClient {
         'O8D', // Gyozas fricando
     ];
 
-    constructor(order,orderItems,printer){
+    constructor(order,orderItems,printer, numCopies){
         console.log('**** GRUP GORMAN ORDER PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
@@ -107,7 +107,7 @@ class TicketCompraClient {
         this.printer = printer;
         this.printer.clear();
         this.orderItems = orderItems;
-       if(order != undefined && orderItems.length > 0) this.executeCompra(order);
+       if(order != undefined && orderItems.length > 0) this.executeCompra(order, numCopies);
        //else this.executeTestCompraMito();
     }
 
@@ -163,13 +163,15 @@ class TicketCompraClient {
         }
     }
 
-    async executeCompra(newOrder){
+    async executeCompra(newOrder, copies){
         //console.log('**************** GORMAN TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        this.generateRawTicket(newOrder);
         
+        for(let i = 0; i < copies; i++) {
+            this.generateRawTicket(newOrder);
+        }
     }
 
     setUpTicketVariables(order) {

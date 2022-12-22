@@ -88,6 +88,7 @@ class TicketFredMito {
             filaArray.push(tableObj);
 
             this.printerFredMito.tableCustom(filaArray);
+            this.printerFredMito.drawLine();
 
             let filasArray = [];
             let _that = this;
@@ -112,7 +113,7 @@ class TicketFredMito {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.7';
+                tableObj.width = '0.6';
 
                 filaArray.push(tableObj);
 
