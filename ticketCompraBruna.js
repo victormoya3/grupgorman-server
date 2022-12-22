@@ -68,18 +68,23 @@ class TicketCompraBruna {
         'BTG01', // Teque Gouda
     ];
 
-    businessName = 'La Bruna Grill Restaurant';
+    businessName = 'La Bruna Grill';
     direccioBusiness = 'C/ Hospital, 46';
     codiPostalPobalcio = '08211, Castellar del Vallès, Barcelona';
     paisBusiness = 'Espanya';
 
-    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL';
-    taula = 'Taula:';
-    usuari = 'Usuari Generic';
-    comensals = 'Comensals:';
+    purchaseType = 'FACTURA SIMPLICIFICADA GENERAL - ';
+    taula = 'Taula: ';
+    usuari = 'Usuari Generic ';
+    comensals = 'Comensals: ';
     venta = 'Venta - Comanda';
 
-    footerBusinessInfo = 'Bruna Grill';
+    sector = 'Sector: ';
+    horaRecollida = 'Entrega: ';
+    recollidaTipus = 'Recollida: ';
+    alergensClient = 'Alergens: ';
+
+    footerBusinessInfo = 'Gorman Restauració S.L.U';
     footerCIFNIF = 'CIF/NIF:';
     footerSerialFactura = 'Serie de Factura:';
     footerNumeroFactura = 'Numero de Factura:';
@@ -168,14 +173,6 @@ class TicketCompraBruna {
         this.horaRecollida += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'hora_recollida')[0].value));
         // get key: recollida_tipus value: JSON.parse(JSON.stringify(value)) + camp del valor
         this.recollidaTipus += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'recollida_tipus')[0].value));
-        // get key: complements_mito_palillos value: JSON.parse(JSON.stringify(value)) + camp del valor
-        this.comensalsMitoPalillos += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_palillos')[0].value));
-        // get key: complements_mito_soja value: JSON.parse(JSON.stringify(value))+ camp del valor
-        this.comensalsMitoSoja += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_soja')[0].value));
-        // get key: complements_mito_wasabi value: JSON.parse(JSON.stringify(value))+ camp del valor
-        this.comensalsMitoWasabi += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_wasabi')[0].value)); 
-        // get key: complements_mito_gengibre value: JSON.parse(JSON.stringify(value))+ camp del valor
-        this.comensalsMitoGengibre += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_gengibre')[0].value));
         // get key: alergenos_cliente value: X
         this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente')[0].value;
     }
@@ -275,8 +272,6 @@ class TicketCompraBruna {
             this.brunaOrderItems.forEach(function(item){
                 // console.log('order item',item);
 
-                _that.checkIfMitoProductsExist(item);
-
                 filaArray = [];
                 tableObj = {};
 
@@ -358,14 +353,6 @@ class TicketCompraBruna {
                 }
 
             })
-            
-            setTimeout(() => {
-                
-                if (this.existMitoProducts === true){
-                    this.addInfoComplementsMito(_that.printerBruna);
-                }
-
-            },100);
             
         }
 

@@ -125,6 +125,7 @@ class TicketCompraClient {
                 //     this.getComandaCalents(this.mitoOrderItems);
                 // },3000)
                 // return cb(jobID)
+                return;
             }
 
             Printer.printDirect({
