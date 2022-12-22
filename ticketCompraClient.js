@@ -598,8 +598,8 @@ class TicketCompraClient {
     }
 
     addInfoComplementsMito(printer) {
-        filaArray = [];
-        tableObj = {};
+        let filaArray = [];
+        let tableObj = {};
 
         tableObj.text = this.comensalsMitoSoja;
         tableObj.align = 'LEFT';

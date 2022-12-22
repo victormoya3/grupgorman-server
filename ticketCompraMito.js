@@ -522,8 +522,6 @@ class TicketCompraMito {
             this.mitoOrderItems.forEach(function(item){
                 // console.log('order item',item);
 
-                _that.checkIfMitoProductsExist(item);
-
                 filaArray = [];
                 tableObj = {};
 
@@ -608,9 +606,7 @@ class TicketCompraMito {
             
             setTimeout(() => {
                 
-                if (this.existMitoProducts === true){
-                    this.addInfoComplementsMito(_that.printerMito);
-                }
+                this.addInfoComplementsMito(_that.printerMito);
 
             },100);
             
@@ -639,6 +635,40 @@ class TicketCompraMito {
         this.printerMito.cut();
         
         this.executePrint();
+    }
+
+    addInfoComplementsMito(printer) {
+        let filaArray = [];
+        let tableObj = {};
+
+        tableObj.text = this.comensalsMitoSoja;
+        tableObj.align = 'LEFT';
+        tableObj.width = '0.9';
+        filaArray.push(tableObj);
+
+        tableObj = {};
+
+        tableObj.text = this.comensalsMitoPalillos;
+        tableObj.align = 'LEFT';
+        tableObj.width = '0.9';
+        filaArray.push(tableObj);
+
+        tableObj = {};
+
+        tableObj.text = this.comensalsMitoWasabi;
+        tableObj.align = 'LEFT';
+        tableObj.width = '0.9';
+        filaArray.push(tableObj);
+
+        tableObj = {};
+
+        tableObj.text = this.comensalsMitoGengibre;
+        tableObj.align = 'LEFT';
+        tableObj.width = '0.9';
+        filaArray.push(tableObj);
+        
+        //console.log(' filaArray to push ', filaArray)
+        printer.tableCustom(filaArray); 
     }
 
     getComandaCalents(platsCalents) {
