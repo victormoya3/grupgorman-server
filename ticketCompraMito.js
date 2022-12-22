@@ -116,10 +116,10 @@ class TicketCompraMito {
     sector = 'Sector: ';
     horaRecollida = 'Entrega: ';
     recollidaTipus = 'Recollida: ';
-    comensalsMitoSoja = 'Soja ';
-    comensalsMitoPalillos = 'Palillos'
-    comensalsMitoWasabi = 'Wasabi';
-    comensalsMitoGengibre = 'Gengibre';
+    comensalsMitoSoja = 'Soja: ';
+    comensalsMitoPalillos = 'Palillos: '
+    comensalsMitoWasabi = 'Wasabi: ';
+    comensalsMitoGengibre = 'Gengibre: ';
     alergensClient = 'Alergens: ';
 
     footerBusinessInfo = 'Gorman Restauració S.L.U';
@@ -502,7 +502,7 @@ class TicketCompraMito {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.5';
+            tableObj.width = '0.4';
 
             filaArray.push(tableObj);
 
@@ -523,14 +523,14 @@ class TicketCompraMito {
             this.mitoOrderItems.forEach(function(item){
                 // console.log('order item',item);
 
-                mitoTotalPreu += item.total;
+                mitoTotalPreu += +item.total;
 
                 filaArray = [];
                 tableObj = {};
 
                 tableObj.text = item.quantity.toString();
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.2';
+                tableObj.width = '0.1';
                 filaArray.push(tableObj);
 
                 tableObj = {};
@@ -543,7 +543,7 @@ class TicketCompraMito {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.3';
+                tableObj.width = '0.4';
 
                 filaArray.push(tableObj);
 

@@ -239,7 +239,7 @@ class TicketCompraBruna {
 
             tableObj.text = 'QTY';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.2';
+            tableObj.width = '0.1';
 
             filaArray.push(tableObj);
 
@@ -253,7 +253,7 @@ class TicketCompraBruna {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.3';
+            tableObj.width = '0.4';
 
             filaArray.push(tableObj);
 
@@ -274,7 +274,7 @@ class TicketCompraBruna {
             this.brunaOrderItems.forEach(function(item){
                 // console.log('order item',item);
 
-                brunaTotalPreu += item.total;
+                brunaTotalPreu += +item.total;
 
                 filaArray = [];
                 tableObj = {};
@@ -294,7 +294,7 @@ class TicketCompraBruna {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.5';
+                tableObj.width = '0.4';
 
                 filaArray.push(tableObj);
 

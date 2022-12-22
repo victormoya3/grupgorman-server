@@ -270,7 +270,7 @@ class TicketCompraClient {
             tableObj = {};
             tableObj.text = 'DESC';
             tableObj.align = 'LEFT';
-            tableObj.width = '0.3';
+            tableObj.width = '0.4';
 
             filaArray.push(tableObj);
 
@@ -311,7 +311,7 @@ class TicketCompraClient {
                 tableObj = {};
                 tableObj.text = item.name;
                 tableObj.align = 'LEFT';
-                tableObj.width = '0.5';
+                tableObj.width = '0.4';
 
                 filaArray.push(tableObj);
 
