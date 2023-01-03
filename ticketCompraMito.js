@@ -127,7 +127,9 @@ class TicketCompraMito {
     footerSerialFactura = 'Serie de Factura:';
     footerNumeroFactura = 'Numero de Factura:';
 
-    constructor(order,orderItems,printer){
+    grupGormanOrder;
+
+    constructor(order,orderItems,printer, copies){
         console.log('**** MITO PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
@@ -136,7 +138,8 @@ class TicketCompraMito {
         this.printerMito = printer;
         this.printerMito.clear();
         this.mitoOrderItems = orderItems;
-       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order);
+        this.grupGormanOrder = order;
+       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order, copies);
        //else this.executeTestCompraMito();
     }
 
@@ -152,7 +155,7 @@ class TicketCompraMito {
                 console.log(`printer job: ${jobID}`);
                 setTimeout(() => {
                     this.getComandaCalents(this.mitoOrderItems);
-                },3000)
+                },2000)
 
             }
 
@@ -189,12 +192,14 @@ class TicketCompraMito {
         }
     }
 
-    async executeCompraMito(newOrder){
+    async executeCompraMito(newOrder, numCopies){
         //console.log('**************** MITO TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        this.generateRawTicket(newOrder);
+        for (let k = 0; k < numCopies; k++){
+            this.generateRawTicket(newOrder);
+        }
         
     }
 
@@ -615,6 +620,7 @@ class TicketCompraMito {
         this.printerMito.drawLine();
         this.printerMito.bold(true);
         // this.printerMito.setTextSize(2,2);
+        //  AFEGIR DESGLOSE TOTAL SIN / CON IVA
         this.printerMito.leftRight('TOTAL CON IVA', mitoTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
         // this.printerMito.clear();
@@ -677,11 +683,11 @@ class TicketCompraMito {
         })
         //console.log('platsCalentsMito -->', platsCalentsToPrint)
 
-        let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito);
+        let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito,this.grupGormanOrder, this.recollidaTipus, this.horaRecollida);
         //console.log(platsCalentsMito);
         setTimeout(() => {
             this.getComandaFreds(this.mitoOrderItems);
-        },3000)
+        },2000)
     }
 
     getComandaFreds(platsFreds){

@@ -6,9 +6,18 @@ class TicketFredMito {
     platsFredsMito = [];
     mitoFredTitol = 'FREDS - MITO';
     
-    constructor(platsFreds,printer){
+    venta = 'Venta - Comanda';
+
+    grupGormanOrder;
+    recollidaTipus;
+    horaRecollida;
+
+    constructor(platsFreds,printer, order, recollidaTipus, horaRecollida){
         this.printerFredMito = printer;
         this.printerFredMito.clear();
+        this.grupGormanOrder = order;
+        this.horaRecollida = horaRecollida;
+        this.recollidaTipus = recollidaTipus;
        if(platsFreds.length > 0) this.executeFredsMito(platsFreds);
     }
 
@@ -57,8 +66,12 @@ class TicketFredMito {
         // this.printerFredMito.print
         this.printerFredMito.newLine();
         // this.printerFredMito.setTextSize(1,1);
-        this.printerFredMito.drawLine();
         this.printerFredMito.bold(false);
+        this.printerMito.leftRight(this.venta,this.grupGormanOrder.date_created);
+        // AFEGIR META DATA PURCHASE INFO
+        // horaRecollida, recollidaTipus, alergensClient
+        this.printerMito.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerFredMito.drawLine();
         if(plats.length > 0){
             let filaArray = [];
             let tableObj = {
@@ -146,7 +159,7 @@ class TicketFredMito {
 
                         subTableObj = {};
 
-                        subTableObj.text = metaData.key.toString();
+                        subTableObj.text = '-';
                         subTableObj.align = 'LEFT';
                         subTableObj.width = '0.4';
 

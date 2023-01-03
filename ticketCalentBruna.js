@@ -5,10 +5,19 @@ class TicketCalentBruna {
     printerCalentsBruna;
     platsCalentsBruna = [];
 
-    brunaCalentsTitol = 'CALENTS - BRUNA'
-    constructor(platsCalents,printer){
+    brunaCalentsTitol = 'CALENTS - BRUNA';
+    venta = 'Venta - Comanda';
+
+    grupGormanOrder;
+    recollidaTipus;
+    horaRecollida;
+
+    constructor(platsCalents,printer, order, recollidaTipus, horaRecollida){
         this.printerCalentsBruna = printer;
         this.printerCalentsBruna.clear();
+        this.grupGormanOrder = order;
+        this.recollidaTipus = recollidaTipus;
+        this.horaRecollida = horaRecollida;
        if(platsCalents.length > 0) this.executeCalentsBruna(platsCalents);
     }
 
@@ -63,6 +72,10 @@ class TicketCalentBruna {
         // this.printerCalentsBruna.setTextSize(1,1);
         this.printerCalentsBruna.newLine();
         this.printerCalentsBruna.bold(false);
+        this.printerMito.leftRight(this.venta,this.grupGormanOrder.date_created);
+        // AFEGIR META DATA PURCHASE INFO
+        // horaRecollida, recollidaTipus, alergensClient
+        this.printerMito.leftRight(this.recollidaTipus,this.horaRecollida);
         this.printerCalentsBruna.drawLine();
         
         if(plats.length > 0){
@@ -153,7 +166,7 @@ class TicketCalentBruna {
 
                         subTableObj = {};
 
-                        subTableObj.text = metaData.key.toString();
+                        subTableObj.text = '-';
                         subTableObj.align = 'LEFT';
                         subTableObj.width = '0.4';
 

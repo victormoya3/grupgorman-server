@@ -79,6 +79,26 @@ class NewOrder {
         '89', // Uramaki de pollastre kar-age, ceba car, mango i salsa de ceba
         '94', // Uramaki de pollastre kar-age, mezclum i salsa cajun
         'O8D', // Gyozas fricando
+        'VINO02', // Abadal Blanc
+        'VINO01', // Missenyora Blanc
+        'BEB03', // Estrella Damm
+        'BEB02', // Coca-Cola
+        'BEB01', // Coca-Cola Zero
+        'BEB07', // Aigua
+        'BEB06', // Trina
+        'BEB05', // Fanta Llimona
+        'BEB04', // Fanta Taronja
+        'CAVA02', // Bertha Rosa
+        'CAVA01', // Bertha Blanc
+        'VINO09', // Formiga Negre
+        'VINO08', // Llavors Negre
+        'VINO10', // Pura Vida
+        'VINO07', // Marrec Negre
+        'VINO06', // Petit Arnau Rosat
+        'VINO05', // Cap Creus Blanc
+        'VINO04', // Marrec Blanc
+        'VINO03', // 
+        'SAKE01' // Sake
     ];
 
     BRUNA_SKU_LIST = [
@@ -187,35 +207,37 @@ class NewOrder {
         this.begudes = this.filterValuesFromLocation(order.line_items, this.BEGUDES_SKU_LIST);
 
         if ( order.line_items.length > 0){
-            const ticketClient = new TicketCompraClient(order, order.line_items, this.printer, 1);
+            // const ticketClient = new TicketCompraClient(order, order.line_items, this.printer, 1);
             setTimeout(()=>{
                 console.log('MITO PRINT PROCESS :',this.mitoOrderItems);
                 if(this.mitoOrderItems.length > 0){
-                    let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer);
+                    let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer, 2);
                 }
-            }, 6000)
-    
-            setTimeout(()=>{
-                console.log('BRUNA PRINT PROCESS :',this.brunaOrderItems);
-                if(this.brunaOrderItems.length > 0){
-                    let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer);
-                }
-                
-            },9000)
-    
+            }, 10);
+
             setTimeout(()=>{
                 if(this.begudes.length > 0){
                     let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
                 }
                 
-            },12000);
+            },6000);
+    
+            setTimeout(()=>{
+                console.log('BRUNA PRINT PROCESS :',this.brunaOrderItems);
+                if(this.brunaOrderItems.length > 0){
+                    let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer, 2);
+                }
+                
+            },9000)
+    
+
     
             setTimeout(()=>{
                 if (order !== {}){
                     // this.actualitzarEstatComanda(order);
                 }
                 
-            },18000)
+            },12000)
         } 
         //console.lo =g('MITO PRINT PROCESS :',mitoPrintProcess);
         //console.log('BRUNA PRINT PROCESS :',brunaPrintProcess);

@@ -89,7 +89,9 @@ class TicketCompraBruna {
     footerSerialFactura = 'Serie de Factura:';
     footerNumeroFactura = 'Numero de Factura:';
 
-    constructor(order,orderItems,printer){
+    grupGormanOrder;
+
+    constructor(order,orderItems,printer, copies){
         console.log('**** BRUNA PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
@@ -98,8 +100,9 @@ class TicketCompraBruna {
         this.printerBruna = printer;
         this.printerBruna.clear();
         this.brunaOrderItems = orderItems;
+        this.grupGormanOrder = order;
         //this.constructThermalPrinter();
-       if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order);
+       if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order, copies);
        //else this.executeTestCompraBruna();
     }
 
@@ -154,12 +157,14 @@ class TicketCompraBruna {
         }
     }
 
-    async executeCompraBruna(newOrder){
+    async executeCompraBruna(newOrder, numCopies){
         //console.log('**************** BRUNA TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        this.generateRawTicket(newOrder);
+        for (let l = 0; l < numCopies; l++){
+            this.generateRawTicket(newOrder);
+        }
         
     }
 
@@ -391,7 +396,7 @@ class TicketCompraBruna {
             if(this.BRUNA_SKU_CALENT.includes(platC.sku)) platsCalentsToPrint.push(platC);
         })
         //console.log('platsCalentsBruna -->', platsCalentsToPrint)
-        let platsCalentsBruna = new TicketCalentBruna(platsCalentsToPrint, this.printerBruna);
+        let platsCalentsBruna = new TicketCalentBruna(platsCalentsToPrint, this.printerBruna, this.grupGormanOrder, this.recollidaTipus, this.horaRecollida);
         //console.log(platsCalentsMito);
     }
 
