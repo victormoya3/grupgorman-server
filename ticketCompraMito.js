@@ -197,7 +197,7 @@ class TicketCompraMito {
         }
     }
 
-    async executeCompraMito(newOrder, numCopies){
+    async executeCompraMito(newOrder){
         //console.log('**************** MITO TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')

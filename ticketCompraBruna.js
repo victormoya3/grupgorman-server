@@ -159,7 +159,7 @@ class TicketCompraBruna {
         }
     }
 
-    async executeCompraBruna(newOrder, numCopies){
+    async executeCompraBruna(newOrder){
         //console.log('**************** BRUNA TICKET NOVA COMPRA ****************');
         //console.log(newOrder);
         //console.log('***********************************************************')
