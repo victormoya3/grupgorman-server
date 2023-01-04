@@ -85,8 +85,7 @@ class TicketCompraBruna {
     alergensClient = 'Alergens: ';
 
     footerBusinessInfo = 'Gorman Restauració S.L.U';
-    footerCIFNIF = 'CIF/NIF:';
-    footerSerialFactura = 'Serie de Factura:';
+    footerCIFNIF = 'CIF/NIF: B66927856';    footerSerialFactura = 'Serie de Factura:';
     footerNumeroFactura = 'Numero de Factura:';
 
     grupGormanOrder;
@@ -369,7 +368,12 @@ class TicketCompraBruna {
             
         }
 
+        this.printerBruna.drawLine();
         this.printerBruna.newLine();
+        this.printerBruna.newLine();
+        this.printerBruna.leftRight('IVA 10% ' + brunaTotalPreu.toFixed(2) - (brunaTotalPreu.toFixed(2) * 0.1) + ' €', (brunaTotalPreu.toFixed(2) * 0.1) + ' €    ' + brunaTotalPreu.toFixed(2) - (brunaTotalPreu.toFixed(2) * 0.1) + ' €');
+        this.printerBruna.println('Total sin IVA ' + brunaTotalPreu.toFixed(2) - (brunaTotalPreu.toFixed(2) * 0.1) + ' €');
+
         this.printerBruna.drawLine();
         this.printerBruna.bold(true);
         // this.printerBruna.setTextSize(2,2);

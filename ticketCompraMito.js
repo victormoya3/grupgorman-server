@@ -123,7 +123,7 @@ class TicketCompraMito {
     alergensClient = 'Alergens: ';
 
     footerBusinessInfo = 'Gorman Restauració S.L.U';
-    footerCIFNIF = 'CIF/NIF:';
+    footerCIFNIF = 'CIF/NIF: B66927856';
     footerSerialFactura = 'Serie de Factura:';
     footerNumeroFactura = 'Numero de Factura:';
 
@@ -624,9 +624,14 @@ class TicketCompraMito {
 
         this.printerMito.newLine();
         this.printerMito.drawLine();
+        // DESGLOSE SENSE IVA
+        this.printerMito.newLine();
+        this.printerMito.leftRight('IVA 10% ' + mitoTotalPreu.toFixed(2) - (mitoTotalPreu.toFixed(2) * 0.1) + ' €', (mitoTotalPreu.toFixed(2) * 0.1) + ' €    ' + mitoTotalPreu.toFixed(2) - (mitoTotalPreu.toFixed(2) * 0.1) + ' €');
+        this.printerMito.println('Total sin IVA ' + mitoTotalPreu.toFixed(2) - (mitoTotalPreu.toFixed(2) * 0.1) + ' €');
+        this.printerMito.drawLine();
         this.printerMito.bold(true);
         // this.printerMito.setTextSize(2,2);
-        //  AFEGIR DESGLOSE TOTAL SIN / CON IVA
+        //  TOTAL CON IVA
         this.printerMito.leftRight('TOTAL CON IVA', mitoTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
         // this.printerMito.clear();
