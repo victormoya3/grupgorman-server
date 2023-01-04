@@ -170,7 +170,7 @@ class TicketCompraBruna {
 
     setUpTicketVariables(order) {
         // get key: sector value: JSON.parse(JSON.stringify(value)) + camp del valor
-        console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente'));
+        // console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente'));
         this.sector += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value));
         // get key: comensals value: X
         this.comensals += order.meta_data.filter((metaData) => metaData.key === 'comensals')[0].value;
@@ -193,10 +193,14 @@ class TicketCompraBruna {
         this.printerBruna.alignCenter();
         // this.printerBruna.setTextSize(1,1);
         this.printerBruna.bold(true);
+        this.printerBruna.setTextDoubleHeight();
+        this.printerBruna.setTextDoubleWidth();
         this.printerBruna.println(this.businessName);
         this.printerBruna.bold(false);
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
+        this.printerBruna.setTextNormal();
+        this.printerBruna.bold(false);
         this.printerBruna.println(this.direccioBusiness);
         this.printerBruna.alignCenter();
         this.printerBruna.println(this.codiPostalPobalcio);

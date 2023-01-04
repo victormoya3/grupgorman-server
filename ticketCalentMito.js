@@ -58,9 +58,12 @@ class TicketCalentMito {
         this.printerCalentsMito.newLine();
         this.printerCalentsMito.alignCenter();
         // this.printerCalentsMito.setTextSize(1,1);
+        this.printerCalentsMito.set
         this.printerCalentsMito.bold(true);
         this.printerCalentsMito.invert(true);
         this.printerCalentsMito.newLine();
+        this.printerCalentsMito.setTextDoubleHeight();
+        this.printerCalentsMito.setTextDoubleWidth();
         this.printerCalentsMito.println(this.mitoCalentsTitol);
         this.printerCalentsMito.newLine();
         this.printerCalentsMito.invert(false);
@@ -68,10 +71,11 @@ class TicketCalentMito {
         this.printerCalentsMito.newLine();
         // this.printerCalentsMito.setTextSize(1,1);
         this.printerCalentsMito.bold(false);
-        this.printerMito.leftRight(this.venta,this.grupGormanOrder.date_created);
+        this.printerCalentsMito.setTextNormal();
+        this.printerCalentsMito.leftRight(this.venta,this.grupGormanOrder.date_created);
         // AFEGIR META DATA PURCHASE INFO
         // horaRecollida, recollidaTipus, alergensClient
-        this.printerMito.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerCalentsMito.leftRight(this.recollidaTipus,this.horaRecollida);
         this.printerCalentsMito.drawLine();
         if(plats.length > 0){
             let filaArray = [];

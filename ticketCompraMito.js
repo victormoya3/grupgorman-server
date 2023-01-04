@@ -205,7 +205,7 @@ class TicketCompraMito {
 
     setUpTicketVariables(order) {
         // get key: sector value: JSON.parse(JSON.stringify(value)) + camp del valor
-        console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente'));
+        // console.log('alergenos ', order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente'));
         this.sector += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'sector')[0].value));
         // get key: comensals value: X
         this.comensals += order.meta_data.filter((metaData) => metaData.key === 'comensals')[0].value;
@@ -442,10 +442,16 @@ class TicketCompraMito {
         this.printerMito.alignCenter();
         // this.printerMito.setTextSize(1,1);
         this.printerMito.bold(true);
+        // printer.setTextNormal();                                    // Set text to normal
+        // printer.setTextDoubleHeight();                              // Set text to double height
+        // printer.setTextDoubleWidth();  
+        this.printerMito.setTextDoubleHeight();
+        this.printerMito.setTextDoubleWidth();
         this.printerMito.println(this.businessName);
         this.printerMito.bold(false);
         this.printerMito.newLine();
         this.printerMito.alignCenter();
+        this.printerMito.setTextNormal();
         this.printerMito.println(this.direccioBusiness);
         this.printerMito.alignCenter();
         this.printerMito.println(this.codiPostalPobalcio);

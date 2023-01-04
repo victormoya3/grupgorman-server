@@ -63,7 +63,8 @@ class TicketCalentBruna {
         this.printerCalentsBruna.bold(true);
         this.printerCalentsBruna.invert(true);
         this.printerCalentsBruna.newLine();
-
+        this.printerCalentsBruna.setTextDoubleHeight();
+        this.printerCalentsBruna.setTextDoubleWidth();
         this.printerCalentsBruna.println(this.brunaCalentsTitol);
         this.printerCalentsBruna.newLine();
 
@@ -72,10 +73,11 @@ class TicketCalentBruna {
         // this.printerCalentsBruna.setTextSize(1,1);
         this.printerCalentsBruna.newLine();
         this.printerCalentsBruna.bold(false);
-        this.printerMito.leftRight(this.venta,this.grupGormanOrder.date_created);
+        this.printerCalentsBruna.setTextNormal();
+        this.printerCalentsBruna.leftRight(this.venta,this.grupGormanOrder.date_created);
         // AFEGIR META DATA PURCHASE INFO
         // horaRecollida, recollidaTipus, alergensClient
-        this.printerMito.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerCalentsBruna.leftRight(this.recollidaTipus,this.horaRecollida);
         this.printerCalentsBruna.drawLine();
         
         if(plats.length > 0){
