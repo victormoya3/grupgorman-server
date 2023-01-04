@@ -697,7 +697,7 @@ class TicketCompraMito {
         })
         //console.log('platsCalentsMito -->', platsCalentsToPrint)
 
-        let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito,this.grupGormanOrder, this.recollidaTipus, this.horaRecollida);
+        let platsCalentsMito = new TicketCalentMito(platsCalentsToPrint,this.printerMito, this.grupGormanOrder, this.recollidaTipus, this.horaRecollida);
         //console.log(platsCalentsMito);
         setTimeout(() => {
             this.getComandaFreds(this.mitoOrderItems);
@@ -710,7 +710,7 @@ class TicketCompraMito {
             if(this.MITO_SKU_FRED.includes(platF.sku)) platsFredsToPrint.push(platF);
         })
         //console.log('platsFredsMito -->', platsFredsToPrint)
-        let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito);
+        let platsFredsMito = new TicketFredMito(platsFredsToPrint ,this.printerMito, this.grupGormanOrder, this.recollidaTipus, this.horaRecollida);
         //console.log(platsFredsMito);
     }
 
