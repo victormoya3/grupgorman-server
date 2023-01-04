@@ -69,7 +69,7 @@ class TicketFredMito {
         this.printerFredMito.newLine();
         // this.printerFredMito.setTextSize(1,1);
         this.printerFredMito.bold(false);
-        this.platsFredsMito.setTextNormal();
+        this.printerFredMito.setTextNormal();
         this.printerFredMito.leftRight(this.venta,this.grupGormanOrder.date_created);
         // AFEGIR META DATA PURCHASE INFO
         // horaRecollida, recollidaTipus, alergensClient

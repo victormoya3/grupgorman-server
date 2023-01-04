@@ -211,7 +211,8 @@ class NewOrder {
             setTimeout(()=>{
                 console.log('MITO PRINT PROCESS :',this.mitoOrderItems);
                 if(this.mitoOrderItems.length > 0){
-                    let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer, 2);
+                    let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer, false);
+                    let mitoPrintProcessCopia = new TicketCompraMito(order, this.mitoOrderItems, this.printer, true);
                 }
             }, 10);
 
@@ -225,7 +226,8 @@ class NewOrder {
             setTimeout(()=>{
                 console.log('BRUNA PRINT PROCESS :',this.brunaOrderItems);
                 if(this.brunaOrderItems.length > 0){
-                    let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer, 2);
+                    let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer, false);
+                    let brunaPrintProcessCopia = new TicketCompraBruna(order,this.brunaOrderItems,this.printer, true);
                 }
                 
             },9000)

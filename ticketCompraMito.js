@@ -129,7 +129,9 @@ class TicketCompraMito {
 
     grupGormanOrder;
 
-    constructor(order,orderItems,printer, copies){
+    esCopia
+
+    constructor(order,orderItems,printer, copia){
         console.log('**** MITO PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
@@ -139,7 +141,8 @@ class TicketCompraMito {
         this.printerMito.clear();
         this.mitoOrderItems = orderItems;
         this.grupGormanOrder = order;
-       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order, copies);
+        this.esCopia = copia;
+       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order, copia);
        //else this.executeTestCompraMito();
     }
 
@@ -153,6 +156,8 @@ class TicketCompraMito {
             
             let callback = ( jobID ) => {
                 console.log(`printer job: ${jobID}`);
+                if (this.esCopia === true) { return; }
+
                 setTimeout(() => {
                     this.getComandaCalents(this.mitoOrderItems);
                 },2000)
@@ -197,9 +202,7 @@ class TicketCompraMito {
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        for (let k = 0; k < numCopies; k++){
-            this.generateRawTicket(newOrder);
-        }
+        this.generateRawTicket(newOrder);
         
     }
 
@@ -626,8 +629,8 @@ class TicketCompraMito {
         this.printerMito.drawLine();
         // DESGLOSE SENSE IVA
         this.printerMito.newLine();
-        this.printerMito.leftRight('IVA 10% ' + mitoTotalPreu.toFixed(2) - (mitoTotalPreu.toFixed(2) * 0.1) + ' €', (mitoTotalPreu.toFixed(2) * 0.1) + ' €    ' + mitoTotalPreu.toFixed(2) - (mitoTotalPreu.toFixed(2) * 0.1) + ' €');
-        this.printerMito.println('Total sin IVA ' + mitoTotalPreu.toFixed(2) - (mitoTotalPreu.toFixed(2) * 0.1) + ' €');
+        this.printerMito.leftRight('IVA 10% ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €', (mitoTotalPreu.toFixed(2) * 0.1) + ' €    ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
+        this.printerMito.println('Total sin IVA ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
         this.printerMito.drawLine();
         this.printerMito.bold(true);
         // this.printerMito.setTextSize(2,2);

@@ -89,8 +89,9 @@ class TicketCompraBruna {
     footerNumeroFactura = 'Numero de Factura:';
 
     grupGormanOrder;
+    esCopia
 
-    constructor(order,orderItems,printer, copies){
+    constructor(order,orderItems,printer, copia){
         console.log('**** BRUNA PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
         //console.log('***** PARAM : orderItems --> ', orderItems);
@@ -100,6 +101,7 @@ class TicketCompraBruna {
         this.printerBruna.clear();
         this.brunaOrderItems = orderItems;
         this.grupGormanOrder = order;
+        this.esCopia = copia;
         //this.constructThermalPrinter();
        if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order, copies);
        //else this.executeTestCompraBruna();
@@ -116,6 +118,7 @@ class TicketCompraBruna {
 
             let callback = ( jobID ) => {
                 console.log(`printer job: ${jobID}`);
+                if (this.esCopia === true) { return; }
                 setTimeout(() => {
                     this.getComandaCalents(this.brunaOrderItems);
                 },3000)
@@ -161,9 +164,7 @@ class TicketCompraBruna {
         //console.log(newOrder);
         //console.log('***********************************************************')
         // Generar ticket de compra i cridar funcions per a filtrat de la comanda i generacio dels tickets de cuina
-        for (let l = 0; l < numCopies; l++){
-            this.generateRawTicket(newOrder);
-        }
+        this.generateRawTicket(newOrder);
         
     }
 
@@ -371,8 +372,8 @@ class TicketCompraBruna {
         this.printerBruna.drawLine();
         this.printerBruna.newLine();
         this.printerBruna.newLine();
-        this.printerBruna.leftRight('IVA 10% ' + brunaTotalPreu.toFixed(2) - (brunaTotalPreu.toFixed(2) * 0.1) + ' €', (brunaTotalPreu.toFixed(2) * 0.1) + ' €    ' + brunaTotalPreu.toFixed(2) - (brunaTotalPreu.toFixed(2) * 0.1) + ' €');
-        this.printerBruna.println('Total sin IVA ' + brunaTotalPreu.toFixed(2) - (brunaTotalPreu.toFixed(2) * 0.1) + ' €');
+        this.printerBruna.leftRight('IVA 10% ' + (+brunaTotalPreu.toFixed(2) - (+brunaTotalPreu.toFixed(2) * 0.1)) + ' €', (+brunaTotalPreu.toFixed(2) * 0.1) + ' €    ' + (+brunaTotalPreu.toFixed(2) - (+brunaTotalPreu.toFixed(2) * 0.1)) + ' €');
+        this.printerBruna.println('Total sin IVA ' + (+brunaTotalPreu.toFixed(2) - (+brunaTotalPreu.toFixed(2) * 0.1)) + ' €');
 
         this.printerBruna.drawLine();
         this.printerBruna.bold(true);
