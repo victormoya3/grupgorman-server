@@ -142,7 +142,7 @@ class TicketCompraMito {
         this.mitoOrderItems = orderItems;
         this.grupGormanOrder = order;
         this.esCopia = copia;
-       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order, copia);
+       if(order != undefined && orderItems.length > 0) this.executeCompraMito(order);
        //else this.executeTestCompraMito();
     }
 

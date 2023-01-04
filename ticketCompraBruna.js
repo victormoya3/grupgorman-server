@@ -103,7 +103,7 @@ class TicketCompraBruna {
         this.grupGormanOrder = order;
         this.esCopia = copia;
         //this.constructThermalPrinter();
-       if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order, copies);
+       if(order != undefined && orderItems.length > 0) this.executeCompraBruna(order);
        //else this.executeTestCompraBruna();
     }
 
