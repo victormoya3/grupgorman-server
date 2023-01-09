@@ -75,7 +75,11 @@ class TicketCalentMito {
         this.printerCalentsMito.leftRight(this.venta,this.grupGormanOrder.date_created);
         // AFEGIR META DATA PURCHASE INFO
         // horaRecollida, recollidaTipus, alergensClient
-        this.printerCalentsMito.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerCalentsMito.println(this.recollidaTipus);
+        this.printerCalentsMito.setTextDoubleHeight();
+        this.printerCalentsMito.setTextDoubleWidth();
+        this.printerCalentsMito.println(this.horaRecollida);
+        this.printerCalentsMito.setTextNormal();
         this.printerCalentsMito.drawLine();
         if(plats.length > 0){
             let filaArray = [];

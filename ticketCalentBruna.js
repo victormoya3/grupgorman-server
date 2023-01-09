@@ -77,7 +77,11 @@ class TicketCalentBruna {
         this.printerCalentsBruna.leftRight(this.venta,this.grupGormanOrder.date_created);
         // AFEGIR META DATA PURCHASE INFO
         // horaRecollida, recollidaTipus, alergensClient
-        this.printerCalentsBruna.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerCalentsBruna.println(this.recollidaTipus);
+        this.printerCalentsBruna.setTextDoubleHeight();
+        this.printerCalentsBruna.setTextDoubleWidth();
+        this.printerCalentsBruna.println(this.horaRecollida);
+        this.printerCalentsBruna.setTextNormal();
         this.printerCalentsBruna.drawLine();
         
         if(plats.length > 0){

@@ -73,7 +73,11 @@ class TicketFredMito {
         this.printerFredMito.leftRight(this.venta,this.grupGormanOrder.date_created);
         // AFEGIR META DATA PURCHASE INFO
         // horaRecollida, recollidaTipus, alergensClient
-        this.printerFredMito.leftRight(this.recollidaTipus,this.horaRecollida);
+        this.printerFredMito.println(this.recollidaTipus);
+        this.printerFredMito.setTextDoubleHeight();
+        this.printerFredMito.setTextDoubleWidth();
+        this.printerFredMito.println(this.horaRecollida);
+        this.printerFredMito.setTextNormal();
         this.printerFredMito.drawLine();
         if(plats.length > 0){
             let filaArray = [];

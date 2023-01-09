@@ -286,8 +286,11 @@ class TicketCompraBruna {
             let _that = this;
 
             this.brunaOrderItems.forEach(function(item){
-                // console.log('order item',item);
+                console.log('order item',item);
 
+                // per cada article em de comprovar si conté ingredients extra
+                // si conte ingredients extra, afegim preu sense extras i despres desglosat cada valor que suma
+                // Com afegim el que suma del transport?
                 brunaTotalPreu += +item.total;
 
                 filaArray = [];
@@ -313,7 +316,7 @@ class TicketCompraBruna {
                 filaArray.push(tableObj);
 
                 tableObj = {};
-                tableObj.text = item.total;
+                tableObj.text = item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.2';
 
@@ -332,8 +335,18 @@ class TicketCompraBruna {
 
                     let subFilaArray = [];
 
+                    let metaDataDesglosemPreu = false;
+                    let totalPreuExtras = 0;
+                    // let afegirPaiPatates = false;
+                    // let paIpatatesPreu = '2.30';
                     item.meta_data.forEach(function(metaData){
                         console.log('order metaData',metaData);
+                        if (metaData.value.length > 1) { 
+                            metaDataDesglosemPreu = (metaData.key.indexOf('Topings') > 0 || metaData.key.indexOf('Salses') > 0) ? true : false
+                            metaData.value.forEach((extra) => {
+                                totalPreuExtras += extra.price.toFixed(2);
+                            })
+                        }
                         if (metaData.key.indexOf('_') >= 0) { return; }
                         // aplicar
                         subFilaArray = [];
@@ -347,18 +360,18 @@ class TicketCompraBruna {
                         subFilaArray.push(subTableObj);
 
                         subTableObj = {};
-
-                        subTableObj.text = metaData.key.toString();
+                        // if metadata key contains topings or salses, qualsevol cosa que contingui un preu a sumar
+                        subTableObj.text = metaDataDesglosemPreu === true ? metaData.value.toString() : '-';
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.4';
+                        subTableObj.width = metaDataDesglosemPreu === true ? '0.4' : '0.2';
 
                         subFilaArray.push(subTableObj);
 
                         subTableObj = {};
 
-                        subTableObj.text = metaData.value.toString();
+                        subTableObj.text = metaDataDesglosemPreu === true ? '+ ' + (metaData.key.toString().split(';')[1].split(')')[0]) + ' €' : metaData.value.toString();
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.3';
+                        subTableObj.width = metaDataDesglosemPreu === true ? '0.3' : '0.5';
 
                         subFilaArray.push(subTableObj);
         
@@ -377,8 +390,9 @@ class TicketCompraBruna {
         this.printerBruna.drawLine();
         this.printerBruna.newLine();
         this.printerBruna.newLine();
-        this.printerBruna.leftRight('IVA 10% ' + (+brunaTotalPreu.toFixed(2) - (+brunaTotalPreu.toFixed(2) * 0.1)) + ' €', (+brunaTotalPreu.toFixed(2) * 0.1) + ' €    ' + (+brunaTotalPreu.toFixed(2) - (+brunaTotalPreu.toFixed(2) * 0.1)) + ' €');
-        this.printerBruna.println('Total sin IVA ' + (+brunaTotalPreu.toFixed(2) - (+brunaTotalPreu.toFixed(2) * 0.1)) + ' €');
+        this.printerBruna.leftRight('IVA 10% ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €', (+brunaTotalPreu * 0.1).toFixed(2) + ' €    ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €');
+        this.printerBruna.println('Total sin IVA ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €');
+        // afegir Logica per a sumar+ preu transport
 
         this.printerBruna.drawLine();
         this.printerBruna.bold(true);
