@@ -36,6 +36,7 @@ export interface WooCommerceOrder {
     coupon_lines?: any[];
     refunds?: any[];
     _links?: any;
+    meta_data?: any[];
 }
 
 export interface WooCommerceBilling {

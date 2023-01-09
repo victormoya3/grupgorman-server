@@ -188,7 +188,8 @@ class TicketCompraBruna {
         let brunaTotalPreu = 0;
         // TICKET HEADER
         this.printerBruna.newLine();
-        //this.printerBruna.printImage();
+        this.printerBruna.printImage('./assets/imatges/bruna/brunalogo.jpg');
+
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
         // this.printerBruna.setTextSize(1,1);

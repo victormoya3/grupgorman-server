@@ -440,7 +440,7 @@ class TicketCompraMito {
         let mitoTotalPreu = 0;
         // TICKET HEADER
         this.printerMito.newLine();
-        //this.printerMito.printImage();
+        this.printerMito.printImage('./assets/imatges/mito/MITO-logo-final-01-1-1024x724.png');
         this.printerMito.newLine();
         this.printerMito.alignCenter();
         // this.printerMito.setTextSize(1,1);
