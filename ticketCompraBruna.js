@@ -381,7 +381,7 @@ class TicketCompraBruna {
                         // if metadata key contains topings or salses, qualsevol cosa que contingui un preu a sumar
                         if (metaDataDesglosemPreu === true) {
                             subTableObj.text =  '- ' + metaData.value.toString();
-                            subTableObj.width = '0.4';
+                            subTableObj.width = '0.5';
                         } else {
                             subTableObj.text =  '-';
                             subTableObj.width = '0.1';    
@@ -398,9 +398,9 @@ class TicketCompraBruna {
                             console.log('metadata a desglosar: ', metaData.key.toString());
                             console.log('metadata a desglosada: ', (metaData.key.toString().split(';')[1].split(')')[0]));
                             subTableObj.text = (metaData.key.toString().split(';')[1].split(')')[0]) + ' €';
-                            subTableObj.width = '0.3';
+                            subTableObj.width = '0.2';
                         } else {
-                            subTableObj.text =  metaData.value.toString();
+                            subTableObj.text =  ''; //metaData.value.toString();
                             subTableObj.width = '0.6';    
                         }
                         subTableObj.align = 'LEFT';
