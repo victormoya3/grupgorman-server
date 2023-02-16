@@ -690,6 +690,9 @@ class TicketCompraMito {
     }
 
     addInfoComplementsMito(printer) {
+
+        this.printerMito.newLine();
+        
         let filaArray = [];
         let tableObj = {};
 
