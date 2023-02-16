@@ -441,7 +441,7 @@ class TicketCompraMito {
         // TICKET HEADER
         this.printerMito.newLine();
         // aplicar fondo negro por si se ve
-        this.printerMito.printImage('./src/assets/imatges/mito/MITO-logo-final-01-1-1024x724.png');
+        // this.printerMito.printImage('./src/assets/imatges/mito/MITO-logo-final-01-1-1024x724.png');
         this.printerMito.newLine();
         this.printerMito.alignCenter();
         // this.printerMito.setTextSize(1,1);
