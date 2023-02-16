@@ -441,7 +441,7 @@ class TicketCompraMito {
         // TICKET HEADER
         this.printerMito.newLine();
         // aplicar fondo negro por si se ve
-        // this.printerMito.printImage('./src/assets/imatges/mito/MITO-logo-final-01-1-1024x724.png');
+        this.printerMito.printImage('./src/assets/imatges/mito/MITO-logo-final-01-1-1024x724.png');
         this.printerMito.newLine();
         this.printerMito.alignCenter();
         // this.printerMito.setTextSize(1,1);
@@ -619,11 +619,11 @@ class TicketCompraMito {
 
                         subTableObj = {};
                         if (metaDataDesglosemPreu === true) {
-                            subTableObj.text =  metaData.value.toString();
+                            subTableObj.text = '- ' + metaData.value.toString();
                             subTableObj.width = '0.4';
                         } else {
                             subTableObj.text =  '-';
-                            subTableObj.width = '0.2';    
+                            subTableObj.width = '0.1';    
                         }
                         // if metadata key contains topings or salses, qualsevol cosa que contingui un preu a sumar
                         subTableObj.align = 'LEFT';
@@ -633,11 +633,13 @@ class TicketCompraMito {
                         subTableObj = {};
 
                         if (metaDataDesglosemPreu === true) {
+                            console.log('metadata a desglosar: ', metaData.key.toString());
+                            console.log('metadata a desglosada: ', (metaData.key.toString().split(';')[1].split(')')[0]));
                             subTableObj.text = (metaData.key.toString().split(';')[1].split(')')[0]) + ' €';
                             subTableObj.width = '0.3';
                         } else {
                             subTableObj.text =  metaData.value.toString();
-                            subTableObj.width = '0.5';    
+                            subTableObj.width = '0.6';    
                         }
 
                         subTableObj.align = 'LEFT';
