@@ -326,7 +326,7 @@ class TicketCompraBruna {
                     // funcio per saber si hem de restar els preus del topings desglosats o el preu total del producte
                     item.meta_data.forEach(function(metaData){
                         console.log('order metaData',metaData);
-                        if (metaData.value.length > 1) { 
+                        if (Array.isArray(metaData.value) === true) { 
                             metaDataDesglosemPreu = (metaData.key.indexOf('Topings') > 0 || metaData.key.indexOf('Salses') > 0) ? true : false
                             metaData.value.forEach((extra) => {
                                 totalPreuExtras += extra.price.toFixed(2);
