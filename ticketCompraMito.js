@@ -577,7 +577,7 @@ class TicketCompraMito {
                                 if(extra.name.indexOf('Topings') > -1 || extra.name.indexOf('Salses') > -1){
                                     metaDataDesglosemPreu = true;
                                 }
-                                totalPreuExtras += extra.price.toFixed(2);
+                                totalPreuExtras += extra.price;
                             })
                         }
                     });
