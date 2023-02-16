@@ -327,7 +327,9 @@ class TicketCompraBruna {
                     item.meta_data.forEach(function(metaData){
                         console.log('order metaData',metaData);
                         if (Array.isArray(metaData.value) === true) { 
-                            metaDataDesglosemPreu = (metaData.key.indexOf('Topings') > 0 || metaData.key.indexOf('Salses') > 0) ? true : false
+                            if(metaData.key.indexOf('Topings') > -1 || metaData.key.indexOf('Salses') > -1){
+                                metaDataDesglosemPreu = true;
+                            }
                             metaData.value.forEach((extra) => {
                                 totalPreuExtras += extra.price.toFixed(2);
                             })
