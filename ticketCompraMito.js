@@ -580,7 +580,12 @@ class TicketCompraMito {
                 }
 
                 tableObj = {};
-                tableObj.text = metaDataDesglosemPreu === true ? (item.total - totalPreuExtras).toFixed(2) : item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
+
+                if (metaDataDesglosemPreu === true){
+                    tableObj.text = (item.total - totalPreuExtras).toFixed(2); // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
+                } else {
+                    tableObj.text =  item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
+                }
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.2';
 
@@ -611,18 +616,29 @@ class TicketCompraMito {
                         subTableObj.width = '0.2';
 
                         subTableObj = {};
+                        if (metaDataDesglosemPreu === true) {
+                            subTableObj.text =  metaData.value.toString();
+                            subTableObj.width = '0.4';
+                        } else {
+                            subTableObj.text =  '-';
+                            subTableObj.width = '0.2';    
+                        }
                         // if metadata key contains topings or salses, qualsevol cosa que contingui un preu a sumar
-                        subTableObj.text = metaDataDesglosemPreu === true ? metaData.value.toString() : '-';
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = metaDataDesglosemPreu === true ? '0.4' : '0.2';
 
                         subFilaArray.push(subTableObj);
 
                         subTableObj = {};
 
-                        subTableObj.text = metaDataDesglosemPreu === true ? '+ ' + (metaData.key.toString().split(';')[1].split(')')[0]) + ' €' : metaData.value.toString();
+                        if (metaDataDesglosemPreu === true) {
+                            subTableObj.text = (metaData.key.toString().split(';')[1].split(')')[0]) + ' €';
+                            subTableObj.width = '0.3';
+                        } else {
+                            subTableObj.text =  metaData.value.toString();
+                            subTableObj.width = '0.5';    
+                        }
+
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = metaDataDesglosemPreu === true ? '0.3' : '0.5';
 
                         subFilaArray.push(subTableObj);
 
