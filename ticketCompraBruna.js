@@ -66,6 +66,10 @@ class TicketCompraBruna {
         'BPTI1', // Tiramisu
         'BTF01', // Teque Frankfurt
         'BTG01', // Teque Gouda
+        'BBDV', // Doble Veggie
+        'BBDB', // Doble bruna 240
+        'BBDP', //Doble Pollastre
+        'BBDB01', // Doble Bruna 360
     ];
 
     businessName = 'La Bruna Grill';
@@ -314,9 +318,25 @@ class TicketCompraBruna {
                 tableObj.width = '0.4';
 
                 filaArray.push(tableObj);
+                
+                let metaDataDesglosemPreu = false;
+                let totalPreuExtras = 0;
 
+                if (item.meta_data.length > 0){
+                    // funcio per saber si hem de restar els preus del topings desglosats o el preu total del producte
+                    item.meta_data.forEach(function(metaData){
+                        console.log('order metaData',metaData);
+                        if (metaData.value.length > 1) { 
+                            metaDataDesglosemPreu = (metaData.key.indexOf('Topings') > 0 || metaData.key.indexOf('Salses') > 0) ? true : false
+                            metaData.value.forEach((extra) => {
+                                totalPreuExtras += extra.price.toFixed(2);
+                            })
+                        }
+                    });
+                }
+                
                 tableObj = {};
-                tableObj.text = item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
+                tableObj.text = metaDataDesglosemPreu === true ? (item.total - totalPreuExtras).toFixed(2) : item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.2';
 
@@ -335,18 +355,11 @@ class TicketCompraBruna {
 
                     let subFilaArray = [];
 
-                    let metaDataDesglosemPreu = false;
-                    let totalPreuExtras = 0;
                     // let afegirPaiPatates = false;
                     // let paIpatatesPreu = '2.30';
                     item.meta_data.forEach(function(metaData){
-                        console.log('order metaData',metaData);
-                        if (metaData.value.length > 1) { 
-                            metaDataDesglosemPreu = (metaData.key.indexOf('Topings') > 0 || metaData.key.indexOf('Salses') > 0) ? true : false
-                            metaData.value.forEach((extra) => {
-                                totalPreuExtras += extra.price.toFixed(2);
-                            })
-                        }
+                        // console.log('order metaData',metaData);
+
                         if (metaData.key.indexOf('_') >= 0) { return; }
                         // aplicar
                         subFilaArray = [];
@@ -375,9 +388,6 @@ class TicketCompraBruna {
 
                         subFilaArray.push(subTableObj);
         
-                        //console.log(' filaArray to push ', filaArray)
-        
-                        //console.log(' filaArray to push ', filaArray)
                         _that.printerBruna.tableCustom(subFilaArray);
         
                     }) 
@@ -392,7 +402,7 @@ class TicketCompraBruna {
         this.printerBruna.newLine();
         this.printerBruna.leftRight('IVA 10% ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €', (+brunaTotalPreu * 0.1).toFixed(2) + ' €    ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €');
         this.printerBruna.println('Total sin IVA ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €');
-        // afegir Logica per a sumar+ preu transport
+        // afegir Logica per a sumar + preu transport
 
         this.printerBruna.drawLine();
         this.printerBruna.bold(true);

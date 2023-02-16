@@ -440,6 +440,7 @@ class TicketCompraMito {
         let mitoTotalPreu = 0;
         // TICKET HEADER
         this.printerMito.newLine();
+        // aplicar fondo negro por si se ve
         this.printerMito.printImage('./src/assets/imatges/mito/MITO-logo-final-01-1-1024x724.png');
         this.printerMito.newLine();
         this.printerMito.alignCenter();
@@ -561,8 +562,25 @@ class TicketCompraMito {
 
                 filaArray.push(tableObj);
 
+                let metaDataDesglosemPreu = false;
+                let totalPreuExtras = 0;
+
+                if (item.meta_data.length > 0){
+                    // funcio per saber si hem de restar els preus del topings desglosats o el preu total del producte
+                    // comprovar els valors que tenim per a complements mito
+                    item.meta_data.forEach(function(metaData){
+                        console.log('order metaData',metaData);
+                        if (metaData.value.length > 1) { 
+                            metaDataDesglosemPreu = (metaData.key.indexOf('Topings') > 0 || metaData.key.indexOf('Salses') > 0) ? true : false
+                            metaData.value.forEach((extra) => {
+                                totalPreuExtras += extra.price.toFixed(2);
+                            })
+                        }
+                    });
+                }
+
                 tableObj = {};
-                tableObj.text = item.total;
+                tableObj.text = metaDataDesglosemPreu === true ? (item.total - totalPreuExtras).toFixed(2) : item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.2';
 
@@ -582,7 +600,7 @@ class TicketCompraMito {
                     let subFilaArray = [];
 
                     item.meta_data.forEach(function(metaData){
-                        // console.log('order metaData',metaData);
+                        // console.log('order metaData mito',metaData);
                         if (metaData.key.indexOf('_') >= 0) { return; }
                         // aplicar
                         subFilaArray = [];
@@ -592,28 +610,22 @@ class TicketCompraMito {
                         subTableObj.align = 'LEFT';
                         subTableObj.width = '0.2';
 
-                        // subTableObj.width = '0.1';
-                        subFilaArray.push(subTableObj);
-
                         subTableObj = {};
-
-                        subTableObj.text = metaData.key.toString();
+                        // if metadata key contains topings or salses, qualsevol cosa que contingui un preu a sumar
+                        subTableObj.text = metaDataDesglosemPreu === true ? metaData.value.toString() : '-';
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.4';
+                        subTableObj.width = metaDataDesglosemPreu === true ? '0.4' : '0.2';
 
                         subFilaArray.push(subTableObj);
 
                         subTableObj = {};
 
-                        subTableObj.text = metaData.value.toString();
+                        subTableObj.text = metaDataDesglosemPreu === true ? '+ ' + (metaData.key.toString().split(';')[1].split(')')[0]) + ' €' : metaData.value.toString();
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.3';
+                        subTableObj.width = metaDataDesglosemPreu === true ? '0.3' : '0.5';
 
                         subFilaArray.push(subTableObj);
-        
-                        //console.log(' filaArray to push ', filaArray)
-        
-                        //console.log(' filaArray to push ', filaArray)
+
                         _that.printerMito.tableCustom(subFilaArray);
         
                     }) 
@@ -631,6 +643,7 @@ class TicketCompraMito {
         this.printerMito.newLine();
         this.printerMito.leftRight('IVA 10% ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €', (mitoTotalPreu.toFixed(2) * 0.1) + ' €    ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
         this.printerMito.println('Total sin IVA ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
+        // afegir Logica per a sumar + preu transport
         this.printerMito.drawLine();
         this.printerMito.bold(true);
         // this.printerMito.setTextSize(2,2);

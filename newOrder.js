@@ -139,6 +139,10 @@ class NewOrder {
         'BTS01', // Teque Sobrasada
         'BTF01', // Teque Frankfurt
         'BTG01', // Teque Gouda
+        'BBDV', // Doble Veggie
+        'BBDB', // Doble bruna 240
+        'BBDP', //Doble Pollastre
+        'BBDB01', // Doble Bruna 360
     ];
 
     BEGUDES_SKU_LIST = [

@@ -174,7 +174,7 @@ class TicketCalentBruna {
 
                         subTableObj.text = '-';
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.4';
+                        subTableObj.width = '0.1';
 
                         subFilaArray.push(subTableObj);
 
@@ -182,7 +182,7 @@ class TicketCalentBruna {
 
                         subTableObj.text = metaData.value.toString();
                         subTableObj.align = 'LEFT';
-                        subTableObj.width = '0.3';
+                        subTableObj.width = '0.6';
 
                         subFilaArray.push(subTableObj);
         
