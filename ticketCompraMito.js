@@ -571,10 +571,10 @@ class TicketCompraMito {
                     item.meta_data.forEach(function(metaData){
                         console.log('order metaData',metaData);
                         if (Array.isArray(metaData.value) === true) {
-                            if(metaData.key.indexOf('Topings') > -1 || metaData.key.indexOf('Salses') > -1){
-                                metaDataDesglosemPreu = true;
-                            }
                             metaData.value.forEach((extra) => {
+                                if(extra.name.indexOf('Topings') > -1 || extra.name.indexOf('Salses') > -1){
+                                    metaDataDesglosemPreu = true;
+                                }
                                 totalPreuExtras += extra.price.toFixed(2);
                             })
                         }
