@@ -392,7 +392,9 @@ class TicketCompraBruna {
 
                         subTableObj = {};
 
-                        if (metaDataDesglosemPreu === true) {
+                        if (metaDataDesglosemPreu === true &&
+                            (metaData.key.indexOf('Topings') > -1 || metaData.key.indexOf('Salses') > -1)
+                        ) {
                             console.log('metadata a desglosar: ', metaData.key.toString());
                             console.log('metadata a desglosada: ', (metaData.key.toString().split(';')[1].split(')')[0]));
                             subTableObj.text = (metaData.key.toString().split(';')[1].split(')')[0]) + ' €';
