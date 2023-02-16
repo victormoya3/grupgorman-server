@@ -192,11 +192,13 @@ class TicketCompraBruna {
         let brunaTotalPreu = 0;
         // TICKET HEADER
         this.printerBruna.newLine();
+        this.printerBruna.invert(true);
         try {
             this.printerBruna.printImage('./src/assets/imatges/bruna/Logo-BRUNA.png');
         } catch (printImageException){
 
         }
+        this.printerBruna.invert(false);
         this.printerBruna.newLine();
         this.printerBruna.alignCenter();
         // this.printerBruna.setTextSize(1,1);
