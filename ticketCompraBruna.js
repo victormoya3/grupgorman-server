@@ -287,11 +287,10 @@ class TicketCompraBruna {
 
             this.printerBruna.drawLine();
 
-            let filasArray = [];
             let _that = this;
 
             this.brunaOrderItems.forEach(function(item){
-                console.log('order item',item);
+                console.log('order item bruna',item);
 
                 // per cada article em de comprovar si conté ingredients extra
                 // si conte ingredients extra, afegim preu sense extras i despres desglosat cada valor que suma
@@ -339,11 +338,7 @@ class TicketCompraBruna {
                 }
                 
                 tableObj = {};
-                if (metaDataDesglosemPreu === true){
-                    tableObj.text = (item.total - totalPreuExtras).toFixed(2); // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
-                } else {
-                    tableObj.text =  item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
-                }
+                tableObj.text =  item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.2';
 
@@ -399,16 +394,24 @@ class TicketCompraBruna {
                         ) {
                             console.log('metadata a desglosar: ', metaData.key.toString());
                             console.log('metadata a desglosada: ', (metaData.key.toString().split(';')[1].split(')')[0]));
-                            subTableObj.text = (metaData.key.toString().split(';')[1].split(')')[0]) + ' €';
+                            subTableObj.text = '+ ' + (metaData.key.toString().split(';')[1].split(')')[0]) + ' €';
                             subTableObj.width = '0.2';
                         } else {
                             subTableObj.text =  ''; //metaData.value.toString();
-                            subTableObj.width = '0.6';    
+                            subTableObj.width = '0.2';    
                         }
                         subTableObj.align = 'LEFT';
 
                         subFilaArray.push(subTableObj);
-        
+
+                        if (metaDataDesglosemPreu === true) {
+                            subTableObj = {};
+                            subTableObj.text = (item.total + totalPreuExtras).toFixed(2); + ' €';
+                            subTableObj.width = '0.9';
+                            subTableObj.align = 'RIGHT';
+                            subFilaArray.push(subTableObj);
+                        }                 
+
                         _that.printerBruna.tableCustom(subFilaArray);
         
                     }) 
@@ -446,7 +449,7 @@ class TicketCompraBruna {
         //Partial Cut for other tickets
         this.printerBruna.cut();
         
-        this.executePrint();
+        // this.executePrint();
     }
 
     getComandaCalents(platsCalents) {

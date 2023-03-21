@@ -216,13 +216,13 @@ class NewOrder {
                 console.log('MITO PRINT PROCESS :',this.mitoOrderItems);
                 if(this.mitoOrderItems.length > 0){
                     let mitoPrintProcess = new TicketCompraMito(order, this.mitoOrderItems, this.printer, false);
-                    let mitoPrintProcessCopia = new TicketCompraMito(order, this.mitoOrderItems, this.printer, true);
+                    // let mitoPrintProcessCopia = new TicketCompraMito(order, this.mitoOrderItems, this.printer, true);
                 }
             }, 10);
 
             setTimeout(()=>{
                 if(this.begudes.length > 0){
-                    let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
+                    // let begudesPrintProcess = new TicketBegudes(this.begudes, this.printer)
                 }
                 
             },6000);
@@ -231,7 +231,7 @@ class NewOrder {
                 console.log('BRUNA PRINT PROCESS :',this.brunaOrderItems);
                 if(this.brunaOrderItems.length > 0){
                     let brunaPrintProcess = new TicketCompraBruna(order,this.brunaOrderItems,this.printer, false);
-                    let brunaPrintProcessCopia = new TicketCompraBruna(order,this.brunaOrderItems,this.printer, true);
+                    // let brunaPrintProcessCopia = new TicketCompraBruna(order,this.brunaOrderItems,this.printer, true);
                 }
                 
             },9000)

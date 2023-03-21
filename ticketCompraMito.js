@@ -121,6 +121,7 @@ class TicketCompraMito {
     comensalsMitoWasabi = 'Wasabi: ';
     comensalsMitoGengibre = 'Gengibre: ';
     alergensClient = 'Alergens: ';
+    dadesTransport;
 
     footerBusinessInfo = 'Gorman Restauració S.L.U';
     footerCIFNIF = 'CIF/NIF: B66927856';
@@ -226,6 +227,8 @@ class TicketCompraMito {
         this.comensalsMitoGengibre += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'complements_mito_gengibre')[0].value));
         // get key: alergenos_cliente value: X
         this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente')[0].value;
+        // get shipping details
+        // this.dadesTransport = order.shipping
     }
 
     generateRawTicket(orderObj){
@@ -534,11 +537,10 @@ class TicketCompraMito {
 
             this.printerMito.drawLine();
 
-            let filasArray = [];
             let _that = this;
 
             this.mitoOrderItems.forEach(function(item){
-                // console.log('order item',item);
+                console.log('order item',item);
 
                 mitoTotalPreu += +item.total;
 
@@ -585,10 +587,17 @@ class TicketCompraMito {
 
                 tableObj = {};
 
+                // implementar: 
+                // 1. PREU DEL PRODUCTE SENSE EXTRES
+                // 2. PREU DE CADA PRODUCTE EXTRA
+                // 3. SI ES DONA AQUEST CAS :
+                // 3.1 MOSTRAR FILA : SUBTOTAL (EXTRAS)
+                // 3.2 MOSTRAR FILA : TOTAL (PRODUCTE)
                 if (metaDataDesglosemPreu === true){
-                    tableObj.text = (item.total - totalPreuExtras).toFixed(2); // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
+                    tableObj.text = (+item.total - +totalPreuExtras).toFixed(2); 
+                    // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
                 } else {
-                    tableObj.text =  item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
+                    tableObj.text = +item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
                 }
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.2';
@@ -637,8 +646,8 @@ class TicketCompraMito {
                         if (metaDataDesglosemPreu === true &&
                             (metaData.key.indexOf('Topings') > -1 || metaData.key.indexOf('Salses') > -1)
                         ) {
-                            console.log('metadata a desglosar: ', metaData.key.toString());
-                            console.log('metadata a desglosada: ', (metaData.key.toString().split(';')[1].split(')')[0]));
+                            // console.log('metadata a desglosar: ', metaData.key.toString());
+                            // console.log('metadata a desglosada: ', (metaData.key.toString().split(';')[1].split(')')[0]));
                             subTableObj.text = (metaData.key.toString().split(';')[1].split(')')[0]) + ' €';
                             subTableObj.width = '0.2';
                         } else {
@@ -668,6 +677,7 @@ class TicketCompraMito {
         this.printerMito.leftRight('IVA 10% ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €', (mitoTotalPreu.toFixed(2) * 0.1) + ' €    ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
         this.printerMito.println('Total sin IVA ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
         // afegir Logica per a sumar + preu transport
+        // orderObj.shipping comprovar on van els valors de les taxes
         this.printerMito.drawLine();
         this.printerMito.bold(true);
         // this.printerMito.setTextSize(2,2);
@@ -690,7 +700,7 @@ class TicketCompraMito {
         //Partial Cut for other tickets
         this.printerMito.cut();
         
-        this.executePrint();
+        // this.executePrint();
     }
 
     addInfoComplementsMito(printer) {
