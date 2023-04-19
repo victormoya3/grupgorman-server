@@ -406,7 +406,7 @@ class TicketCompraBruna {
 
                         if (metaDataDesglosemPreu === true) {
                             subTableObj = {};
-                            subTableObj.text = (item.total + totalPreuExtras).toFixed(2); + ' €';
+                            subTableObj.text = (+item.total + +totalPreuExtras).toFixed(2); + ' €';
                             subTableObj.width = '0.9';
                             subTableObj.align = 'RIGHT';
                             subFilaArray.push(subTableObj);
