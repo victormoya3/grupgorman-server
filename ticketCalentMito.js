@@ -78,6 +78,7 @@ class TicketCalentMito {
         this.printerCalentsMito.println(this.recollidaTipus);
         this.printerCalentsMito.setTextDoubleHeight();
         this.printerCalentsMito.setTextDoubleWidth();
+        this.printerCalentsMito.println(`${this.grupGormanOrder?.billing?.first_name} ${this.grupGormanOrder?.billing?.last_name}`);
         this.printerCalentsMito.println(this.horaRecollida);
         this.printerCalentsMito.setTextNormal();
         this.printerCalentsMito.drawLine();

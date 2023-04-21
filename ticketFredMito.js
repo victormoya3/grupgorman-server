@@ -76,6 +76,7 @@ class TicketFredMito {
         this.printerFredMito.println(this.recollidaTipus);
         this.printerFredMito.setTextDoubleHeight();
         this.printerFredMito.setTextDoubleWidth();
+        this.printerCalentsMito.println(`${this.grupGormanOrder?.billing?.first_name} ${this.grupGormanOrder?.billing?.last_name}`);
         this.printerFredMito.println(this.horaRecollida);
         this.printerFredMito.setTextNormal();
         this.printerFredMito.drawLine();

@@ -456,7 +456,7 @@ class TicketCompraBruna {
         //Partial Cut for other tickets
         this.printerBruna.cut();
         
-        // this.executePrint();
+        this.executePrint();
     }
 
     getComandaCalents(platsCalents) {

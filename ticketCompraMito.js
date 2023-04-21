@@ -705,7 +705,7 @@ class TicketCompraMito {
         //Partial Cut for other tickets
         this.printerMito.cut();
         
-        // this.executePrint();
+        this.executePrint();
     }
 
     addInfoComplementsMito(printer) {
