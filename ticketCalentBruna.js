@@ -80,7 +80,7 @@ class TicketCalentBruna {
         this.printerCalentsBruna.println(this.recollidaTipus);
         this.printerCalentsBruna.setTextDoubleHeight();
         this.printerCalentsBruna.setTextDoubleWidth();
-        this.printerCalentsMito.println(`${this.grupGormanOrder?.billing?.first_name} ${this.grupGormanOrder?.billing?.last_name}`);
+        this.printerCalentsBruna.println(`${this.grupGormanOrder?.billing?.first_name} ${this.grupGormanOrder?.billing?.last_name}`);
         this.printerCalentsBruna.println(this.horaRecollida);
         this.printerCalentsBruna.setTextNormal();
         this.printerCalentsBruna.drawLine();
