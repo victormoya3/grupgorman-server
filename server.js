@@ -48,7 +48,7 @@ app.listen(8085, () => {
             // WooCommerce.get('orders').then((res) => {
             //     console.log('res sync orders:',JSON.parse(res));
             // })
-            WooCommerce.getAsync('orders?status=processing,pending').then(function(result) {
+            WooCommerce.getAsync('orders?status=processing').then(function(result) {
                 // console.log('ORDERS ',result.toJSON());
                 // console.log('ORDERS ',result);
                 const orders = JSON.parse(result.toJSON().body);
@@ -106,8 +106,6 @@ app.listen(8085, () => {
                     }
                     
                 });
-
-                const ordersToProrcess = processingOrders.concat(pendingOrders);
     
                 console.log('*********** PENDING ORDERS **********');
                 console.log(pendingOrders.length);
@@ -133,8 +131,8 @@ app.listen(8085, () => {
                 console.log('*********** TRASH ORDERS **********');
                 console.log(trashOrders.length);
                 console.log('*************************************');
-                if(ordersToProrcess.length > 0){
-                    ordersToProrcess.forEach((printOrder,k) => {
+                if(processingOrders.length > 0){
+                    processingOrders.forEach((printOrder,k) => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
                         if(k === 0){
