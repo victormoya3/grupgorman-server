@@ -438,7 +438,7 @@ class TicketCompraBruna {
         // this.printerBruna.setTextSize(2,2);
         this.printerBruna.leftRight('TOTAL CON IVA', brunaTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
-        const status = orderObj.status === 'processing' ? 'PAGAT' : 'PENDENT DE PAGAMENT';
+        const status = this.grupGormanOrder.status === 'processing' ? 'PAGAT' : 'PENDENT DE PAGAMENT';
         this.printerBruna.leftRight(status);
         // this.printerBruna.clear();
         this.printerBruna.bold(false);

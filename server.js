@@ -106,6 +106,8 @@ app.listen(8085, () => {
                     }
                     
                 });
+
+                const ordersToProrcess = processingOrders.concat(pendingOrders);
     
                 console.log('*********** PENDING ORDERS **********');
                 console.log(pendingOrders.length);
@@ -131,8 +133,8 @@ app.listen(8085, () => {
                 console.log('*********** TRASH ORDERS **********');
                 console.log(trashOrders.length);
                 console.log('*************************************');
-                if(processingOrdersToProcess.length > 0){
-                    processingOrdersToProcess.forEach((printOrder,k) => {
+                if(ordersToProrcess.length > 0){
+                    ordersToProrcess.forEach((printOrder,k) => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
                         if(k === 0){
