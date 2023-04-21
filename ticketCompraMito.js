@@ -686,8 +686,7 @@ class TicketCompraMito {
         //  TOTAL CON IVA
         this.printerMito.leftRight('TOTAL CON IVA', mitoTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
-        const status = this.grupGormanOrder.status === 'processing' ? 'PAGAT' : 'PENDENT DE PAGAMENT';
-        this.printerMito.leftRight(status);
+        this.printerMito.leftRight(this.grupGormanOrder.status === 'processing' ? 'PAGAT' : 'PENDENT DE PAGAMENT');
 
         // this.printerMito.clear();
         this.printerMito.bold(false);
