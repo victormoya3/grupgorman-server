@@ -409,9 +409,28 @@ class TicketCompraBruna {
                         subFilaArray.push(subTableObj);
 
                         if (metaDataDesglosemPreu === true) {
+
+                            subTableObj = {};
+                            subTableObj.text = 'SUBTOTAL: ';
+                            subTableObj.width = '0.3';
+                            subTableObj.align = 'LEFT';
+                            subFilaArray.push(subTableObj);
+
+                            subTableObj = {};
+                            subTableObj.text = (+totalPreuExtras).toFixed(2); + ' €';
+                            subTableObj.width = '0.6';
+                            subTableObj.align = 'RIGHT';
+                            subFilaArray.push(subTableObj);
+
+                            subTableObj = {};
+                            subTableObj.text = 'TOTAL: ';
+                            subTableObj.width = '0.3';
+                            subTableObj.align = 'LEFT';
+                            subFilaArray.push(subTableObj);
+
                             subTableObj = {};
                             subTableObj.text = (+item.total + +totalPreuExtras).toFixed(2); + ' €';
-                            subTableObj.width = '0.9';
+                            subTableObj.width = '0.6';
                             subTableObj.align = 'RIGHT';
                             subFilaArray.push(subTableObj);
                         }                 

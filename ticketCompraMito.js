@@ -594,12 +594,7 @@ class TicketCompraMito {
                 // 3. SI ES DONA AQUEST CAS :
                 // 3.1 MOSTRAR FILA : SUBTOTAL (EXTRAS)
                 // 3.2 MOSTRAR FILA : TOTAL (PRODUCTE)
-                if (metaDataDesglosemPreu === true){
-                    tableObj.text = (+item.total - +totalPreuExtras).toFixed(2); 
-                    // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
-                } else {
-                    tableObj.text = +item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
-                }
+                tableObj.text = +item.total; // hauriem de mirar el tema de la metadata abans per setejar els flags corresponents?
                 tableObj.align = 'RIGHT';
                 tableObj.width = '0.2';
 
@@ -653,12 +648,39 @@ class TicketCompraMito {
                             subTableObj.width = '0.2';
                         } else {
                             subTableObj.text =  ''; // metaData.value.toString();
-                            subTableObj.width = '0.6';    
+                            subTableObj.width = '0.2';    
                         }
 
                         subTableObj.align = 'LEFT';
 
                         subFilaArray.push(subTableObj);
+
+                        if (metaDataDesglosemPreu === true) {
+
+                            subTableObj = {};
+                            subTableObj.text = 'SUBTOTAL: ';
+                            subTableObj.width = '0.3';
+                            subTableObj.align = 'LEFT';
+                            subFilaArray.push(subTableObj);
+
+                            subTableObj = {};
+                            subTableObj.text = (+totalPreuExtras).toFixed(2); + ' €';
+                            subTableObj.width = '0.6';
+                            subTableObj.align = 'RIGHT';
+                            subFilaArray.push(subTableObj);
+
+                            subTableObj = {};
+                            subTableObj.text = 'TOTAL: ';
+                            subTableObj.width = '0.3';
+                            subTableObj.align = 'LEFT';
+                            subFilaArray.push(subTableObj);
+
+                            subTableObj = {};
+                            subTableObj.text = (+item.total + +totalPreuExtras).toFixed(2); + ' €';
+                            subTableObj.width = '0.6';
+                            subTableObj.align = 'RIGHT';
+                            subFilaArray.push(subTableObj);
+                        }
 
                         _that.printerMito.tableCustom(subFilaArray);
         
