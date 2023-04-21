@@ -95,6 +95,8 @@ class TicketCompraBruna {
     grupGormanOrder;
     esCopia
 
+    transportInfo;
+
     constructor(order,orderItems,printer, copia){
         console.log('**** BRUNA PRINTING CLASS ********');
         //console.log('***** PARAM : order --> ', order);
@@ -184,6 +186,8 @@ class TicketCompraBruna {
         this.recollidaTipus += JSON.parse(JSON.stringify(order.meta_data.filter((metaData) => metaData.key === 'recollida_tipus')[0].value));
         // get key: alergenos_cliente value: X
         this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente')[0].value;
+        // get transport information
+        this.transportInfo = order.shipping_lines[0];
     }
 
     generateRawTicket(orderObj){
@@ -425,6 +429,7 @@ class TicketCompraBruna {
         this.printerBruna.newLine();
         this.printerBruna.newLine();
         this.printerBruna.leftRight('IVA 10% ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €', (+brunaTotalPreu * 0.1).toFixed(2) + ' €    ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €');
+        this.printerBruna.leftRight('Tasa transport: ' + this.transportInfo.method_title, this.transportInfo.total + ' €');
         this.printerBruna.println('Total sin IVA ' + (+brunaTotalPreu - (+brunaTotalPreu * 0.1)).toFixed(2) + ' €');
         // afegir Logica per a sumar + preu transport
 
@@ -433,6 +438,8 @@ class TicketCompraBruna {
         // this.printerBruna.setTextSize(2,2);
         this.printerBruna.leftRight('TOTAL CON IVA', brunaTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
+        const status = orderObj.status === 'processing' ? 'PAGAT' : 'PENDENT DE PAGAMENT';
+        this.printerBruna.leftRight(status);
         // this.printerBruna.clear();
         this.printerBruna.bold(false);
         // this.printerBruna.setTextSize(1,1);

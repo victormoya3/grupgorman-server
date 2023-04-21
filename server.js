@@ -48,7 +48,7 @@ app.listen(8085, () => {
             // WooCommerce.get('orders').then((res) => {
             //     console.log('res sync orders:',JSON.parse(res));
             // })
-            WooCommerce.getAsync('orders?status=processing').then(function(result) {
+            WooCommerce.getAsync('orders?status=processing,pending').then(function(result) {
                 // console.log('ORDERS ',result.toJSON());
                 // console.log('ORDERS ',result);
                 const orders = JSON.parse(result.toJSON().body);

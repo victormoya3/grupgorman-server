@@ -129,8 +129,8 @@ class TicketCompraMito {
     footerNumeroFactura = 'Numero de Factura:';
 
     grupGormanOrder;
-
     esCopia
+    transportInfo;
 
     constructor(order,orderItems,printer, copia){
         console.log('**** MITO PRINTING CLASS ********');
@@ -228,7 +228,8 @@ class TicketCompraMito {
         // get key: alergenos_cliente value: X
         this.alergensClient += order.meta_data.filter((metaData) => metaData.key === 'alergenos_cliente')[0].value;
         // get shipping details
-        // this.dadesTransport = order.shipping
+        this.transportInfo = order.shipping_lines[0];
+
     }
 
     generateRawTicket(orderObj){
@@ -675,6 +676,7 @@ class TicketCompraMito {
         // DESGLOSE SENSE IVA
         this.printerMito.newLine();
         this.printerMito.leftRight('IVA 10% ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €', (mitoTotalPreu.toFixed(2) * 0.1) + ' €    ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
+        this.printerMito.leftRight('Tasa transport: ' + this.transportInfo.method_title, this.transportInfo.total + ' €');
         this.printerMito.println('Total sin IVA ' + (+mitoTotalPreu.toFixed(2) - (+mitoTotalPreu.toFixed(2) * 0.1)) + ' €');
         // afegir Logica per a sumar + preu transport
         // orderObj.shipping comprovar on van els valors de les taxes
@@ -684,6 +686,9 @@ class TicketCompraMito {
         //  TOTAL CON IVA
         this.printerMito.leftRight('TOTAL CON IVA', mitoTotalPreu.toFixed(2) + ' €');
         // this.executePrint();
+        const status = orderObj.status === 'processing' ? 'PAGAT' : 'PENDENT DE PAGAMENT';
+        this.printerMito.leftRight(status);
+
         // this.printerMito.clear();
         this.printerMito.bold(false);
         // this.printerMito.setTextSize(1,1);
