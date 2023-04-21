@@ -39,7 +39,7 @@ app.listen(8085, () => {
             let processingOrders = [];
             let onHoldOrders = [];
             let completedOrders = [];
-            let completedOrdersToProcess = [];
+            let pendingOrdersToProcess = [];
             let cancelledOrders = [];
             let refundedOrders = [];
             let trashOrders = [];
@@ -48,7 +48,7 @@ app.listen(8085, () => {
             // WooCommerce.get('orders').then((res) => {
             //     console.log('res sync orders:',JSON.parse(res));
             // })
-            WooCommerce.getAsync('orders?status=processing').then(function(result) {
+            WooCommerce.getAsync('orders?status=processing,pending').then(function(result) {
                 // console.log('ORDERS ',result.toJSON());
                 // console.log('ORDERS ',result);
                 const orders = JSON.parse(result.toJSON().body);
@@ -69,6 +69,7 @@ app.listen(8085, () => {
                     switch(orderInfoObj.estatComanda){
                         case 'pending' /*WooCommerceStatus.Pending */: 
                             pendingOrders.push(orderInfoObj);
+                            pendingOrdersToProcess.push(orderItem);
                             break;
     
                         case 'processing' : // WooCommerceStatus.Processing : 
@@ -82,7 +83,6 @@ app.listen(8085, () => {
     
                         case 'completed' : //WooCommerceStatus.Completed : 
                             completedOrders.push(orderInfoObj);
-                            completedOrdersToProcess.push(orderItem);
                             break;
     
                         case 'cancelled': // WooCommerceStatus.Cancelled : 
@@ -106,6 +106,8 @@ app.listen(8085, () => {
                     }
                     
                 });
+
+                const ordersToProcess = processingOrdersToProcess.concat(pendingOrdersToProcess);
     
                 console.log('*********** PENDING ORDERS **********');
                 console.log(pendingOrders.length);
@@ -113,26 +115,11 @@ app.listen(8085, () => {
                 console.log('*********** PROCESSING ORDERS **********');
                 console.log(processingOrders.length);
                 console.log('*************************************');
-                console.log('*********** ON-HOLD ORDERS **********');
-                console.log(onHoldOrders.length);
+                console.log('*********** ORDERS **********');
+                console.log(ordersToProcess.length);
                 console.log('*************************************');
-                console.log('*********** COMPLETE ORDERS **********');
-                console.log(completedOrders.length);
-                console.log('*************************************');
-                console.log('*********** CANCELLED ORDERS **********');
-                console.log(cancelledOrders.length);
-                console.log('*************************************');
-                console.log('*********** REFUNDED ORDERS **********');
-                console.log(refundedOrders.length);
-                console.log('*************************************');
-                console.log('*********** FAILED ORDERS **********');
-                console.log(failedOrders.length);
-                console.log('*************************************');
-                console.log('*********** TRASH ORDERS **********');
-                console.log(trashOrders.length);
-                console.log('*************************************');
-                if(processingOrders.length > 0){
-                    processingOrders.forEach((printOrder,k) => {
+                if(ordersToProcess.length > 0){
+                    ordersToProcess.forEach((printOrder,k) => {
                         console.log('ORDER TO PRINT ------------- ',printOrder.id);
                         // this.getOrder(printOrder);
                         if(k === 0){
