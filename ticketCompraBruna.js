@@ -444,6 +444,8 @@ class TicketCompraBruna {
         } else {
             status = 'PENDENT DE PAGAMENT';
         }
+        console.log(this.grupGormanOrder.status);
+        console.log(status);
         this.printerBruna.leftRight(status);
         // this.printerBruna.clear();
         this.printerBruna.bold(false);

@@ -692,6 +692,8 @@ class TicketCompraMito {
         } else {
             status = 'PENDENT DE PAGAMENT';
         }
+        console.log(this.grupGormanOrder.status);
+        console.log(status);
         this.printerMito.leftRight(status);
 
         // this.printerMito.clear();
