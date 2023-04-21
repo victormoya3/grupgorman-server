@@ -541,7 +541,7 @@ class TicketCompraMito {
             let _that = this;
 
             this.mitoOrderItems.forEach(function(item){
-                console.log('order item',item);
+                // console.log('order item',item);
 
                 mitoTotalPreu += +item.total;
 
@@ -574,7 +574,7 @@ class TicketCompraMito {
                     // funcio per saber si hem de restar els preus del topings desglosats o el preu total del producte
                     // comprovar els valors que tenim per a complements mito
                     item.meta_data.forEach(function(metaData){
-                        console.log('order metaData',metaData);
+                        // console.log('order metaData',metaData);
                         if (Array.isArray(metaData.value) === true) {
                             metaData.value.forEach((extra) => {
                                 if(extra.name.indexOf('Topings') > -1 || extra.name.indexOf('Salses') > -1){

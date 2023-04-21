@@ -294,7 +294,7 @@ class TicketCompraBruna {
             let _that = this;
 
             this.brunaOrderItems.forEach(function(item){
-                console.log('order item bruna',item);
+                // console.log('order item bruna',item);
 
                 // per cada article em de comprovar si conté ingredients extra
                 // si conte ingredients extra, afegim preu sense extras i despres desglosat cada valor que suma
@@ -329,7 +329,7 @@ class TicketCompraBruna {
                 if (item.meta_data.length > 0){
                     // funcio per saber si hem de restar els preus del topings desglosats o el preu total del producte
                     item.meta_data.forEach(function(metaData){
-                        console.log('order metaData',metaData);
+                        // console.log('order metaData',metaData);
                         if (Array.isArray(metaData.value) === true) { 
                             metaData.value.forEach((extra) => {
                                 if(extra.name.indexOf('Topings') > -1 || extra.name.indexOf('Salses') > -1){

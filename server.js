@@ -138,7 +138,7 @@ app.listen(8085, () => {
                         if(k === 0){
                             console.log('ORDER JSON ------------- ',printOrder);
                             printOrder.line_items.forEach((producte) => {
-                                console.log('producte metaData: ', producte.meta_data);
+                                // console.log('producte metaData: ', producte.meta_data);
                             })
                             new NewOrder(printOrder, WooCommerce);
                         }
